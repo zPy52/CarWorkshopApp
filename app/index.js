@@ -7,7 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 export default function Page() {
   return (
     <SafeAreaView>
-      <Text>Home page</Text>
+      <Text>Hello World!</Text>
     </SafeAreaView>
   )
 }
