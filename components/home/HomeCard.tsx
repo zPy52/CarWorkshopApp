@@ -3,6 +3,7 @@ import { View, Text, Image, StyleSheet, ImageSourcePropType } from 'react-native
 import { LinearGradient } from 'expo-linear-gradient';
 import { useTheme } from '../../hooks/theme';
 import Clickable from '../shared/Clickable';
+import Insets from '../../constants/insets';
 
 interface Props {
   title: string;
@@ -18,17 +19,17 @@ export default function HomeCard({ title, imageSource, color, backgroundColor }:
     <Clickable onPress={() => {console.log("verga");}} style={styles.full}>
       <View style={[
           styles.container, 
-          { borderRadius: theme.insets.medium },
+          { borderRadius: Insets.medium },
           backgroundColor && { backgroundColor }
         ]}>
         <View style={[
             styles.box, 
-            { zIndex: 3, left: 0, top: theme.insets.medium },
+            { zIndex: 3, left: 0, top: Insets.medium },
             { width: '100%' }, 
           ]}>
           <Text style={[
               theme.text.titleLarge, 
-              { paddingHorizontal: theme.insets.large }, 
+              { paddingHorizontal: Insets.large }, 
               { fontWeight: 'bold' },
               color && { color }
             ]} >
@@ -38,11 +39,11 @@ export default function HomeCard({ title, imageSource, color, backgroundColor }:
         
         <View style={[
             styles.box, 
-            { bottom: -theme.insets.layoutSmall, right: -theme.insets.layoutSmall }, 
+            { bottom: -Insets.layoutSmall, right: -Insets.layoutSmall }, 
             { zIndex: 2 }
           ]}>
           <Image source={ imageSource } style={[
-            { height: theme.insets.layoutLarge, width: theme.insets.layoutLarge }
+            { height: Insets.layoutLarge, width: Insets.layoutLarge }
           ]} />
         </View>
         

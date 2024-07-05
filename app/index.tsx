@@ -3,6 +3,7 @@ import { Link } from 'expo-router';
 import { SafeAreaView } from "react-native-safe-area-context";
 import React from "react";
 import { useTheme } from "../hooks/theme";
+import Insets from "../constants/insets";
 
 
 // To run in Expo Go: npx expo start --tunnel
@@ -13,7 +14,7 @@ export default function App() {
 
   return (
     <SafeAreaView>
-      <View style={{ marginLeft: theme.insets.screenMarginMedium, marginTop: theme.insets.screenMarginLarge }}>
+      <View style={{ marginLeft: Insets.screenMarginMedium, marginTop: Insets.screenMarginLarge }}>
         <Link href={"/home"}>
           <Text style={{ color: theme.colors.onBackground }}>
             Navega a la home

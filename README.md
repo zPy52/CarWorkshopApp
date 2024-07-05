@@ -40,3 +40,4 @@ All code files will be written in TypeScript (`.ts` files for sheer logic and `.
 3. In `hooks/` we include all custom hooks we have created.
 4. In `styles/` we list all files that has something to do with styling and/or standardizing metrics.
 5. In `assets/` we include all resources we may use within the app, like icons, images, audios, sound effects, etc.
+6. In `constants/` are all other files that include all other types of constant values.

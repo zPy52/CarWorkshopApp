@@ -85,28 +85,10 @@ export interface TextThemeType {
   bodySmall: TextStyleType;
 }
 
-export interface InsetsType {
-  layoutLarge: number;
-  layoutMedium: number;
-  layoutSmall: number;
-  screenMarginLarge: number;
-  screenMarginMedium: number;
-  large: number;
-  medium: number;
-  submedium: number;
-  small: number;
-  dwarf: number;
-  pixel: number;
-  zero: number;
-}
-
 export interface ConcreteThemeType {
   mode: 'light' | 'dark';
   colors: ColorPaletteType;
   text: TextThemeType;
-  insets: InsetsType;
-  images: StaticImagesType,
-  adjustOpacityFromRGBA: (color: string, opacity: number) => string;
 }
 
 export interface FullThemeType {
@@ -118,8 +100,4 @@ export interface FullThemeType {
 export interface ThemeContextType {
   theme: ConcreteThemeType;
   toggleTheme: () => void;
-}
-
-export interface StaticImagesType {
-  [key: string]: ImageSourcePropType;
 }

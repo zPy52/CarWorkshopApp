@@ -1,4 +1,17 @@
-import { InsetsType } from "./themes/types";
+interface InsetsType {
+  layoutLarge: number;
+  layoutMedium: number;
+  layoutSmall: number;
+  screenMarginLarge: number;
+  screenMarginMedium: number;
+  large: number;
+  medium: number;
+  submedium: number;
+  small: number;
+  dwarf: number;
+  pixel: number;
+  zero: number;
+}
 
 const Insets: InsetsType = {
   layoutLarge: 125.0,
