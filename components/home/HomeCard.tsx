@@ -46,7 +46,7 @@ export default function HomeCard({ title, imageSource, color, backgroundColor }:
       <View style={[
           styles.box, 
           { bottom: -theme.insets.layoutSmall, right: -theme.insets.layoutSmall }, 
-          { zIndex: 0 }
+          { zIndex: 1 }
         ]}>
         <Image source={ imageSource } style={[
           { height: theme.insets.layoutLarge, width: theme.insets.layoutLarge }

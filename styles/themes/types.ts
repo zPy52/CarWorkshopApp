@@ -61,7 +61,8 @@ export interface ColorPaletteType {
 
 export interface TextStyleType {
   fontSize: number;
-  fontWeight: '400' | '500';
+  fontFamily: 'Inter';
+  fontWeight: 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 'normal' | 'bold' | 'semibold';
   lineHeight: number;
   color: string;
 }
