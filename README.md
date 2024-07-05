@@ -30,7 +30,9 @@ If you also wish to upgrade its dependencies, or make them compatible with one a
 
 ## General folder structure
 
-1. In `app/` you have all views (pages and layouts) for the project. Each page's root is defined by its folder structure. For example, a file in `app/home/index.js` will have the route `/home`. Also, a file in `app/home.js` will also have the same route, so make sure not to cause any compatibility problems this way.
+All code files will be written in TypeScript (`.ts` files for sheer logic and `.tsx` whenever JSX [aka, UI in code] is involved).
+
+1. In `app/` you have all views (pages and layouts) for the project. Each page's root is defined by its folder structure. For example, a file in `app/home/index.tsx` will have the route `/home`. Also, a file in `app/home.tsx` will also have the same route, so make sure not to cause any compatibility problems this way.
 2. In `components/` appear those widgets that do not occupy a whole screen and are part of a page.
 3. In `hooks/` we include all custom hooks we have created.
 4. In `styles/` we list all files that has something to do with styling and/or standardizing metrics.
