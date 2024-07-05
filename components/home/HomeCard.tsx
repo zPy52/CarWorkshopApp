@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, ImageSourcePropType } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useTheme } from '../../hooks/theme';
+import Clickable from '../shared/Clickable';
 
 interface Props {
   title: string;
@@ -14,45 +15,47 @@ export default function HomeCard({ title, imageSource, color, backgroundColor }:
   const { theme } = useTheme();
 
   return (
-    <View style={[
-        styles.container, 
-        { borderRadius: theme.insets.medium },
-        backgroundColor && { backgroundColor }
-      ]}>
+    <Clickable onPress={() => {console.log("verga");}} style={styles.full}>
       <View style={[
-          styles.box, 
-          { zIndex: 2, left: 0, top: theme.insets.medium },
-          { width: '100%' }, 
+          styles.container, 
+          { borderRadius: theme.insets.medium },
+          backgroundColor && { backgroundColor }
         ]}>
-        <Text style={[
-            theme.text.titleLarge, 
-            { paddingHorizontal: theme.insets.large }, 
-            { fontWeight: 'bold' },
-            color && { color }
-          ]} >
-          { title }
-        </Text>
+        <View style={[
+            styles.box, 
+            { zIndex: 3, left: 0, top: theme.insets.medium },
+            { width: '100%' }, 
+          ]}>
+          <Text style={[
+              theme.text.titleLarge, 
+              { paddingHorizontal: theme.insets.large }, 
+              { fontWeight: 'bold' },
+              color && { color }
+            ]} >
+            { title }
+          </Text>
+        </View>
+        
+        <View style={[
+            styles.box, 
+            { bottom: -theme.insets.layoutSmall, right: -theme.insets.layoutSmall }, 
+            { zIndex: 2 }
+          ]}>
+          <Image source={ imageSource } style={[
+            { height: theme.insets.layoutLarge, width: theme.insets.layoutLarge }
+          ]} />
+        </View>
+        
+        <LinearGradient
+          colors={['rgba(0, 0, 0, 0.7)', 'rgba(0, 0, 0, 0.25)', 'rgba(0, 0, 0, 0.0)']}
+          style={[
+            styles.box, 
+            { zIndex: 1, left: 0, top: 0 }, 
+            { width: '100%', height: '100%' }
+          ]}
+        />
       </View>
-      
-      <LinearGradient
-        colors={['rgba(0, 0, 0, 0.7)', 'rgba(0, 0, 0, 0.25)', 'rgba(0, 0, 0, 0.0)']}
-        style={[
-          styles.box, 
-          { zIndex: 1, left: 0, top: 0 }, 
-          { width: '100%', height: '100%' }
-        ]}
-      />
-
-      <View style={[
-          styles.box, 
-          { bottom: -theme.insets.layoutSmall, right: -theme.insets.layoutSmall }, 
-          { zIndex: 1 }
-        ]}>
-        <Image source={ imageSource } style={[
-          { height: theme.insets.layoutLarge, width: theme.insets.layoutLarge }
-        ]} />
-      </View>
-    </View>
+    </Clickable>
   );
 }
 
@@ -60,8 +63,12 @@ const styles = StyleSheet.create({
   box: {
     position: 'absolute',
   },
+  full: {
+    height: '100%',
+    width: '100%',
+  },
   container: {
-    height: '60%',
+    height: '100%',
     width: '100%',
     overflow: 'hidden',
     flexDirection: 'row',       // Align items in a row

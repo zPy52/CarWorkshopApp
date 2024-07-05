@@ -1,4 +1,4 @@
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 import { Link } from 'expo-router';
 import { SafeAreaView } from "react-native-safe-area-context";
 import React from "react";
@@ -13,9 +13,13 @@ export default function App() {
 
   return (
     <SafeAreaView>
-      <Link href={"/home"}>
-        <Text style={{ color: theme.colors.onBackground }}>Navega a la home</Text>
-      </Link>
+      <View style={{ marginLeft: theme.insets.screenMarginMedium, marginTop: theme.insets.screenMarginLarge }}>
+        <Link href={"/home"}>
+          <Text style={{ color: theme.colors.onBackground }}>
+            Navega a la home
+          </Text>
+        </Link>
+      </View>
     </SafeAreaView>
   )
 }
