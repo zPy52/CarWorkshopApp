@@ -5,6 +5,7 @@ import { useTheme } from '../../hooks/theme';
 import Clickable from '../shared/Clickable';
 import Insets from '../../constants/insets';
 import { router } from 'expo-router';
+import adjustOpacity from '../../styles/utils';
 
 interface Props {
   key?: React.Key,
@@ -41,8 +42,38 @@ export default function HomeCard({
   
   const imageSize = useMemo(() => imageSizeMap[mode] || 0.0, [mode]);
 
+  const styles = StyleSheet.create({
+    box: {
+      position: 'absolute',
+    },
+    full: {
+      height: '100%',
+      width: '100%',
+    },
+    fullWidth: {
+      width: '100%',
+    },
+    fullHeight: {
+      height: '100%',
+    },
+    border: {
+      borderRadius: Insets.medium,
+      borderWidth: 0.5,
+      borderColor: adjustOpacity(theme.colors.onBackground, 0.5),
+    },
+    container: {
+      height: '100%',
+      width: '100%',
+      overflow: 'hidden',
+      flexDirection: 'row',       // Align items in a row
+      justifyContent: 'flex-end', // Push items to the right
+      alignItems: 'flex-start',   // Center items vertically
+    },
+  });
+  
+
   return (
-    <Clickable key={key} onPress={onPress} style={[styles.full, style]}>
+    <Clickable key={key} onPress={onPress} style={[styles.full, styles.border, style]}>
       <View style={[
           styles.container, 
           { borderRadius: Insets.medium },
@@ -74,7 +105,7 @@ export default function HomeCard({
         </View>
         
         <LinearGradient
-          colors={['rgba(0, 0, 0, 0.6)', 'rgba(0, 0, 0, 0.25)', 'rgba(0, 0, 0, 0.0)']}
+          colors={['rgba(0, 0, 0, 0.5)', 'rgba(0, 0, 0, 0.2)', 'rgba(0, 0, 0, 0.0)']}
           style={[
             styles.box, 
             { zIndex: 1, left: 0, top: 0 }, 
@@ -85,27 +116,3 @@ export default function HomeCard({
     </Clickable>
   );
 }
-
-const styles = StyleSheet.create({
-  box: {
-    position: 'absolute',
-  },
-  full: {
-    height: '100%',
-    width: '100%',
-  },
-  fullWidth: {
-    width: '100%',
-  },
-  fullHeight: {
-    height: '100%',
-  },
-  container: {
-    height: '100%',
-    width: '100%',
-    overflow: 'hidden',
-    flexDirection: 'row',       // Align items in a row
-    justifyContent: 'flex-end', // Push items to the right
-    alignItems: 'flex-start',   // Center items vertically
-  },
-});

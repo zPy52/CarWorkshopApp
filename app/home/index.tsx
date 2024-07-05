@@ -1,9 +1,8 @@
 import React from "react";
 import HomeCard from "../../components/home/HomeCard";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import { useTheme } from "../../hooks/theme";
-import { Link } from "expo-router";
 import { ScrollView } from "react-native-gesture-handler";
 import Insets from "../../constants/insets";
 import StaticImages from "../../constants/static_images";
@@ -49,7 +48,7 @@ const HomeStation = () => {
               key={"aysduydas"} 
               navigateTo="/"
               title="Neumáticos" 
-              imageSource={ StaticImages.wheel } 
+              imageSource={ StaticImages.detailedIcons.wheel } 
               backgroundColor="purple" 
               style={styles.element} />,
               
@@ -57,7 +56,7 @@ const HomeStation = () => {
               key={"aysduydas13rdasd"} 
               navigateTo="/"
               title="Repuestos" 
-              imageSource={ StaticImages.wheel } 
+              imageSource={ StaticImages.detailedIcons.wheel } 
               backgroundColor="grey" 
               style={styles.element} />,
               
@@ -65,7 +64,7 @@ const HomeStation = () => {
               key={"aysduydaasdadss13rdasd"} 
               navigateTo="/"
               title="Aceite" 
-              imageSource={ StaticImages.wheel } 
+              imageSource={ StaticImages.detailedIcons.wheel } 
               backgroundColor="yellow" 
               style={styles.element} />,
               
@@ -73,7 +72,7 @@ const HomeStation = () => {
               key={"sd"} 
               navigateTo="/"
               title="Otros" 
-              imageSource={ StaticImages.wheel } 
+              imageSource={ StaticImages.real.tyre } 
               backgroundColor="brown" 
               style={styles.element} />,
               
@@ -81,7 +80,7 @@ const HomeStation = () => {
               key={"aysduyda1132s"} 
               navigateTo="/"
               title="Big Repuestos" 
-              imageSource={ StaticImages.wheel } 
+              imageSource={ StaticImages.detailedIcons.wheel } 
               backgroundColor="blue" 
               mode="secondary"
               style={styles.secondaryElement} />,
@@ -90,7 +89,7 @@ const HomeStation = () => {
               key={"aysduy14da1s"} 
               navigateTo="/"
               title="Big Neumáticos" 
-              imageSource={ StaticImages.wheel } 
+              imageSource={ StaticImages.real.tyre } 
               backgroundColor="purple" 
               mode="primary"
               style={styles.primaryElement} />,
