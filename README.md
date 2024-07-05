@@ -6,7 +6,7 @@ This project is cored by Expo (Router) and React Native. The former is a tool th
 
 ## Expo
 
-### How to run
+### How to install
 
 If it's your first time cloning the project, apply these commands first:
 
@@ -14,8 +14,11 @@ If it's your first time cloning the project, apply these commands first:
 2. Run `npm i`
 3. (Optional) Run `npx expo install --fix`, if you got any dependency errors.
 
-Then, after a QR code appears on the Terminal, you'll have to install the `Expo Go` app and then scan the QR with your phone's camera. A link will pop up. If you click on it, it redirects you to `Expo Go` and installs the app, making use of your phone as an emulator in a physical device.
+### How to run in a device
 
+Just run the command `npx expo start --tunnel`. It will create a local server hosting the app.
+
+Then, after a QR code appears on the Terminal, you'll have to install the `Expo Go` app and then scan the QR with your phone's camera. A link will pop up. If you click on it, it redirects you to `Expo Go` and installs the app, making use of your phone as an emulator in a physical device.
 
 ### How to update Expo
 
