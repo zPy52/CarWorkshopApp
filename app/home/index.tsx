@@ -1,14 +1,16 @@
 import React from "react";
 import HomeCard from "../../components/home/HomeCard";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { useTheme } from "../../hooks/theme";
 import { Link } from "expo-router";
 import { ScrollView } from "react-native-gesture-handler";
 import Insets from "../../constants/insets";
 import StaticImages from "../../constants/static_images";
+import WrapView from "../../components/shared/WrapView";
 
 const HomeStation = () => {
+  const screenWidth = Dimensions.get("window").width;
   const { theme } = useTheme();
   
   const styles = StyleSheet.create({
@@ -17,46 +19,83 @@ const HomeStation = () => {
       backgroundColor: theme.colors.background,
       paddingHorizontal: Insets.screenMarginMedium,
     },
-    row: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      marginVertical: Insets.medium,
-    },
     text: {
       color: theme.colors.onBackground
-    }
+    },
+    
+    primaryElement: {
+      width: screenWidth - Insets.screenMarginMedium * 2, 
+      height: Insets.layoutLarge + Insets.layoutSmall,
+    },
+    secondaryElement: {
+      width: screenWidth - Insets.screenMarginMedium * 2, 
+      height: Insets.layoutLarge,
+    },
+    element: {
+      width: screenWidth * 0.5 - Insets.screenMarginMedium - Insets.medium, 
+      height: Insets.layoutLarge,
+    },
   });
 
   return (
     <SafeAreaView style={styles.mainContainer}>
       <ScrollView>
-        <View style={{ marginBottom: Insets.screenMarginLarge }}>
-          <Link href="/">
-            <Text style={ styles.text }>
-              Volver a la home
-            </Text>
-          </Link>
-        </View>
+        <WrapView 
+          horizontalSpacing={ Insets.screenMarginMedium } 
+          verticalSpacing={ Insets.screenMarginMedium }
+          >
+          {[
+            <HomeCard 
+              key={"aysduydas"} 
+              navigateTo="/"
+              title="Neumáticos" 
+              imageSource={ StaticImages.wheel } 
+              backgroundColor="purple" 
+              style={styles.element} />,
+              
+            <HomeCard 
+              key={"aysduydas13rdasd"} 
+              navigateTo="/"
+              title="Repuestos" 
+              imageSource={ StaticImages.wheel } 
+              backgroundColor="grey" 
+              style={styles.element} />,
+              
+            <HomeCard 
+              key={"aysduydaasdadss13rdasd"} 
+              navigateTo="/"
+              title="Aceite" 
+              imageSource={ StaticImages.wheel } 
+              backgroundColor="yellow" 
+              style={styles.element} />,
+              
+            <HomeCard 
+              key={"sd"} 
+              navigateTo="/"
+              title="Otros" 
+              imageSource={ StaticImages.wheel } 
+              backgroundColor="brown" 
+              style={styles.element} />,
+              
+            <HomeCard 
+              key={"aysduyda1132s"} 
+              navigateTo="/"
+              title="Big Repuestos" 
+              imageSource={ StaticImages.wheel } 
+              backgroundColor="blue" 
+              mode="secondary"
+              style={styles.secondaryElement} />,
 
-        <View style={styles.row}>
-          <View style={{ flex: 1, height: Insets.layoutLarge }}>
-            <HomeCard title="Neumáticos y otras cosas más variadas" imageSource={ StaticImages.wheel } backgroundColor="purple" />
-          </View>
-          <View style={{ width: Insets.screenMarginMedium }}></View>
-          <View style={{ flex: 1, height: Insets.layoutLarge }}>
-          <HomeCard title="Oula" imageSource={ StaticImages.wheel } backgroundColor="#ccc" />
-          </View>
-        </View>
-
-        <View style={styles.row}>
-          <View style={{ flex: 1, height: Insets.layoutLarge }}>
-            <HomeCard title="Neumáticos y otras cosas más variadas" imageSource={ StaticImages.wheel } backgroundColor="purple" />
-          </View>
-          <View style={{ width: Insets.screenMarginMedium }}></View>
-          <View style={{ flex: 1, height: Insets.layoutLarge }}>
-          <HomeCard title="Oula" imageSource={ StaticImages.wheel } backgroundColor="#ccc" />
-          </View>
-        </View>
+            <HomeCard 
+              key={"aysduy14da1s"} 
+              navigateTo="/"
+              title="Big Neumáticos" 
+              imageSource={ StaticImages.wheel } 
+              backgroundColor="purple" 
+              mode="primary"
+              style={styles.primaryElement} />,
+          ]}
+        </WrapView>
       </ScrollView>
     </SafeAreaView>
   );

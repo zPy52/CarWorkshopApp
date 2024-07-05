@@ -1,22 +1,48 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, ImageSourcePropType } from 'react-native';
+import React, { useCallback, useMemo } from 'react';
+import { View, Text, Image, StyleSheet, ImageSourcePropType, StyleProp, ViewStyle } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useTheme } from '../../hooks/theme';
 import Clickable from '../shared/Clickable';
 import Insets from '../../constants/insets';
+import { router } from 'expo-router';
 
 interface Props {
+  key?: React.Key,
+  style?: StyleProp<ViewStyle>;
+  navigateTo: string;
   title: string;
   imageSource: ImageSourcePropType;
   color?: string;
   backgroundColor?: string;
+  mode?: 'normal' | 'secondary' | 'primary'  
 }
 
-export default function HomeCard({ title, imageSource, color, backgroundColor }: Props) {
+const imageSizeMap = {
+  normal: Insets.layoutLarge,
+  secondary: Insets.layoutMedium * 2,
+  primary: Insets.layoutLarge + Insets.layoutMedium,
+};
+
+export default function HomeCard({ 
+  key, 
+  navigateTo,
+  title, 
+  imageSource, 
+  color, 
+  backgroundColor, 
+  style = {}, 
+  mode = 'normal',
+}: Props) {
   const { theme } = useTheme();
 
+  const onPress = useCallback(() => {
+    router.navigate(navigateTo);
+  }, [navigateTo]);
+  
+  const imageSize = useMemo(() => imageSizeMap[mode] || 0.0, [mode]);
+
   return (
-    <Clickable onPress={() => {console.log("verga");}} style={styles.full}>
+    <Clickable key={key} onPress={onPress} style={[styles.full, style]}>
       <View style={[
           styles.container, 
           { borderRadius: Insets.medium },
@@ -25,7 +51,7 @@ export default function HomeCard({ title, imageSource, color, backgroundColor }:
         <View style={[
             styles.box, 
             { zIndex: 3, left: 0, top: Insets.medium },
-            { width: '100%' }, 
+            styles.fullWidth, 
           ]}>
           <Text style={[
               theme.text.titleLarge, 
@@ -43,16 +69,16 @@ export default function HomeCard({ title, imageSource, color, backgroundColor }:
             { zIndex: 2 }
           ]}>
           <Image source={ imageSource } style={[
-            { height: Insets.layoutLarge, width: Insets.layoutLarge }
+            { height: imageSize, width: imageSize }
           ]} />
         </View>
         
         <LinearGradient
-          colors={['rgba(0, 0, 0, 0.7)', 'rgba(0, 0, 0, 0.25)', 'rgba(0, 0, 0, 0.0)']}
+          colors={['rgba(0, 0, 0, 0.6)', 'rgba(0, 0, 0, 0.25)', 'rgba(0, 0, 0, 0.0)']}
           style={[
             styles.box, 
             { zIndex: 1, left: 0, top: 0 }, 
-            { width: '100%', height: '100%' }
+            styles.full
           ]}
         />
       </View>
@@ -67,6 +93,12 @@ const styles = StyleSheet.create({
   full: {
     height: '100%',
     width: '100%',
+  },
+  fullWidth: {
+    width: '100%',
+  },
+  fullHeight: {
+    height: '100%',
   },
   container: {
     height: '100%',

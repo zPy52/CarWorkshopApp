@@ -2,19 +2,21 @@ import React, { useEffect, useRef, useState } from 'react';
 import { TouchableOpacity, Animated, StyleProp, ViewStyle } from 'react-native';
 import Durations from '../../constants/durations';
 
-interface ClickableProps {
+interface Props {
+  key?: React.Key;
+  style?: StyleProp<ViewStyle>;
   onPress: () => void;
   children: React.ReactNode;
-  style?: StyleProp<ViewStyle>;
   shrinkage?: { x: number; y: number };
 }
 
-const Clickable: React.FC<ClickableProps> = ({
+export default function Clickable({
+  key,
   onPress,
   children,
-  style,
   shrinkage = { x: 0.985, y: 0.985 },
-}) => {
+  style = {},
+} : Props) {
   const [shrink, setShrink] = useState(false);
   const scaleValue = useRef(new Animated.Value(0)).current;
 
@@ -47,11 +49,12 @@ const Clickable: React.FC<ClickableProps> = ({
 
   return (
     <TouchableOpacity
+      key={key}
       onPress={onPress}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
       activeOpacity={ 0.8 }
-      style={[{ overflow: 'hidden' }, style]}
+      style={[{ overflow: 'hidden', alignItems: 'center', justifyContent: 'center' }, style]}
     >
       <Animated.View
         style={{
@@ -75,6 +78,4 @@ const Clickable: React.FC<ClickableProps> = ({
       </Animated.View>
     </TouchableOpacity>
   );
-};
-
-export default Clickable;
+}

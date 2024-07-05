@@ -1,9 +1,10 @@
 import { Text, View } from "react-native";
-import { Link } from 'expo-router';
+import { router } from 'expo-router';
 import { SafeAreaView } from "react-native-safe-area-context";
 import React from "react";
 import { useTheme } from "../hooks/theme";
 import Insets from "../constants/insets";
+import Clickable from "../components/shared/Clickable";
 
 
 // To run in Expo Go: npx expo start --tunnel
@@ -14,12 +15,12 @@ export default function App() {
 
   return (
     <SafeAreaView>
-      <View style={{ marginLeft: Insets.screenMarginMedium, marginTop: Insets.screenMarginLarge }}>
-        <Link href={"/home"}>
+      <View style={{ marginLeft: Insets.screenMarginMedium, marginTop: Insets.screenMarginLarge, alignItems: 'flex-start' }}>
+        <Clickable onPress={() => {router.navigate('/home');}} style={{alignItems: 'center'}}>
           <Text style={{ color: theme.colors.onBackground }}>
             Navega a la home
           </Text>
-        </Link>
+        </Clickable>
       </View>
     </SafeAreaView>
   )
