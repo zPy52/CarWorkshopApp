@@ -1,63 +1,6 @@
-interface ColorPalette {
-  primary: string;
-  primaryVariant: string;
-  onPrimary: string;
-  onPrimaryContainer: string;
-  primaryContainer: string;
-  primaryContainerSoft: string;
+import { ColorPaletteType } from "../types";
 
-  tertiary: string;
-  tertiaryVariant: string;
-  onTertiary: string;
-  onTertiaryContainer: string;
-  tertiaryContainer: string;
-  tertiaryContainerSoft: string;
-
-  secondary: string;
-  secondaryVariant: string;
-  onSecondary: string;
-  onSecondaryContainer: string;
-  secondaryContainer: string;
-  secondaryContainerSoft: string;
-
-  background: string;
-  backgroundVariant: string;
-  onBackground: string;
-
-  surface: string;
-  surfaceVariant: string;
-  onSurface: string;
-
-  error: string;
-  onError: string;
-  onErrorContainer: string;
-  errorContainer: string;
-  errorContainerSoft: string;
-
-  regular: string;
-  onRegular: string;
-  onRegularContainer: string;
-  regularContainer: string;
-  regularContainerSoft: string;
-
-  success: string;
-  onSuccess: string;
-  onSuccessContainer: string;
-  successContainer: string;
-  successContainerSoft: string;
-
-  fire: string;
-  onFire: string;
-  onFireContainer: string;
-  fireContainer: string;
-  fireContainerSoft: string;
-
-  outline: string;
-  outlineFocus: string;
-  outlineVariant: string;
-}
-
-const DarkColors: ColorPalette = {
+const DarkColors: ColorPaletteType = {
   primary: 'rgba(255, 215, 0, 1)',  // Yellow
   primaryVariant: 'rgba(255, 195, 0, 1)',  // Darker yellow
   onPrimary: 'rgba(0, 0, 0, 1)',  // Black

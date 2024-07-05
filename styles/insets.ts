@@ -1,19 +1,6 @@
-interface InsetsInterface {
-  layoutLarge: number;
-  layoutMedium: number;
-  layoutSmall: number;
-  screenMarginLarge: number;
-  screenMarginMedium: number;
-  large: number;
-  medium: number;
-  submedium: number;
-  small: number;
-  dwarf: number;
-  pixel: number;
-  zero: number;
-}
+import { InsetsType } from "./themes/types";
 
-const Insets: InsetsInterface = {
+const Insets: InsetsType = {
   layoutLarge: 125.0,
   layoutMedium: 75.0,
   layoutSmall: 50.0,

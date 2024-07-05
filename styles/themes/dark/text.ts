@@ -1,31 +1,8 @@
+import { TextThemeType } from "../types";
 import Colors from "./colors";
 
-interface TextStyle {
-  fontSize: number;
-  fontWeight: '400' | '500';
-  lineHeight: number;
-  color: string;
-}
 
-interface TextThemeInterface {
-  displayLarge: TextStyle;
-  displayMedium: TextStyle;
-  displaySmall: TextStyle;
-  headlineLarge: TextStyle;
-  headlineMedium: TextStyle;
-  headlineSmall: TextStyle;
-  titleLarge: TextStyle;
-  titleMedium: TextStyle;
-  titleSmall: TextStyle;
-  labelLarge: TextStyle;
-  labelMedium: TextStyle;
-  labelSmall: TextStyle;
-  bodyLarge: TextStyle;
-  bodyMedium: TextStyle;
-  bodySmall: TextStyle;
-}
-
-const DarkTextTheme: TextThemeInterface = {
+const DarkTextTheme: TextThemeType = {
   displayLarge: {
     fontSize: 57,
     fontWeight: '400',

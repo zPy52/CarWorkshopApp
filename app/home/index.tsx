@@ -2,17 +2,24 @@ import React from "react";
 import HomeCard from "../../components/home/HomeCard";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { View, StyleSheet } from "react-native";
+import { useTheme } from "../../hooks/theme";
 
 const HomeStation = () => {
+  const { theme } = useTheme();
+
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={{
+      marginTop: theme.insets.screenMarginLarge,
+      backgroundColor: theme.colors.background,
+      paddingHorizontal: theme.insets.screenMarginMedium,
+     }}>
       <View style={styles.row}>
         <View style={{ flex: 1 }}>
-          <HomeCard title="Neumáticos" backgroundColor="purple" />
+          <HomeCard title="Neumáticos y otras cosas más variadas" imageSource={ theme.images.wheel } backgroundColor="purple" />
         </View>
-        <View style={{ width: 20 }}></View>
+        <View style={{ width: theme.insets.screenMarginMedium }}></View>
         <View style={{ flex: 1 }}>
-        <HomeCard title="Oula" backgroundColor="#ccc" />
+        <HomeCard title="Oula" imageSource={ theme.images.wheel } backgroundColor="#ccc" />
         </View>
       </View>
     </SafeAreaView>
@@ -20,10 +27,6 @@ const HomeStation = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#fff', // Adjust as per your design
-    paddingHorizontal: 20,   // Horizontal padding for SafeAreaView
-  },
   row: {
     height: 200,
     flexDirection: 'row',
