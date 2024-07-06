@@ -5,7 +5,6 @@ import { useTheme } from '../../hooks/theme';
 import Clickable from '../shared/Clickable';
 import Insets from '../../constants/insets';
 import { router } from 'expo-router';
-import adjustOpacity from '../../styles/utils';
 
 interface Props {
   key?: React.Key,
@@ -13,7 +12,7 @@ interface Props {
   navigateTo: string;
   title: string;
   imageSource: ImageSourcePropType;
-  color?: string;
+  containerColor?: string;
   backgroundColor?: string;
   mode?: 'normal' | 'secondary' | 'primary'  
 }
@@ -29,7 +28,7 @@ export default function HomeCard({
   navigateTo,
   title, 
   imageSource, 
-  color, 
+  containerColor, 
   backgroundColor, 
   style = {}, 
   mode = 'normal',
@@ -56,11 +55,6 @@ export default function HomeCard({
     fullHeight: {
       height: '100%',
     },
-    border: {
-      borderRadius: Insets.medium,
-      borderWidth: 0.5,
-      borderColor: adjustOpacity(theme.colors.onBackground, 0.5),
-    },
     container: {
       height: '100%',
       width: '100%',
@@ -73,7 +67,7 @@ export default function HomeCard({
   
 
   return (
-    <Clickable key={key} onPress={onPress} style={[styles.full, styles.border, style]}>
+    <Clickable key={key} onPress={onPress} style={[styles.full, style]}>
       <View style={[
           styles.container, 
           { borderRadius: Insets.medium },
@@ -81,14 +75,13 @@ export default function HomeCard({
         ]}>
         <View style={[
             styles.box, 
-            { zIndex: 3, left: 0, top: Insets.medium },
+            { zIndex: 2, left: 0, top: Insets.medium },
             styles.fullWidth, 
           ]}>
           <Text style={[
               theme.text.titleLarge, 
               { paddingHorizontal: Insets.large }, 
-              { fontWeight: 'bold' },
-              color && { color }
+              { fontWeight: 'bold' }
             ]} >
             { title }
           </Text>
@@ -97,13 +90,15 @@ export default function HomeCard({
         <View style={[
             styles.box, 
             { bottom: -Insets.layoutSmall, right: -Insets.layoutSmall }, 
-            { zIndex: 2 }
+            { zIndex: 1 }
           ]}>
           <Image source={ imageSource } style={[
+            containerColor && { tintColor: containerColor },
             { height: imageSize, width: imageSize }
           ]} />
         </View>
         
+        {/*
         <LinearGradient
           colors={['rgba(0, 0, 0, 0.5)', 'rgba(0, 0, 0, 0.2)', 'rgba(0, 0, 0, 0.0)']}
           style={[
@@ -112,6 +107,7 @@ export default function HomeCard({
             styles.full
           ]}
         />
+        */}
       </View>
     </Clickable>
   );

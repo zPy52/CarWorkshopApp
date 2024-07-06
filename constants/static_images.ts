@@ -13,7 +13,13 @@ interface StaticImagesType {
 }
 
 const StaticImages: StaticImagesType = {
-  icons: {},
+  icons: {
+    tyre: require('../assets/images/icons/tyre.png'),
+    clutch: require('../assets/images/icons/clutch.png'),
+    carRepair: require('../assets/images/icons/car-repair.png'),
+    engineOil: require('../assets/images/icons/engine-oil.png'),
+    shockAbsorbers: require('../assets/images/icons/shock-absorbers.png'),
+  },
   detailedIcons: {
     wheel: require('../assets/images/detailed_icons/wheel.png'),
   },

@@ -1,6 +1,39 @@
-import { ColorPaletteType } from "../types";
+import { HomeSnippetBackgroundsType, ColorPaletteType } from "../types";
+
+const DarkHomeColors: HomeSnippetBackgroundsType = {
+  tyres: { // Darker Light Blue
+    background: 'hsl(219, 79%, 66%)', //'rgba(100, 149, 237, 1)', 
+    container: 'hsl(207, 44%, 49%)',  //'rgba(70, 130, 180, 1)',
+  },
+  inspections: { // Darker Light Coral
+    background: 'hsl(14, 72%, 70%)', 
+    container: 'hsl(0, 53%, 58%)',
+  },
+  shockAbsorbers: { // Darker Honeydew
+    background: 'hsl(300, 24%, 80%)', 
+    container: 'hsl(288, 59%, 58%)', 
+  },
+  timingBelts: { // Darker Light Goldenrod Yellow
+    background: 'hsl(55, 67%, 80%)', 
+    container: 'hsl(43, 74%, 49%)',
+  },
+  clutches: { // Darker Thistle
+    background: 'hsl(300, 40%, 75%)', 
+    container: 'hsl(259, 59%, 65%)',
+  },
+  other: { // Darker Lavender
+    background: '', 
+    container: '',
+  },
+  itv: { // Darker Misty Rose
+    background: '', 
+    container: '',
+  },
+}
 
 const DarkColors: ColorPaletteType = {
+  home: DarkHomeColors,
+
   primary: 'rgba(255, 215, 0, 1)',  // Yellow
   primaryVariant: 'rgba(255, 195, 0, 1)',  // Darker yellow
   onPrimary: 'rgba(0, 0, 0, 1)',  // Black

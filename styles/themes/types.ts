@@ -1,6 +1,21 @@
-import { ImageSourcePropType } from "react-native";
+export interface HomeSnippetPaletteType {
+  background: string;
+  container: string;
+}
+
+export interface HomeSnippetBackgroundsType {
+  tyres: HomeSnippetPaletteType;
+  inspections: HomeSnippetPaletteType;
+  shockAbsorbers: HomeSnippetPaletteType;
+  timingBelts: HomeSnippetPaletteType;
+  clutches: HomeSnippetPaletteType;
+  other: HomeSnippetPaletteType;
+  itv: HomeSnippetPaletteType;
+}
 
 export interface ColorPaletteType {
+  home: HomeSnippetBackgroundsType;
+
   primary: string;
   primaryVariant: string;
   onPrimary: string;

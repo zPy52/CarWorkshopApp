@@ -43,56 +43,44 @@ const HomeStation = () => {
           horizontalSpacing={ Insets.screenMarginMedium } 
           verticalSpacing={ Insets.screenMarginMedium }
           >
-          {[
-            <HomeCard 
-              key={"aysduydas"} 
-              navigateTo="/"
-              title="Neumáticos" 
-              imageSource={ StaticImages.detailedIcons.wheel } 
-              backgroundColor="purple" 
-              style={styles.element} />,
-              
-            <HomeCard 
-              key={"aysduydas13rdasd"} 
-              navigateTo="/"
-              title="Repuestos" 
-              imageSource={ StaticImages.detailedIcons.wheel } 
-              backgroundColor="grey" 
-              style={styles.element} />,
-              
+          {[  
             <HomeCard 
               key={"aysduydaasdadss13rdasd"} 
               navigateTo="/"
-              title="Aceite" 
-              imageSource={ StaticImages.detailedIcons.wheel } 
-              backgroundColor="yellow" 
-              style={styles.element} />,
+              title="Amortiguadores" 
+              imageSource={ StaticImages.icons.shockAbsorbers } 
+              containerColor={ theme.colors.home.shockAbsorbers.container } 
+              backgroundColor={ theme.colors.home.shockAbsorbers.background }
+              style={ styles.element } />,
               
             <HomeCard 
               key={"sd"} 
               navigateTo="/"
-              title="Otros" 
-              imageSource={ StaticImages.real.tyre } 
-              backgroundColor="brown" 
-              style={styles.element} />,
+              title="Embragues" 
+              imageSource={ StaticImages.icons.clutch } 
+              containerColor={ theme.colors.home.clutches.container } 
+              backgroundColor={ theme.colors.home.clutches.background }
+              style={ styles.element } />,
               
             <HomeCard 
               key={"aysduyda1132s"} 
               navigateTo="/"
-              title="Big Repuestos" 
-              imageSource={ StaticImages.detailedIcons.wheel } 
-              backgroundColor="blue" 
+              title="Revisiones" 
+              imageSource={ StaticImages.icons.engineOil } 
+              containerColor={ theme.colors.home.inspections.container } 
+              backgroundColor={ theme.colors.home.inspections.background }
               mode="secondary"
-              style={styles.secondaryElement} />,
+              style={ styles.secondaryElement } />,
 
             <HomeCard 
-              key={"aysduy14da1s"} 
+              key={"aysduy14daff1s"} 
               navigateTo="/"
-              title="Big Neumáticos" 
-              imageSource={ StaticImages.real.tyre } 
-              backgroundColor="purple" 
+              title="Neumáticos" 
+              imageSource={ StaticImages.icons.tyre } 
+              containerColor={ theme.colors.home.tyres.container } 
+              backgroundColor={ theme.colors.home.tyres.background }
               mode="primary"
-              style={styles.primaryElement} />,
+              style={ styles.primaryElement } />,
           ]}
         </WrapView>
       </ScrollView>
