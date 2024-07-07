@@ -2,7 +2,6 @@ import React from "react";
 import { View, StyleSheet, StyleProp, ViewStyle } from "react-native";
 
 interface Props {
-  key?: React.Key;
   style?: StyleProp<ViewStyle>;
   children: React.ReactNode[];
   horizontalSpacing?: number;
@@ -10,7 +9,6 @@ interface Props {
 }
 
 export default function WrapView({ 
-  key, 
   children, 
   horizontalSpacing = 0, 
   verticalSpacing = 0, 
@@ -30,7 +28,7 @@ export default function WrapView({
   });
 
   return (
-    <View key={key} style={[styles.container, style]}>
+    <View style={[styles.container, style]}>
       {React.Children.map(children, (child) => (
         <View style={styles.item}>
           {child}

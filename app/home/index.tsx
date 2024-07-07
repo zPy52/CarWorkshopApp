@@ -1,5 +1,4 @@
 import React from "react";
-import HomeCard from "../../components/home/HomeCard";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StyleSheet, Dimensions } from "react-native";
 import { useTheme } from "../../hooks/theme";
@@ -7,6 +6,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import Insets from "../../constants/insets";
 import StaticImages from "../../constants/static_images";
 import WrapView from "../../components/shared/WrapView";
+import HomeCard from "../../components/home/HomeCard";
 
 const HomeStation = () => {
   const screenWidth = Dimensions.get("window").width;
@@ -16,7 +16,7 @@ const HomeStation = () => {
     mainContainer: {
       marginTop: Insets.screenMarginLarge,
       backgroundColor: theme.colors.background,
-      paddingHorizontal: Insets.screenMarginMedium,
+      paddingHorizontal: Insets.medium,
     },
     text: {
       color: theme.colors.onBackground
@@ -31,8 +31,8 @@ const HomeStation = () => {
       height: Insets.layoutLarge,
     },
     element: {
-      width: screenWidth * 0.5 - Insets.screenMarginMedium - Insets.medium, 
-      height: Insets.layoutLarge,
+      width: screenWidth * 0.5 - Insets.medium * 1.5, 
+      height: screenWidth * 0.5 - Insets.medium * 1.5,
     },
   });
 
@@ -40,47 +40,30 @@ const HomeStation = () => {
     <SafeAreaView style={styles.mainContainer}>
       <ScrollView>
         <WrapView 
-          horizontalSpacing={ Insets.screenMarginMedium } 
-          verticalSpacing={ Insets.screenMarginMedium }
+          horizontalSpacing={ Insets.medium } 
+          verticalSpacing={ Insets.medium }
           >
           {[  
             <HomeCard 
-              key={"aysduydaasdadss13rdasd"} 
+              key={"aa01"} 
               navigateTo="/"
               title="Amortiguadores" 
               imageSource={ StaticImages.icons.shockAbsorbers } 
-              containerColor={ theme.colors.home.shockAbsorbers.container } 
-              backgroundColor={ theme.colors.home.shockAbsorbers.background }
               style={ styles.element } />,
-              
-            <HomeCard 
-              key={"sd"} 
-              navigateTo="/"
-              title="Embragues" 
-              imageSource={ StaticImages.icons.clutch } 
-              containerColor={ theme.colors.home.clutches.container } 
-              backgroundColor={ theme.colors.home.clutches.background }
-              style={ styles.element } />,
-              
-            <HomeCard 
-              key={"aysduyda1132s"} 
-              navigateTo="/"
-              title="Revisiones" 
-              imageSource={ StaticImages.icons.engineOil } 
-              containerColor={ theme.colors.home.inspections.container } 
-              backgroundColor={ theme.colors.home.inspections.background }
-              mode="secondary"
-              style={ styles.secondaryElement } />,
 
             <HomeCard 
-              key={"aysduy14daff1s"} 
+              key={"aa02"} 
+              navigateTo="/"
+              title="Recambios" 
+              imageSource={ StaticImages.icons.shockAbsorbers } 
+              style={ styles.element } />,
+
+            <HomeCard 
+              key={"aa03"} 
               navigateTo="/"
               title="Neumáticos" 
-              imageSource={ StaticImages.icons.tyre } 
-              containerColor={ theme.colors.home.tyres.container } 
-              backgroundColor={ theme.colors.home.tyres.background }
-              mode="primary"
-              style={ styles.primaryElement } />,
+              imageSource={ StaticImages.icons.shockAbsorbers } 
+              style={ styles.element } />,
           ]}
         </WrapView>
       </ScrollView>

@@ -1,114 +1,40 @@
-import React, { useCallback, useMemo } from 'react';
-import { View, Text, Image, StyleSheet, ImageSourcePropType, StyleProp, ViewStyle } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { useTheme } from '../../hooks/theme';
-import Clickable from '../shared/Clickable';
-import Insets from '../../constants/insets';
-import { router } from 'expo-router';
+import { Image, ImageSourcePropType, StyleProp, View, Text, ViewStyle } from "react-native";
+import { useTheme } from "../../hooks/theme";
+import Clickable from "../shared/Clickable";
+import { router } from "expo-router";
+import Insets from "../../constants/insets";
+
 
 interface Props {
-  key?: React.Key,
   style?: StyleProp<ViewStyle>;
   navigateTo: string;
   title: string;
   imageSource: ImageSourcePropType;
-  containerColor?: string;
-  backgroundColor?: string;
-  mode?: 'normal' | 'secondary' | 'primary'  
 }
 
-const imageSizeMap = {
-  normal: Insets.layoutLarge,
-  secondary: Insets.layoutMedium * 2,
-  primary: Insets.layoutLarge + Insets.layoutMedium,
-};
-
-export default function HomeCard({ 
-  key, 
-  navigateTo,
-  title, 
-  imageSource, 
-  containerColor, 
-  backgroundColor, 
-  style = {}, 
-  mode = 'normal',
-}: Props) {
+export default function HomeCard({ style, navigateTo, title, imageSource }: Props) {
   const { theme } = useTheme();
 
-  const onPress = useCallback(() => {
-    router.navigate(navigateTo);
-  }, [navigateTo]);
-  
-  const imageSize = useMemo(() => imageSizeMap[mode] || 0.0, [mode]);
-
-  const styles = StyleSheet.create({
-    box: {
-      position: 'absolute',
-    },
-    full: {
-      height: '100%',
-      width: '100%',
-    },
-    fullWidth: {
-      width: '100%',
-    },
-    fullHeight: {
-      height: '100%',
-    },
-    container: {
-      height: '100%',
-      width: '100%',
-      overflow: 'hidden',
-      flexDirection: 'row',       // Align items in a row
-      justifyContent: 'flex-end', // Push items to the right
-      alignItems: 'flex-start',   // Center items vertically
-    },
-  });
-  
-
   return (
-    <Clickable key={key} onPress={onPress} style={[styles.full, style]}>
+    <Clickable onPress={() => router.navigate(navigateTo)}>
       <View style={[
-          styles.container, 
-          { borderRadius: Insets.medium },
-          backgroundColor && { backgroundColor }
+        { height: '100%', width: '100%' }, 
+        { padding: Insets.screenMarginMedium },
+        { backgroundColor: theme.colors.onBackground },
+        { borderRadius: Insets.small }, 
+        { alignContent: 'center', alignItems: 'center', justifyContent: 'center' },
+        style
+      ]}>
+        <Image source={imageSource} style={[
+          { width: Insets.layoutMedium, height: Insets.layoutMedium },
+        ]} />
+        <Text style={[
+          theme.text.titleMedium,
+          { color: 'red' } 
         ]}>
-        <View style={[
-            styles.box, 
-            { zIndex: 2, left: 0, top: Insets.medium },
-            styles.fullWidth, 
-          ]}>
-          <Text style={[
-              theme.text.titleLarge, 
-              { paddingHorizontal: Insets.large }, 
-              { fontWeight: 'bold' }
-            ]} >
-            { title }
-          </Text>
-        </View>
-        
-        <View style={[
-            styles.box, 
-            { bottom: -Insets.layoutSmall, right: -Insets.layoutSmall }, 
-            { zIndex: 1 }
-          ]}>
-          <Image source={ imageSource } style={[
-            containerColor && { tintColor: containerColor },
-            { height: imageSize, width: imageSize }
-          ]} />
-        </View>
-        
-        {/*
-        <LinearGradient
-          colors={['rgba(0, 0, 0, 0.5)', 'rgba(0, 0, 0, 0.2)', 'rgba(0, 0, 0, 0.0)']}
-          style={[
-            styles.box, 
-            { zIndex: 1, left: 0, top: 0 }, 
-            styles.full
-          ]}
-        />
-        */}
+          { title }
+        </Text>
       </View>
     </Clickable>
-  );
+  )
 }

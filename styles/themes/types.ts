@@ -3,19 +3,7 @@ export interface HomeSnippetPaletteType {
   container: string;
 }
 
-export interface HomeSnippetBackgroundsType {
-  tyres: HomeSnippetPaletteType;
-  inspections: HomeSnippetPaletteType;
-  shockAbsorbers: HomeSnippetPaletteType;
-  timingBelts: HomeSnippetPaletteType;
-  clutches: HomeSnippetPaletteType;
-  other: HomeSnippetPaletteType;
-  itv: HomeSnippetPaletteType;
-}
-
 export interface ColorPaletteType {
-  home: HomeSnippetBackgroundsType;
-
   primary: string;
   primaryVariant: string;
   onPrimary: string;

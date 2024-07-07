@@ -3,7 +3,6 @@ import { TouchableOpacity, Animated, StyleProp, ViewStyle } from 'react-native';
 import Durations from '../../constants/durations';
 
 interface Props {
-  key?: React.Key;
   style?: StyleProp<ViewStyle>;
   onPress: () => void;
   children: React.ReactNode;
@@ -11,7 +10,6 @@ interface Props {
 }
 
 export default function Clickable({
-  key,
   onPress,
   children,
   shrinkage = { x: 0.985, y: 0.985 },
@@ -49,7 +47,6 @@ export default function Clickable({
 
   return (
     <TouchableOpacity
-      key={key}
       onPress={onPress}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
