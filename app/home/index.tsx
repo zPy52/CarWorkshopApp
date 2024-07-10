@@ -1,4 +1,5 @@
 import React from "react";
+import HomeCard from "../../components/home/HomeCard";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StyleSheet, Dimensions } from "react-native";
 import { useTheme } from "../../hooks/theme";
@@ -6,64 +7,89 @@ import { ScrollView } from "react-native-gesture-handler";
 import Insets from "../../constants/insets";
 import StaticImages from "../../constants/static_images";
 import WrapView from "../../components/shared/WrapView";
-import HomeCard from "../../components/home/HomeCard";
+import SearchBar from '../../components/home/SearchBar';
 
 const HomeStation = () => {
   const screenWidth = Dimensions.get("window").width;
   const { theme } = useTheme();
-  
+
   const styles = StyleSheet.create({
     mainContainer: {
-      marginTop: Insets.screenMarginLarge,
-      backgroundColor: theme.colors.background,
-      paddingHorizontal: Insets.medium,
+      marginTop: Insets.screenMarginLarge, // Margen superior grande
+      backgroundColor: theme.colors.background, // Establece de color principal usando el color de Background
+      paddingHorizontal: Insets.screenMarginMedium, // Relleno a los lados
     },
     text: {
       color: theme.colors.onBackground
     },
-    
+
     primaryElement: {
-      width: screenWidth - Insets.screenMarginMedium * 2, 
-      height: Insets.layoutLarge + Insets.layoutSmall,
+      width: screenWidth - Insets.screenMarginMedium * 2, // Ancho del elemento primario
+      height: Insets.layoutLarge + Insets.layoutSmall,// Altura del elemento primario
     },
     secondaryElement: {
-      width: screenWidth - Insets.screenMarginMedium * 2, 
+      width: screenWidth - Insets.screenMarginMedium * 2,
       height: Insets.layoutLarge,
     },
     element: {
-      width: screenWidth * 0.5 - Insets.medium * 1.5, 
-      height: screenWidth * 0.5 - Insets.medium * 1.5,
+      width: screenWidth * 0.5 - Insets.screenMarginMedium - Insets.medium,
+      height: Insets.layoutLarge,
     },
   });
 
   return (
     <SafeAreaView style={styles.mainContainer}>
       <ScrollView>
-        <WrapView 
-          horizontalSpacing={ Insets.medium } 
-          verticalSpacing={ Insets.medium }
+        <WrapView
+          horizontalSpacing={ Insets.screenMarginMedium }
+          verticalSpacing={ Insets.screenMarginMedium }
           >
-          {[  
-            <HomeCard 
-              key={"aa01"} 
+          <SafeAreaView style={styles.primaryElement}>
+            <SearchBar />
+              {/* Puedes añadir otros componentes aquí */}
+          </SafeAreaView>
+          {[
+            <HomeCard
+              key={"aysduydas"}
               navigateTo="/"
-              title="Amortiguadores" 
-              imageSource={ StaticImages.icons.shockAbsorbers } 
-              style={ styles.element } />,
+              title="Neumáticos"
+              imageSource={ StaticImages.detailedIcons.wheel }
+              style={styles.element} />,
 
-            <HomeCard 
-              key={"aa02"} 
+            <HomeCard
+              key={"aysduydas13rdasd"}
               navigateTo="/"
-              title="Recambios" 
-              imageSource={ StaticImages.icons.shockAbsorbers } 
-              style={ styles.element } />,
+              title="Repuestos"
+              imageSource={ StaticImages.detailedIcons.wheel }
+              style={styles.element} />,
 
-            <HomeCard 
-              key={"aa03"} 
+            <HomeCard
+              key={"aysduydaasdadss13rdasd"}
               navigateTo="/"
-              title="Neumáticos" 
-              imageSource={ StaticImages.icons.shockAbsorbers } 
-              style={ styles.element } />,
+              title="Aceite"
+              imageSource={ StaticImages.detailedIcons.wheel }
+              style={styles.element} />,
+
+            <HomeCard
+              key={"sd"}
+              navigateTo="/"
+              title="Otros"
+              imageSource={ StaticImages.real.tyre }
+              style={styles.element} />,
+
+            <HomeCard
+              key={"aysduyda1132s"}
+              navigateTo="/"
+              title="Big Repuestos"
+              imageSource={ StaticImages.detailedIcons.wheel }
+              style={styles.secondaryElement} />,
+
+            <HomeCard
+              key={"aysduy14da1s"}
+              navigateTo="/"
+              title="Big Neumáticos"
+              imageSource={ StaticImages.real.tyre }
+              style={styles.primaryElement} />,
           ]}
         </WrapView>
       </ScrollView>
