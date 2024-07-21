@@ -10,6 +10,9 @@ interface StaticImagesType {
   real: {
     [key: string]: ImageSourcePropType
   };
+  other: {
+    [key: string]: ImageSourcePropType
+  };
 }
 
 const StaticImages: StaticImagesType = {
@@ -22,9 +25,20 @@ const StaticImages: StaticImagesType = {
   },
   detailedIcons: {
     wheel: require('../assets/images/detailed_icons/wheel.png'),
+    tyre:  require('../assets/images/detailed_icons/tyre.png'),
+    tyreStack:  require('../assets/images/detailed_icons/tyreStack.png'),
+    oil:  require('../assets/images/detailed_icons/oil.png'),
+    shockAbsorber:  require('../assets/images/detailed_icons/shockAbsorber.png'),
+    timingBelt:  require('../assets/images/detailed_icons/timingBelt.png'),
   },
   real: {
     tyre: require('../assets/images/real/tyre.png'),
+  },
+  other: {
+    pr1: require("../assets/images/promo1prueba.png"),
+    pr2: require("../assets/images/promo2prueba.png"),
+    pr3: require("../assets/images/promo3prueba.png"),
+    pr4: require("../assets/images/promo4prueba.png"),
   }
 };
 

@@ -1,14 +1,50 @@
 import { ColorPaletteType } from "../types";
 
 
-
 const DarkColors: ColorPaletteType = {
-  primary: 'rgba(255, 215, 0, 1)',  // Yellow
-  primaryVariant: 'rgba(255, 195, 0, 1)',  // Darker yellow
-  onPrimary: 'rgba(0, 0, 0, 1)',  // Black
-  onPrimaryContainer: 'rgba(255, 215, 0, 1)',
-  primaryContainer: 'rgba(255, 235, 59, 1)',
-  primaryContainerSoft: 'rgba(255, 215, 0, 0.3)',
+  primary: 'rgba(0, 0, 255, 1)',  // Royal Blue
+  primaryVariant: 'rgba(0, 0, 205, 1)',  // Dark Sky Blue
+  onPrimary: 'rgba(0, 191, 255, 1)',  // Very Light Blue
+  // onprimaryBlack: 'rgba(0, 0, 0, 1)',  // Black
+  onPrimaryContainer: 'rgba(30, 144, 255, 1)',
+  primaryContainer: 'rgba(135, 206, 235, 1)',  // Deep Royal Blue
+  primaryContainerSoft: 'rgba(175, 238, 238, 1)',  // Azure with 30% opacity
+
+
+  // secondary: 'rgba(190, 0, 56, 1)',  // coral
+  // secondaryVariant: 'rgba(156, 0, 47, 1)',  // Darker coral
+  // onSecondary: 'rgba(0, 0, 0, 1)',  // Black
+  // onSecondaryContainer: 'rgba(255, 92, 104, 1)',
+  // secondaryContainer: 'rgba(255, 120, 128, 1)',
+  // secondaryContainerSoft: 'rgba(255, 174, 176, 1)', // very light coral
+
+  // secondary: 'rgba(0, 161, 161, 1)',  // cian
+  // secondaryVariant: 'rgba(0, 128, 128, 1)',  // Darker cian
+  // onSecondary: 'rgba(0, 0, 0, 1)',  // Black
+  // onSecondaryContainer: 'rgba(51, 204, 204, 1)',
+  // secondaryContainer: 'rgba(153, 230, 230, 1)',
+  // secondaryContainerSoft: 'rgba(204, 255, 255, 1)', // Very Light Cyan
+
+  secondary: 'rgba(153, 179, 0, 1)',  // lima
+  secondaryVariant: 'rgba(128, 153, 0, 1)',  // Darker lima
+  onSecondary: 'rgba(0, 0, 0, 1)',  // Black
+  onSecondaryContainer: 'rgba(168, 204, 0, 1)',
+  secondaryContainer: 'rgba(213, 237, 153, 1)',
+  secondaryContainerSoft: 'rgba(228, 246, 178, 1)', // very ligh lima
+
+  // secondary: 'rgba(153, 0, 153, 1)',  // violeta
+  // secondaryVariant: 'rgba(102, 0, 102, 1)',  // Darker violeta
+  // onSecondary: 'rgba(0, 0, 0, 1)',  // Black
+  // onSecondaryContainer: 'rgba(179, 102, 179, 1)',
+  // secondaryContainer: 'rgba(204, 153, 204, 1)',
+  // secondaryContainerSoft: 'rgba(217, 179, 217, 1)', // very light violeta
+
+  // secondary: 'rgba(255, 215, 0, 1)',  // Yellow
+  // secondaryVariant: 'rgba(255, 195, 0, 1)',  // Darker yellow
+  // onSecondary: 'rgba(0, 0, 0, 1)',  // Black
+  // onSecondaryContainer: 'rgba(255, 215, 0, 1)',
+  // secondaryContainer: 'rgba(255, 235, 59, 1)',
+  // secondaryContainerSoft: 'rgba(255, 215, 0, 0.3)',
 
   tertiary: 'rgba(255, 165, 0, 1)',  // Orange
   tertiaryVariant: 'rgba(255, 140, 0, 1)',  // Darker orange
@@ -16,13 +52,6 @@ const DarkColors: ColorPaletteType = {
   onTertiaryContainer: 'rgba(255, 165, 0, 1)',
   tertiaryContainer: 'rgba(255, 204, 128, 1)',
   tertiaryContainerSoft: 'rgba(255, 165, 0, 0.3)',
-
-  secondary: 'rgba(0, 122, 255, 1)',  // Royal Blue
-  secondaryVariant: 'rgba(140, 188, 255, 1)',  // Light Sky Blue
-  onSecondary: 'rgba(217, 235, 255, 1)',  // Very Light Blue
-  onSecondaryContainer: 'rgba(140, 188, 255, 1)',
-  secondaryContainer: 'rgba(0, 54, 113, 1)',  // Deep Royal Blue
-  secondaryContainerSoft: 'rgba(0, 100, 204, 0.3)',  // Azure with 30% opacity
 
   background: 'rgba(18, 18, 18, 1)',  // Squarespace
   backgroundVariant: 'rgba(41, 41, 41, 1)',  // Black signals

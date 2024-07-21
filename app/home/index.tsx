@@ -7,9 +7,18 @@ import { ScrollView } from "react-native-gesture-handler";
 import Insets from "../../constants/insets";
 import StaticImages from "../../constants/static_images";
 import WrapView from "../../components/shared/WrapView";
-import SearchBar from '../../components/home/SearchBar';
+import SwipeButton from '../../components/shared/SwipeButton';
 
 const HomeStation = () => {
+      // Array de Hashes
+      const data = [
+        { Text:"", ImageURL: StaticImages.detailedIcons.tyre},
+        { Text:"", ImageURL: StaticImages.detailedIcons.oil},
+        { Text:"", ImageURL: StaticImages.detailedIcons.shockAbsorber},
+        { Text:"", ImageURL: StaticImages.detailedIcons.timingBelt},
+    ]
+
+
   const screenWidth = Dimensions.get("window").width;
   const { theme } = useTheme();
 
@@ -26,6 +35,7 @@ const HomeStation = () => {
     primaryElement: {
       width: screenWidth - Insets.screenMarginMedium * 2, // Ancho del elemento primario
       height: Insets.layoutLarge + Insets.layoutSmall,// Altura del elemento primario
+      backgroundColor: "pink",
     },
     secondaryElement: {
       width: screenWidth - Insets.screenMarginMedium * 2,
@@ -40,56 +50,21 @@ const HomeStation = () => {
   return (
     <SafeAreaView style={styles.mainContainer}>
       <ScrollView>
+        <SwipeButton navigateTo="/" data={data}
+         style={{width: screenWidth - Insets.screenMarginMedium * 2,
+         height: Insets.layoutLarge*1.25, backgroundColor:'pink'}}>
+         </SwipeButton>
         <WrapView
           horizontalSpacing={ Insets.screenMarginMedium }
           verticalSpacing={ Insets.screenMarginMedium }
           >
-          <SafeAreaView style={styles.primaryElement}>
-            <SearchBar />
-              {/* Puedes añadir otros componentes aquí */}
-          </SafeAreaView>
           {[
             <HomeCard
               key={"aysduydas"}
               navigateTo="/"
               title="Neumáticos"
               imageSource={ StaticImages.detailedIcons.wheel }
-              style={styles.element} />,
-
-            <HomeCard
-              key={"aysduydas13rdasd"}
-              navigateTo="/"
-              title="Repuestos"
-              imageSource={ StaticImages.detailedIcons.wheel }
-              style={styles.element} />,
-
-            <HomeCard
-              key={"aysduydaasdadss13rdasd"}
-              navigateTo="/"
-              title="Aceite"
-              imageSource={ StaticImages.detailedIcons.wheel }
-              style={styles.element} />,
-
-            <HomeCard
-              key={"sd"}
-              navigateTo="/"
-              title="Otros"
-              imageSource={ StaticImages.real.tyre }
-              style={styles.element} />,
-
-            <HomeCard
-              key={"aysduyda1132s"}
-              navigateTo="/"
-              title="Big Repuestos"
-              imageSource={ StaticImages.detailedIcons.wheel }
-              style={styles.secondaryElement} />,
-
-            <HomeCard
-              key={"aysduy14da1s"}
-              navigateTo="/"
-              title="Big Neumáticos"
-              imageSource={ StaticImages.real.tyre }
-              style={styles.primaryElement} />,
+              style={styles.element}/>,
           ]}
         </WrapView>
       </ScrollView>
