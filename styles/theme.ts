@@ -8,7 +8,7 @@ import LightTextTheme from './themes/light/text';
 
 
 const Theme: FullThemeType = {
-  mode: 'dark', 
+  mode: 'light', 
   dark: {
     mode: 'dark', 
     colors: DarkColors,
