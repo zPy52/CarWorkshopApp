@@ -3,6 +3,8 @@ import { createContext } from 'react';
 import DarkColors from './themes/dark/colors';
 import DarkTextTheme from './themes/dark/text';
 import { FullThemeType, ThemeContextType } from './themes/types';
+import LightColors from './themes/light/colors';
+import LightTextTheme from './themes/light/text';
 
 
 const Theme: FullThemeType = {
@@ -14,8 +16,8 @@ const Theme: FullThemeType = {
   },
   light: {
     mode: 'light', 
-    colors: DarkColors, // TODO: Change
-    text: DarkTextTheme, // TODO: Change
+    colors: LightColors,
+    text: LightTextTheme,
   },
 };
 

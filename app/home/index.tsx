@@ -7,7 +7,6 @@ import { ScrollView } from "react-native-gesture-handler";
 import Insets from "../../constants/insets";
 import StaticImages from "../../constants/static_images";
 import WrapView from "../../components/shared/WrapView";
-import SearchBar from '../../components/home/SearchBar';
 
 const HomeStation = () => {
   const screenWidth = Dimensions.get("window").width;
@@ -45,7 +44,6 @@ const HomeStation = () => {
           verticalSpacing={ Insets.screenMarginMedium }
           >
           <SafeAreaView style={styles.primaryElement}>
-            <SearchBar />
               {/* Puedes añadir otros componentes aquí */}
           </SafeAreaView>
           {[

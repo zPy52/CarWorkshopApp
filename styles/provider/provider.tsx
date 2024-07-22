@@ -4,8 +4,8 @@ import { ConcreteThemeType } from '../themes/types';
 
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  // Set initial theme to Theme.dark.
-  const [theme, setTheme] = useState<ConcreteThemeType>(Theme.dark);
+  // Set initial theme to Theme.light.
+  const [theme, setTheme] = useState<ConcreteThemeType>(Theme.light);
 
   const toggleTheme = () => {
     const newTheme = theme.mode === 'light' ? 'dark' : 'light';
