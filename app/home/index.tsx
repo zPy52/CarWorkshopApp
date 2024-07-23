@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import HomeCard from "../../components/home/HomeCard";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StyleSheet, Dimensions } from "react-native";
@@ -12,29 +12,31 @@ const HomeStation = () => {
   const screenWidth = Dimensions.get("window").width;
   const { theme } = useTheme();
 
-  const styles = StyleSheet.create({
-    mainContainer: {
-      marginTop: Insets.screenMarginLarge, // Margen superior grande
-      backgroundColor: theme.colors.background, // Establece de color principal usando el color de Background
-      paddingHorizontal: Insets.screenMarginMedium, // Relleno a los lados
-    },
-    text: {
-      color: theme.colors.onBackground
-    },
-
-    primaryElement: {
-      width: screenWidth - Insets.screenMarginMedium * 2, // Ancho del elemento primario
-      height: Insets.layoutLarge + Insets.layoutSmall,// Altura del elemento primario
-    },
-    secondaryElement: {
-      width: screenWidth - Insets.screenMarginMedium * 2,
-      height: Insets.layoutLarge,
-    },
-    element: {
-      width: screenWidth * 0.5 - Insets.screenMarginMedium - Insets.medium,
-      height: Insets.layoutLarge,
-    },
-  });
+  const styles = useRef(
+    StyleSheet.create({
+      mainContainer: {
+        marginTop: Insets.screenMarginLarge, // Margen superior grande
+        backgroundColor: theme.colors.background, // Establece de color principal usando el color de Background
+        paddingHorizontal: Insets.screenMarginMedium, // Relleno a los lados
+      },
+      text: {
+        color: theme.colors.onBackground
+      },
+  
+      primaryElement: {
+        width: screenWidth - Insets.screenMarginMedium * 2, // Ancho del elemento primario
+        height: Insets.layoutLarge + Insets.layoutSmall,// Altura del elemento primario
+      },
+      secondaryElement: {
+        width: screenWidth - Insets.screenMarginMedium * 2,
+        height: Insets.layoutLarge,
+      },
+      element: {
+        width: screenWidth * 0.5 - Insets.screenMarginMedium - Insets.medium,
+        height: Insets.layoutLarge,
+      },
+    })
+  ).current;
 
   return (
     <SafeAreaView style={styles.mainContainer}>

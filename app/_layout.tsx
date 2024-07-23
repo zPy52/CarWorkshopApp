@@ -7,7 +7,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useFonts, Inter_400Regular, Inter_500Medium, Inter_600SemiBold, Inter_700Bold } from "@expo-google-fonts/inter";
 
 function Scaffold({ children }) {
-  const { theme } = useTheme();
+  const { theme} = useTheme();
   
   const [fontsLoaded] = useFonts({
     Inter_400Regular,

@@ -11,8 +11,8 @@ const Theme: FullThemeType = {
   mode: 'light', 
   dark: {
     mode: 'dark', 
-    colors: DarkColors,
-    text: DarkTextTheme,
+    colors: LightColors,//DarkColors,
+    text: LightTextTheme,//DarkTextTheme,
   },
   light: {
     mode: 'light', 
