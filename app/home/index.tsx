@@ -8,6 +8,7 @@ import Insets from "../../constants/insets";
 import StaticImages from "../../constants/static_images";
 import WrapView from "../../components/shared/WrapView";
 import SwipeButton from '../../components/shared/SwipeButton';
+import TitleBar from '../../components/shared/TitleBar';
 
 const HomeStation = () => {
       // Array de Hashes
@@ -49,6 +50,7 @@ const HomeStation = () => {
 
   return (
     <SafeAreaView style={styles.mainContainer}>
+      <TitleBar></TitleBar>
       <ScrollView>
         <SwipeButton navigateTo="/" data={data}
          style={{width: screenWidth - Insets.screenMarginMedium * 2,
