@@ -53,9 +53,9 @@ const LightColors: ColorPaletteType = {
   tertiaryContainer: 'rgba(255, 204, 128, 1)',
   tertiaryContainerSoft: 'rgba(255, 165, 0, 0.3)',
 
-  background: 'rgba(18, 18, 18, 1)',  // Squarespace
-  backgroundVariant: 'rgba(41, 41, 41, 1)',  // Black signals
-  onBackground: 'rgba(237, 237, 237, 1)',  // Inverted squarespace
+  background: 'rgba(245, 245, 245, 1)',  // Squarespace (light grey white)
+  backgroundVariant: 'rgba(220, 220, 220, 1)',  // slightly darker grey signals
+  onBackground: 'rgba(18, 18, 18, 1)',  // Inverted squarespace
 
   surface: 'rgba(30, 30, 30, 1)',  // Bright charcoal
   surfaceVariant: 'rgba(46, 46, 46, 1)',  // Darker grey
