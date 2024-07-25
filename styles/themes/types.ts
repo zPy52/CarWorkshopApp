@@ -38,24 +38,12 @@ export interface ColorPaletteType {
   onErrorContainer: string;
   errorContainer: string;
   errorContainerSoft: string;
-
-  regular: string;
-  onRegular: string;
-  onRegularContainer: string;
-  regularContainer: string;
-  regularContainerSoft: string;
-
+  
   success: string;
   onSuccess: string;
   onSuccessContainer: string;
   successContainer: string;
   successContainerSoft: string;
-
-  fire: string;
-  onFire: string;
-  onFireContainer: string;
-  fireContainer: string;
-  fireContainerSoft: string;
 
   outline: string;
   outlineFocus: string;
