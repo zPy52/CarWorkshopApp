@@ -1,83 +1,97 @@
 import { useEffect, useRef, useState } from "react";
-import { StyleSheet, Dimensions, View, Animated, Keyboard } from "react-native";
+import Animated, { Easing, useFrameCallback, withDelay } from 'react-native-reanimated';
+import { StyleSheet, Text, View, Keyboard } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTheme } from "../../hooks/theme";
 import Insets from "../../constants/insets";
+import { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
+import Durations from "../../constants/durations";
+import Clickable from "../shared/Clickable";
+import { router } from "expo-router";
 
 
 export default function TextFieldPage({}) {
-  const { theme } = useTheme();
-  const [text, onChangeText] = useState('Useless Text');
-  const [keyboardHeight, setKeyboardHeight] = useState(0);
-  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
-  const [inputY, setInputY] = useState(new Animated.Value(0));
+  const { theme } = useTheme()
+  const [text, onChangeText] = useState('Useless Text')
+  const keyboardHeight = useSharedValue(0)
+  const safeAreaInsets = useSafeAreaInsets()
+  const inputRef = useRef(null)
+  const inputLayout = useSharedValue({ x: 0, y: 0, width: 0, height: 0, pageX: 0, pageY: 0 });
+
+  
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateY: keyboardHeight.value }],
+    }
+  })
 
   useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', (event) => {
-      setKeyboardVisible(true);
-      setKeyboardHeight(event.endCoordinates.height);
-      Animated.timing(inputY, {
-        toValue: event.endCoordinates.height -10,
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
-    });
+    const keyboardDidShowListener = Keyboard.addListener('keyboardWillShow', (event) => {
+      keyboardHeight.value = withDelay(Durations.veryFast, 
+          withTiming(-event.endCoordinates.height + Insets.large + safeAreaInsets.bottom, { 
+          duration: Durations.normal, 
+          easing: Easing.out(Easing.cubic) 
+        })
+      )
+    })
 
-    const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
-      setKeyboardVisible(false);
-      setKeyboardHeight(0);
-      Animated.timing(inputY, {
-        toValue: 0,
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
-    });
+    const keyboardDidHideListener = Keyboard.addListener('keyboardWillHide', () => {
+      keyboardHeight.value = withTiming(0, { 
+        duration: Durations.slow,
+        easing: Easing.inOut(Easing.cubic) 
+      })
+    })
 
     // Cleanup the event listeners
     return () => {
       keyboardDidShowListener.remove();
       keyboardDidHideListener.remove();
     };
-  }, []);
+  }, [keyboardHeight]);
 
   const styles = useRef(
     StyleSheet.create({
-      container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
       inputContainer: {
         width: '80%',
       },
       input: {
-        color: theme.colors.onSurface,
-        backgroundColor: theme.colors.background,
+        color: theme.colors.onBackground,
+        backgroundColor: theme.colors.primaryVariant,
         borderRadius: Insets.medium,
         paddingHorizontal: Insets.screenMarginMedium,
         paddingVertical: Insets.screenMarginMedium,
         ...theme.text.bodyLarge,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.8,
-        shadowRadius: 2,
         elevation: 5,
       },
     })
   ).current
 
+  useFrameCallback(() => {
+    if (inputRef.current) {
+      inputRef.current.measure((x, y, width, height, pageX, pageY) => {
+        inputLayout.value = { x, y, width, height, pageX, pageY };
+      });
+    }
+  });
+
   return (
-    <SafeAreaView style={styles.container}>
-      <Animated.View style={[styles.inputContainer, { transform: [
-          { translateY: inputY },
-        ]}]}>
+    <SafeAreaView> 
+      <View>
+        <Clickable onPress={() => router.navigate('/')}>
+          <Text style={theme.text.bodyLarge}>Go back to home</Text>
+        </Clickable>
+        <Animated.Text style={theme.text.bodyLarge}>Input Layout: {JSON.stringify(inputLayout.value)}</Animated.Text>
+        <View style={{height: 300}}></View>
+      </View>
+      <Animated.View style={[styles.inputContainer, animatedStyle]}>
         <TextInput 
+          ref={inputRef}
           style={styles.input}
           onChangeText={onChangeText}
           value={text}
           placeholder="useless placeholder"
-          placeholderTextColor={theme.colors.surfaceVariant}
+          placeholderTextColor={theme.colors.primary}
         />
       </Animated.View>
     </SafeAreaView>

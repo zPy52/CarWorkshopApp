@@ -19,7 +19,13 @@ export default function Onboarding() {
   }
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={[
+      { height: '100%' },
+      { justifyContent: "center" }
+    ]}>
+      <Clickable onPress={() => router.navigate('/home')}>
+        <Text>Volver a la home</Text>
+      </Clickable>
       <TextFieldPage />
     </SafeAreaView>
   )
