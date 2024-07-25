@@ -23,6 +23,12 @@ export default function App() {
     <Provider store={ store }>
       <SafeAreaView>
         <View style={{ marginLeft: Insets.screenMarginMedium, marginTop: Insets.screenMarginLarge, alignItems: 'flex-start' }}>
+          <Clickable onPress={() => {router.navigate('/colors');}} style={{alignItems: 'center'}}>
+            <Text style={{ color: theme.colors.onBackground }}>
+              Ver color roles
+            </Text>
+          </Clickable>
+          <View style={{height: 20}}></View>
           <Clickable onPress={() => {router.navigate('/home');}} style={{alignItems: 'center'}}>
             <Text style={{ color: theme.colors.onBackground }}>
               Navega a la home

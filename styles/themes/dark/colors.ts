@@ -1,64 +1,51 @@
+import Color from "../../../utils/color";
 import { ColorPaletteType } from "../types";
 
-
-
 const DarkColors: ColorPaletteType = {
-  primary: 'rgba(255, 215, 0, 1)',  // Yellow
-  primaryVariant: 'rgba(255, 195, 0, 1)',  // Darker yellow
-  onPrimary: 'rgba(0, 0, 0, 1)',  // Black
-  onPrimaryContainer: 'rgba(255, 215, 0, 1)',
-  primaryContainer: 'rgba(255, 235, 59, 1)',
-  primaryContainerSoft: 'rgba(255, 215, 0, 0.3)',
+  primary: Color.hsl(51, 100, 65),  // Primarily Yellow with a touch of Orange, slightly darker
+  primaryVariant: Color.hsl(51, 100, 45),  // Darker Yellow-Orange
+  onPrimary: Color.hsl(51, 100, 15),  // Light Yellow
+  onPrimaryContainer: Color.hsl(45, 100, 80),  // Lighter Yellow-Orange
+  primaryContainer: Color.hsl(45, 100, 25),  // Dark Yellow-Orange
+  primaryContainerSoft: Color.hslo(45, 100, 25, 0.3),  // Dark Yellow-Orange with 30% opacity
 
-  tertiary: 'rgba(255, 165, 0, 1)',  // Orange
-  tertiaryVariant: 'rgba(255, 140, 0, 1)',  // Darker orange
-  onTertiary: 'rgba(0, 0, 0, 1)',  // Black
-  onTertiaryContainer: 'rgba(255, 165, 0, 1)',
-  tertiaryContainer: 'rgba(255, 204, 128, 1)',
-  tertiaryContainerSoft: 'rgba(255, 165, 0, 0.3)',
+  secondary: Color.hsl(210, 100, 65),  // Blue, slightly darker
+  secondaryVariant: Color.hsl(210, 100, 55),  // Darker Blue
+  onSecondary: Color.hsl(210, 50, 90),  // Light Blue
+  onSecondaryContainer: Color.hsl(210, 100, 80),  // Darker Light Blue
+  secondaryContainer: Color.hsl(210, 100, 25),  // Dark Blue
+  secondaryContainerSoft: Color.hslo(210, 100, 25, 0.3),  // Dark Blue with 30% opacity
 
-  secondary: 'rgba(0, 122, 255, 1)',  // Royal Blue
-  secondaryVariant: 'rgba(140, 188, 255, 1)',  // Light Sky Blue
-  onSecondary: 'rgba(217, 235, 255, 1)',  // Very Light Blue
-  onSecondaryContainer: 'rgba(140, 188, 255, 1)',
-  secondaryContainer: 'rgba(0, 54, 113, 1)',  // Deep Royal Blue
-  secondaryContainerSoft: 'rgba(0, 100, 204, 0.3)',  // Azure with 30% opacity
+  tertiary: Color.hsl(30, 100, 50),  // Soft Orange-Brown, slightly darker
+  tertiaryVariant: Color.hsl(30, 100, 40),  // Darker Soft Orange-Brown
+  onTertiary: Color.hsl(0, 0, 90),  // Light Grey
+  onTertiaryContainer: Color.hsl(30, 100, 70),  // Darker Light Soft Orange-Brown
+  tertiaryContainer: Color.hsl(30, 100, 25),  // Dark Soft Orange-Brown
+  tertiaryContainerSoft: Color.hslo(30, 100, 25, 0.3),  // Dark Soft Orange-Brown with 30% opacity
 
-  background: 'rgba(18, 18, 18, 1)',  // Squarespace
-  backgroundVariant: 'rgba(41, 41, 41, 1)',  // Black signals
-  onBackground: 'rgba(237, 237, 237, 1)',  // Inverted squarespace
+  background: Color.hsl(0, 0, 10),  // Very Dark Grey
+  backgroundVariant: Color.hsl(0, 0, 15),  // Slightly Lighter Dark Grey
+  onBackground: Color.hsl(0, 0, 90),  // Light Grey
 
-  surface: 'rgba(30, 30, 30, 1)',  // Bright charcoal
-  surfaceVariant: 'rgba(46, 46, 46, 1)',  // Darker grey
-  onSurface: 'rgba(237, 237, 237, 1)',  // Inverted squarespace
+  surface: Color.hsl(0, 0, 20),  // Dark Grey
+  surfaceVariant: Color.hsl(0, 0, 30),  // Slightly Lighter Dark Grey
+  onSurface: Color.hsl(0, 0, 90),  // Light Grey
 
-  error: 'rgba(204, 47, 40, 1)',  // Dark Red
-  onError: 'rgba(255, 188, 188, 1)',  // Very Light Red
-  onErrorContainer: 'rgba(255, 188, 188, 1)',  // Very Light Red
-  errorContainer: 'rgba(102, 24, 20, 1)',  // Darkest Red
-  errorContainerSoft: 'rgba(204, 47, 40, 0.3)',  // Dark Red with 30% opacity
+  error: Color.hsl(0, 77, 60),  // Bright Red
+  onError: Color.hsl(0, 100, 20),  // Dark Red
+  onErrorContainer: Color.hsl(0, 100, 20),  // Dark Red
+  errorContainer: Color.hsl(0, 81, 40),  // Dark Red
+  errorContainerSoft: Color.hslo(0, 77, 40, 0.3),  // Dark Red with 30% opacity
 
-  regular: 'rgba(255, 204, 0, 1)',  // Amber Yellow
-  onRegular: 'rgba(102, 82, 0, 1)',  // Darkest Yellow
-  onRegularContainer: 'rgba(255, 244, 204, 1)',  // Pale Yellow
-  regularContainer: 'rgba(102, 82, 0, 1)',  // Darkest Yellow
-  regularContainerSoft: 'rgba(255, 204, 0, 0.3)',  // Amber Yellow with 30% opacity
+  success: Color.hsl(142, 53, 50),  // Dark Green
+  onSuccess: Color.hsl(142, 100, 20),  // Dark Green
+  onSuccessContainer: Color.hsl(142, 100, 70),  // Light Green
+  successContainer: Color.hsl(142, 86, 30),  // Dark Green
+  successContainerSoft: Color.hslo(142, 53, 30, 0.3),  // Dark Green with 30% opacity
 
-  success: 'rgba(50, 160, 90, 1)',  // Medium Dark Green
-  onSuccess: 'rgba(230, 255, 240, 1)',  // Very Pale Green
-  onSuccessContainer: 'rgba(210, 255, 220, 1)',  // Pale Green
-  successContainer: 'rgba(10, 75, 35, 1)',  // Very Dark Green
-  successContainerSoft: 'rgba(50, 160, 90, 0.3)',  // Medium Dark Green with 30% opacity
-
-  fire: 'rgba(224, 132, 0, 1)',  // Orange
-  onFire: 'rgba(255, 250, 237, 1)',  // Yellow
-  onFireContainer: 'rgba(255, 242, 204, 1)',  // Light Yellow
-  fireContainer: 'rgba(153, 51, 0, 1)',  // Reddish Orange
-  fireContainerSoft: 'rgba(224, 132, 0, 0.3)',  // Orange with 30% opacity
-
-  outline: 'rgba(60, 60, 60, 1)',  // Medium Dark Grey
-  outlineFocus: 'rgba(127, 127, 127, 1)',  // Light Medium Grey
-  outlineVariant: 'rgba(89, 89, 89, 1)',  // Medium Grey
+  outline: Color.hsl(0, 0, 30),  // Medium Dark Grey
+  outlineFocus: Color.hsl(0, 0, 45),  // Medium Grey
+  outlineVariant: Color.hsl(0, 0, 20),  // Dark Grey
 };
 
 export default DarkColors;
