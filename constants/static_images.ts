@@ -13,6 +13,9 @@ interface StaticImagesType {
   other: {
     [key: string]: ImageSourcePropType
   };
+  carTypes: {
+    [key: string]: ImageSourcePropType
+  };
 }
 
 const StaticImages: StaticImagesType = {
@@ -22,6 +25,7 @@ const StaticImages: StaticImagesType = {
     carRepair: require('../assets/images/icons/car-repair.png'),
     engineOil: require('../assets/images/icons/engine-oil.png'),
     shockAbsorbers: require('../assets/images/icons/shock-absorbers.png'),
+    user: require("../assets/images/icons/Buser.png"),
   },
   detailedIcons: {
     wheel: require('../assets/images/detailed_icons/wheel.png'),
@@ -35,10 +39,20 @@ const StaticImages: StaticImagesType = {
     tyre: require('../assets/images/real/tyre.png'),
   },
   other: {
-    pr1: require("../assets/images/promo1prueba.png"),
-    pr2: require("../assets/images/promo2prueba.png"),
-    pr3: require("../assets/images/promo3prueba.png"),
-    pr4: require("../assets/images/promo4prueba.png"),
+    pr1: require("../assets/images/promoexamples/promo1prueba.png"),
+    pr2: require("../assets/images/promoexamples/promo2prueba.png"),
+    pr3: require("../assets/images/promoexamples/promo3prueba.png"),
+    pr4: require("../assets/images/promoexamples/promo4prueba.png"),
+  },
+  carTypes: {
+    allTerrain: require("../assets/images/CarTypes/allTerrain.png"),
+    boxTruck: require("../assets/images/CarTypes/boxTruck.png"),
+    car: require("../assets/images/CarTypes/car.png"),
+    raceCar: require("../assets/images/CarTypes/raceCarBw.png"),
+    raceCarColoured: require("../assets/images/CarTypes/raceCarColoured.png"),
+    scarabTypeShit: require("../assets/images/CarTypes/scarabTypeShit.png"),
+    taxi: require("../assets/images/CarTypes/taxi.png"),
+    van: require("../assets/images/CarTypes/van.png")
   }
 };
 

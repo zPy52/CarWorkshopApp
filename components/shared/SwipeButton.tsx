@@ -25,7 +25,7 @@ export default function SwipeButton({ style, navigateTo, data }: Props) {
                 setSwipeData(data[newIndex]);
                 return newIndex;
             });
-        }, 5000);
+        }, 1000);
 
         return () => clearInterval(interval);
     }, [data.length]);
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     },
     pagination: {
         flexDirection: 'row',
-        backgroundColor: 'pink',
+        backgroundColor: 'theme.colors.onBackground', // Replace 'theme.colors.onBackground' with the desired color value
     },
     dot: {
         width: 10,
