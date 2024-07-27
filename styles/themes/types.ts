@@ -76,6 +76,7 @@ export interface TextThemeType {
   bodySmall: TextStyleType;
 }
 
+
 export interface ConcreteThemeType {
   mode: 'light' | 'dark';
   colors: ColorPaletteType;

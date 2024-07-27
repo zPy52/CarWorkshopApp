@@ -11,7 +11,7 @@ import Clickable from "../components/shared/Clickable";
 //   -> Dependencies: npm i -g expo-cli
 //   -> If npm dependencies go wild, run: npx expo install --fix
 export default function App() {
-  const { theme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <SafeAreaView>
@@ -19,6 +19,11 @@ export default function App() {
         <Clickable onPress={() => {router.navigate('/home');}} style={{alignItems: 'center'}}>
           <Text style={{ color: theme.colors.onBackground }}>
             Navega a la home
+          </Text>
+        </Clickable>
+        <Clickable onPress={() => {toggleTheme();}} style={{alignItems: 'center', marginTop: 30}}>
+          <Text style={{ color: theme.colors.onBackground }}>
+            Cambia el color
           </Text>
         </Clickable>
       </View>

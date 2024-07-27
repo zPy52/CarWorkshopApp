@@ -12,22 +12,12 @@ export default function TitleBar() { // Capitalize the function name
     // const handleCarButtonClick = () => {router.navigate('/')}; // CAMBIAR RUTAS
     const handleAccButtonClick = () => {router.navigate('/')}; // CAMBIAR RUTAS
     // Cambiar
-    const { theme } = useTheme();
-
-    // {[
-//     { height: '100%', width: '100%' },
-//     { padding: Insets.submedium },
-//     { backgroundColor: theme.colors.onBackground },
-//     { borderRadius: Insets.small },
-//     { alignContent: 'center', alignItems: 'center', justifyContent: 'center' },
-//     style
-//   ]}
+    const { theme} = useTheme();
 
     const styles = StyleSheet.create({
         container: {
             flexDirection: 'row',
             padding: Insets.submedium,
-            backgroundColor: theme.colors.onBackground,
             justifyContent: 'space-between',
             alignItems: 'center',
             borderRadius: Insets.small
@@ -35,16 +25,18 @@ export default function TitleBar() { // Capitalize the function name
         image: {
             height: 25,
             width: 25,
-            margin: 10,
         },
         button: {}, // Add the 'buttonText' style
         primaryText: {
+            color: theme.colors.onBackground,
             fontSize: 20,
             fontWeight: 'bold',
+            marginLeft: Insets.medium,
         },
         secondaryText: {
-            color: 'grey',
+            color: theme.colors.onBackground,
             fontWeight: 'bold',
+            marginLeft: Insets.medium,
         },
         icon: {
             height: 25,
@@ -58,11 +50,11 @@ export default function TitleBar() { // Capitalize the function name
         <Image style={styles.image} source={StaticImages.carTypes.car}/>
 
             <View style={{flex: 1}}>
-                <Text style={styles.secondaryText}>Your Car</Text>
+                <Text style={styles.secondaryText}>Tu coche</Text>
                     <Text  style={styles.primaryText}>{MATRICULA}</Text>
             </View>
 
-            <TouchableOpacity onPress={handleAccButtonClick} style={styles.button}>
+            <TouchableOpacity style={styles.button}>
                 <Image style={styles.icon} source={StaticImages.icons.user}></Image>
             </TouchableOpacity>
         </View>

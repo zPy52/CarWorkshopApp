@@ -20,17 +20,16 @@ export default function HomeCard({ style, navigateTo, title, imageSource }: Prop
       <View style={[
         { height: '100%', width: '100%' },
         { padding: Insets.submedium },
-        { backgroundColor: theme.colors.onBackground },
         { borderRadius: Insets.small },
         { alignContent: 'center', alignItems: 'center', justifyContent: 'center' },
         style
       ]}>
         <Image source={imageSource} style={[
-          { width: 40, height: 40, padding: Insets.small}, // Adjust the width and height here
+          { width: 40, height: 40, padding: Insets.small},
         ]} />
         <Text style={[
-          theme.text.labelSmall,
-          { color: 'red' }
+          theme.text.labelMedium,
+          {color: theme.colors.onPrimary, marginTop: Insets.small},
         ]}>
           { title }
         </Text>

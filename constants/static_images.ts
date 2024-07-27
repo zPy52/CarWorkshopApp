@@ -16,6 +16,9 @@ interface StaticImagesType {
   carTypes: {
     [key: string]: ImageSourcePropType
   };
+  kitImages: {
+    [key: string]: ImageSourcePropType
+  };
 }
 
 const StaticImages: StaticImagesType = {
@@ -53,6 +56,11 @@ const StaticImages: StaticImagesType = {
     scarabTypeShit: require("../assets/images/CarTypes/scarabTypeShit.png"),
     taxi: require("../assets/images/CarTypes/taxi.png"),
     van: require("../assets/images/CarTypes/van.png")
+  },
+  kitImages: {
+    distrIm: require("../assets/images/kits/distr.jpg"),
+    brakeIm: require("../assets/images/kits/brake2.jpg"),
+    ITVIm: require("../assets/images/kits/itv.jpg"),
   }
 };
 
