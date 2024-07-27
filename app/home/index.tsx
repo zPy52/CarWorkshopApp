@@ -18,9 +18,6 @@ const HomeStation = () => {
         { Text:"", ImageURL: StaticImages.other.pr2},
         { Text:"", ImageURL: StaticImages.other.pr3},
         { Text:"", ImageURL: StaticImages.other.pr4},
-        // { Text:"", ImageURL: StaticImages.detailedIcons.oil},
-        // { Text:"", ImageURL: StaticImages.detailedIcons.shockAbsorber},
-        // { Text:"", ImageURL: StaticImages.detailedIcons.timingBelt},
     ]
 
   const screenWidth = Dimensions.get("window").width;
