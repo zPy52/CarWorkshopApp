@@ -1,11 +1,11 @@
-import { router } from "expo-router";
+import { Dimensions, Image, ImageSourcePropType, StyleSheet, StyleProp, Text, TouchableOpacity, View, ViewStyle, PanResponder, Animated, PanResponderGestureState } from "react-native";
+import { useRouter } from "expo-router";
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Image, StyleProp, ViewStyle, ImageSourcePropType, Dimensions } from "react-native";
 import Insets from "../../constants/insets";
 import { useTheme } from "../../hooks/theme";
 
 interface SwipeData {
-    Text: string;
+    text: string;
     ImageURL: ImageSourcePropType;
 }
 
@@ -16,22 +16,8 @@ interface Props {
 }
 
 export default function SwipeButton({ style, navigateTo, data }: Props) {
-    const [i, setI] = useState(0);
-      const { theme } = useTheme()
-    const [swipeData, setSwipeData] = useState(data[0]);
-
-    useEffect(() => {
-        // El Botón cambia cada 5 segundos
-        const interval = setInterval(() => {
-            setI(prev => {
-                const newIndex = prev < data.length - 1 ? prev + 1 : 0;
-                setSwipeData(data[newIndex]);
-                return newIndex;
-            });
-        }, 2000);
-
-        return () => clearInterval(interval);
-    }, [data.length]);
+    const { theme } = useTheme();
+    const router = useRouter();
 
     const screenWidth = Dimensions.get("window").width;
 
@@ -46,9 +32,20 @@ export default function SwipeButton({ style, navigateTo, data }: Props) {
             borderRadius: Insets.small,
 
         },
+        image: {
+            height: '100%',
+            width: '100%',
+            resizeMode: 'contain',
+            borderRadius: 10,
+            backgroundColor:theme.colors.onBackground
+        },
         pagination: {
             flexDirection: 'row',
-            backgroundColor: 'theme.colors.onBackground', // Replace 'theme.colors.onBackground' with the desired color value
+            position: 'relative',
+            bottom: 14,
+            left: 0,
+            right: 0,
+            alignSelf: 'center'
         },
         dot: {
             width: 8,
@@ -57,18 +54,42 @@ export default function SwipeButton({ style, navigateTo, data }: Props) {
             margin: 5,
         },
     });
+    // Deberia haber texto?
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [swipeData, setSwipeData] = useState(data[currentIndex]);
 
+    const handleSwipe = (gestureState: PanResponderGestureState) => {
+        const { dx } = gestureState;
+        const swipeThreshold = screenWidth / 3;
+
+        if (dx > swipeThreshold && currentIndex > 0) {
+            setCurrentIndex(prevIndex => prevIndex - 1);
+        } else if (dx < -swipeThreshold && currentIndex < data.length - 1) {
+            setCurrentIndex(prevIndex => prevIndex + 1);
+        }
+    };
+
+    const panResponder = PanResponder.create({
+        onStartShouldSetPanResponder: () => true,
+        onPanResponderMove: Animated.event([null, { dx: new Animated.Value(0) }], { useNativeDriver: false }),
+        onPanResponderRelease: (e, gestureState) => {
+            handleSwipe(gestureState);
+        },
+    });
+
+    useEffect(() => {
+        setSwipeData(data[currentIndex]);
+    }, [currentIndex]);
+
+    // Cambiar -> ERROR
     return (
-        <TouchableOpacity style={[styles.container, style]} onPress={() => router.navigate(navigateTo)}>
-            <Image style={[{ height: '100%', width: '100%', resizeMode: 'contain', borderRadius: 10, backgroundColor:theme.colors.onBackground}]} source={swipeData.ImageURL} />
-            <Text>{swipeData.Text}</Text>
-            <View style={[styles.pagination, { position: 'relative', bottom: 33, left: 0, right: 0, alignSelf: 'center' }]}>
+        <Animated.View style={[styles.container, style, { transform: [{ translateX: new Animated.Value(0) }] }]} {...panResponder.panHandlers}>
+            <Image style={styles.image} source={swipeData.ImageURL} />
+            <View style={styles.pagination}>
                 {data.map((_, index) => (
-                    <View key={index}
-                        style={[styles.dot, { backgroundColor: index === i ? theme.colors.primary : theme.colors.surface }]}
-                    />
+                    <View key={index} style={[styles.dot, { backgroundColor: index === currentIndex ? theme.colors.primary : theme.colors.surfaceVariant }]} />
                 ))}
             </View>
-        </TouchableOpacity>
+        </Animated.View>
     );
 }

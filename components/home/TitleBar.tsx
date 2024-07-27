@@ -8,11 +8,9 @@ import { useTheme } from "../../hooks/theme";
 
 const MATRICULA = '1234ABC'; // CAMBIAR POR EL NÚMERO DE MATRÍCULA
 
-export default function TitleBar() { // Capitalize the function name
-    // const handleCarButtonClick = () => {router.navigate('/')}; // CAMBIAR RUTAS
+export default function TitleBar() {
     const handleAccButtonClick = () => {router.navigate('/')}; // CAMBIAR RUTAS
-    // Cambiar
-    const { theme} = useTheme();
+    const { theme } = useTheme();
 
     const styles = StyleSheet.create({
         container: {
@@ -54,13 +52,9 @@ export default function TitleBar() { // Capitalize the function name
                     <Text  style={styles.primaryText}>{MATRICULA}</Text>
             </View>
 
-            <TouchableOpacity style={styles.button}>
-                <Image style={styles.icon} source={StaticImages.icons.user}></Image>
+            <TouchableOpacity style={styles.button} onPress={handleAccButtonClick}>
+                <Image style={styles.icon} source={StaticImages.icons.user}/>
             </TouchableOpacity>
         </View>
     )
 };
-
-
-
-// TODO: Styles
