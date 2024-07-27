@@ -19,18 +19,17 @@ export default function HomeCard({ style, navigateTo, title, imageSource }: Prop
     <Clickable onPress={() => router.navigate(navigateTo)}>
       <View style={[
         { height: '100%', width: '100%' },
-        { padding: Insets.screenMarginMedium },
-        { backgroundColor: theme.colors.onBackground },
+        { padding: Insets.submedium },
         { borderRadius: Insets.small },
         { alignContent: 'center', alignItems: 'center', justifyContent: 'center' },
         style
       ]}>
         <Image source={imageSource} style={[
-          { width: Insets.layoutMedium, height: Insets.layoutMedium },
+          { width: 40, height: 40, padding: Insets.small},
         ]} />
         <Text style={[
-          theme.text.titleMedium,
-          { color: 'red' }
+          theme.text.labelMedium,
+          {color: theme.colors.onPrimary, marginTop: Insets.small},
         ]}>
           { title }
         </Text>
