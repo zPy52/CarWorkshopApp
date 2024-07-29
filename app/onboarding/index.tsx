@@ -1,5 +1,6 @@
 import { useCallback, useRef } from "react";
 import {
+  ImageSourcePropType,
   ImageURISource,
   SafeAreaView,
   StyleSheet,
@@ -17,18 +18,42 @@ import OnboardingSplashButton from "./../../components/onboarding/splash-page/Bu
 import StaticImages from "../../constants/static_images";
 import Insets from "../../constants/insets";
 
-const pages = [
+interface ItemProps {
+  description: string;
+  title: string;
+  image: ImageSourcePropType;
+}
+
+const pages: ItemProps[] = [
   {
-    text: "Trusted by millions of people, part of one part",
-    image: StaticImages.icons.shockAbsorbers,
+    title: "Recogida a domicilio",
+    description:
+      "Cuando nos contratas vamos nosotros a por tu vehículo y te lo devolvemos cuando y donde digas.",
+    image: StaticImages.onboarding.fromHome,
   },
   {
-    text: "Spend money abroad, and track your expense",
-    image: StaticImages.icons.tyres,
+    title: "Revisiones y cambios de neumáticos",
+    description:
+      "Cambiamos tus neumáticos a golpe de clic y hacemos las revisiones que hagan falta.",
+    image: StaticImages.onboarding.tyresAndFixes,
   },
   {
-    text: "Receive Money From Anywhere In The World",
-    image: StaticImages.icons.tyres,
+    title: "Hacemos que tu coche funcione a las mil maravillas",
+    description:
+      "Puedes contratar cualquier servicio desde la app. Averías, frenos, repuestos, amortiguadores…",
+    image: StaticImages.onboarding.workshop,
+  },
+  {
+    title: "PreITV + ITV (desde casa)",
+    description:
+      "Te revisamos el coche y lo llevamos a la ITV. Te lo recoge y devuelve un mecánico, en tu casa o donde elijas, con la ITV pasada. (Condiciones)",
+    image: StaticImages.onboarding.itv,
+  },
+  {
+    title: "Asesoramiento en todo momento",
+    description:
+      "Si tienes dudas, habla con un mecánico asesor por teléfono. Está disponible para ti en todo momento.",
+    image: StaticImages.onboarding.customerService,
   },
 ];
 
@@ -36,10 +61,7 @@ export default function OnboardingPage() {
   const x = useSharedValue(0);
   const flatListIndex = useSharedValue(0);
   const flatListRef = useAnimatedRef<
-    Animated.FlatList<{
-      text: string;
-      image: ImageURISource;
-    }>
+    Animated.FlatList<ItemProps>
   >();
 
   const onViewableItemsChanged = useCallback(
@@ -59,7 +81,7 @@ export default function OnboardingPage() {
       item,
       index,
     }: {
-      item: { text: string; image: ImageURISource };
+      item: ItemProps;
       index: number;
     }) => {
       return <OnboardingListItem item={item} index={index} x={x} />;
@@ -71,6 +93,7 @@ export default function OnboardingPage() {
     StyleSheet.create({
       container: {
         flex: 1,
+        backgroundColor: "white", // This is necessary to match the background of chosen (with background) images
       },
       bottomContainer: {
         flexDirection: "row",
@@ -90,7 +113,7 @@ export default function OnboardingPage() {
         scrollEventThrottle={16}
         pagingEnabled={true}
         data={pages}
-        keyExtractor={(_, index) => `${index}`}
+        keyExtractor={(_, index) => `onbding-fltlist-elmnt-${index}`}
         bounces={false}
         renderItem={renderItem}
         showsHorizontalScrollIndicator={false}
@@ -99,7 +122,7 @@ export default function OnboardingPage() {
       <View style={styles.bottomContainer}>
         <OnboardingPaginator length={pages.length} x={x} />
         <OnboardingSplashButton
-          currentIndex={flatListIndex}
+          x={x}
           length={pages.length}
           flatListRef={flatListRef}
         />

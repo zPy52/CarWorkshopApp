@@ -1,5 +1,5 @@
-import { Pressable, StyleSheet } from "react-native";
-import React, { useCallback } from "react";
+import { StyleSheet, useWindowDimensions } from "react-native";
+import React, { useCallback, useRef } from "react";
 import Animated, {
   SharedValue,
   useAnimatedStyle,
@@ -8,95 +8,118 @@ import Animated, {
 } from "react-native-reanimated";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "../../../hooks/theme";
+import Clickable from "../../shared/Clickable";
+import Insets from "../../../constants/insets";
 
 type Props = {
-  currentIndex: SharedValue<number>;
+  x: SharedValue<number>;
   length: number;
   flatListRef: any;
 };
-const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 export default function OnboardingSplashButton({
-  currentIndex,
+  x,
   length,
   flatListRef,
 }: Props) {
   const { theme } = useTheme();
 
+  const { width } = useWindowDimensions();
+  const threshold = useRef(0.3).current;
+
   const rnBtnStyle = useAnimatedStyle(() => {
     return {
       width:
-        currentIndex.value === length - 1 ? withSpring(140) : withSpring(60),
+        x.value / width >= length - 1 - threshold
+          ? withSpring(120)
+          : withSpring(60),
       height: 60,
     };
-  }, [currentIndex, length]);
+  }, [x, length]);
 
   const rnTextStyle = useAnimatedStyle(() => {
     return {
       opacity:
-        currentIndex.value === length - 1 ? withTiming(1) : withTiming(0),
+        x.value / width >= length - 1 - threshold
+          ? withTiming(1)
+          : withTiming(0),
       transform: [
         {
           translateX:
-            currentIndex.value === length - 1 ? withTiming(0) : withTiming(100),
+            x.value / width >= length - 1 - threshold
+              ? withTiming(0)
+              : withTiming(100),
         },
       ],
     };
-  }, [currentIndex, length]);
+  }, [x, length]);
 
   const iconAnimatedStyle = useAnimatedStyle(() => {
     return {
       opacity:
-        currentIndex.value !== length - 1 ? withTiming(1) : withTiming(0),
+        x.value / width < length - 1 - threshold
+          ? withTiming(1)
+          : withTiming(0),
       transform: [
         {
           translateX:
-            currentIndex.value !== length - 1 ? withTiming(0) : withTiming(100),
+            x.value / width < length - 1 - threshold
+              ? withTiming(0)
+              : withTiming(100),
         },
       ],
     };
-  }, [currentIndex, length]);
+  }, [x, length]);
 
   const onPress = useCallback(() => {
-    if (currentIndex.value === length - 1) {
+    if (x.value / width >= length - 1 - threshold) {
       console.log("Get Started");
       return;
     } else {
       flatListRef?.current?.scrollToIndex({
-        index: currentIndex.value + 1,
+        index: length - 1,
       });
     }
   }, []);
+
+  const styles = useRef(
+    StyleSheet.create({
+      container: {
+        flexDirection: "row",
+        paddingHorizontal: Insets.screenMarginMedium,
+        paddingVertical: Insets.screenMarginMedium,
+        borderRadius: Insets.layoutMedium,
+        backgroundColor: theme.colors.secondary,
+        alignItems: "center",
+        justifyContent: "center",
+        overflow: "hidden",
+      },
+      absolute: {
+        position: "absolute",
+      },
+    })
+  ).current;
+
   return (
-    <AnimatedPressable style={[styles.container, rnBtnStyle]} onPress={onPress}>
-      <Animated.Text
-        style={[
-          theme.text.bodyLarge,
-          { fontWeight: "bold", color: theme.colors.onSecondary },
-          rnTextStyle,
-        ]}
-      >
-        Get Started
-      </Animated.Text>
-      <Animated.View style={[styles.absolute, iconAnimatedStyle]}>
-        <Ionicons name="arrow-forward" size={24} color="white" />
+    <Clickable onPress={onPress}>
+      <Animated.View style={[styles.container, rnBtnStyle]}>
+        <Animated.Text
+          style={[
+            theme.text.bodyLarge,
+            { fontWeight: "bold", color: theme.colors.onSecondary },
+            rnTextStyle,
+          ]}
+        >
+          Vamos
+        </Animated.Text>
+        <Animated.View style={[styles.absolute, iconAnimatedStyle]}>
+          <Ionicons
+            name="arrow-forward"
+            size={24}
+            color={theme.colors.onSecondary}
+          />
+        </Animated.View>
       </Animated.View>
-    </AnimatedPressable>
+    </Clickable>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    paddingHorizontal: 24,
-    paddingVertical: 16,
-    borderRadius: 100,
-    backgroundColor: "#304FFE",
-    alignItems: "center",
-    justifyContent: "center",
-    overflow: "hidden",
-  },
-  absolute: {
-    position: "absolute",
-  },
-});

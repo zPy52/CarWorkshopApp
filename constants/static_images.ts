@@ -1,6 +1,9 @@
 import { ImageSourcePropType } from "react-native";
 
 interface StaticImagesType {
+  onboarding: {
+    [key: string]: ImageSourcePropType
+  },
   icons: {
     [key: string]: ImageSourcePropType
   };
@@ -13,6 +16,13 @@ interface StaticImagesType {
 }
 
 const StaticImages: StaticImagesType = {
+  onboarding: {
+    itv: require('../assets/images/onboarding/itv.png'),
+    workshop: require('../assets/images/onboarding/workshop.png'),
+    fromHome: require('../assets/images/onboarding/from_home.png'),
+    tyresAndFixes: require('../assets/images/onboarding/tyres_and_fixes.png'),
+    customerService: require('../assets/images/onboarding/customer_service.png'),
+  },
   icons: {
     tyre: require('../assets/images/icons/tyre.png'),
     clutch: require('../assets/images/icons/clutch.png'),

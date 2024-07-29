@@ -6,6 +6,8 @@ import Animated, {
   SharedValue,
   useAnimatedStyle,
 } from "react-native-reanimated";
+import { useTheme } from "../../../hooks/theme";
+import Insets from "../../../constants/insets";
 
 type Props = {
   length: number;
@@ -13,6 +15,7 @@ type Props = {
 };
 
 export default function OnboardingPaginator({ length, x }: Props) {
+  const { theme } = useTheme();
   const { width: SCREEN_WIDTH } = useWindowDimensions();
 
   const PaginationComponent = useCallback(({ index }: { index: number }) => {
@@ -35,7 +38,7 @@ export default function OnboardingPaginator({ length, x }: Props) {
           index * SCREEN_WIDTH,
           (index + 1) * SCREEN_WIDTH,
         ],
-        ["#D0D0D0", "#304FFE", "#D0D0D0"]
+        [theme.colors.secondaryContainer, theme.colors.secondary, theme.colors.secondaryContainer]
       );
 
       return {
@@ -62,10 +65,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   itemStyle: {
-    width: 35,
-    height: 10,
-    borderRadius: 5,
+    width: Insets.screenMarginLarge,
+    height: Insets.medium,
+    borderRadius: Insets.small,
 
-    marginHorizontal: 5,
+    marginHorizontal: Insets.small,
   },
 });
