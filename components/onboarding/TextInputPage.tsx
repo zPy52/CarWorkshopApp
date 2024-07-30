@@ -21,14 +21,26 @@ import {
 import Durations from "../../constants/durations";
 import Clickable from "../shared/Clickable";
 import { router } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
 
 type Props = {
-  placeholder: string;
+  title: string;
+  description: string;
+
+  initialText?: string;
+  placeholder?: string;
+  textFormatter?: (text: string) => string;
 };
 
-export default function TextFieldPageComponent({ placeholder }: Props) {
+export default function TextInputPageComponent({
+  title,
+  description,
+  initialText = "",
+  placeholder = "",
+  textFormatter = (text) => text,
+}: Props) {
   const { theme } = useTheme();
-  const [text, onChangeText] = useState("Useless Text");
+  const [text, setText] = useState(initialText);
   const keyboardHeight = useSharedValue(0);
   const safeAreaInsets = useSafeAreaInsets();
   const inputRef = useRef(null);
@@ -41,7 +53,7 @@ export default function TextFieldPageComponent({ placeholder }: Props) {
     pageY: 0,
   });
 
-  const titleAndInputFieldRnStyle = useAnimatedStyle(() => {
+  const rnTitleAndInputFieldStyle = useAnimatedStyle(() => {
     return {
       transform: [
         { translateY: withDelay(Durations.veryFast, keyboardHeight.value) },
@@ -49,13 +61,49 @@ export default function TextFieldPageComponent({ placeholder }: Props) {
     };
   });
 
-  const descriptionRnStyle = useAnimatedStyle(() => {
+  const rnDescriptionStyle = useAnimatedStyle(() => {
     return {
       transform: [
         { translateY: withDelay(Durations.normal, keyboardHeight.value) },
       ],
     };
-  });
+  }, [keyboardHeight]);
+
+  const rnLeftIconStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateX: withDelay(
+            Durations.normal,
+            withSpring(
+              withTiming(-Insets.layoutSmall, {
+                duration: Durations.slow,
+                easing: Easing.inOut(Easing.cubic),
+              })
+            )
+          ),
+        },
+      ],
+    };
+  }, [keyboardHeight]);
+
+  const rnRightIconStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateX: withDelay(
+            Durations.normal,
+            withSpring(
+              withTiming(Insets.layoutSmall, {
+                duration: Durations.slow,
+                easing: Easing.inOut(Easing.cubic),
+              })
+            )
+          ),
+        },
+      ],
+    };
+  }, [keyboardHeight]);
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -100,14 +148,29 @@ export default function TextFieldPageComponent({ placeholder }: Props) {
     }
   });
 
+  const onChangeText = useRef((text: string) => {
+    setText(textFormatter(text));
+  }).current;
+
   const styles = useRef(
     StyleSheet.create({
+      absolute: {
+        position: "absolute",
+      },
       mainContainer: {
         flex: 1,
         alignItems: "center",
         justifyContent: "flex-end",
         backgroundColor: theme.colors.background,
         paddingHorizontal: Insets.screenMarginLarge,
+      },
+      leftIcon: {
+        top: Insets.screenMarginLarge,
+        left: Insets.screenMarginLarge,
+      },
+      rightIcon: {
+        top: Insets.screenMarginLarge,
+        right: Insets.screenMarginLarge,
       },
       input: {
         position: "absolute",
@@ -124,6 +187,24 @@ export default function TextFieldPageComponent({ placeholder }: Props) {
 
   return (
     <SafeAreaView style={styles.mainContainer}>
+      <Animated.View
+        style={[styles.absolute, styles.leftIcon, rnLeftIconStyle]}
+      >
+        <Ionicons // should be a React.ReactNode prop, right?
+          name="arrow-forward"
+          size={Insets.screenMarginLarge}
+          color={theme.colors.primary}
+        />
+      </Animated.View>
+      <Animated.View
+        style={[styles.absolute, styles.rightIcon, rnRightIconStyle]}
+      >
+        <Ionicons // should be a React.ReactNode prop, right?
+          name="arrow-forward"
+          size={Insets.screenMarginLarge}
+          color={theme.colors.primary}
+        />
+      </Animated.View>
       <View>
         <Clickable onPress={() => router.navigate("/")}>
           <Text style={theme.text.bodyLarge}>Go back to home</Text>
@@ -133,13 +214,13 @@ export default function TextFieldPageComponent({ placeholder }: Props) {
         </Animated.Text>
         <View style={{ height: 300 }}></View>
       </View>
-      <Animated.Text style={[theme.text.titleLarge, titleAndInputFieldRnStyle]}>
-        Título sobre lo que va
+      <Animated.Text style={[theme.text.titleLarge, rnTitleAndInputFieldStyle]}>
+        {title}
       </Animated.Text>
-      <Animated.Text style={[theme.text.bodyLarge, descriptionRnStyle]}>
-        Descripción de la pantalla
+      <Animated.Text style={[theme.text.bodyLarge, rnDescriptionStyle]}>
+        {description}
       </Animated.Text>
-      <Animated.View style={titleAndInputFieldRnStyle}>
+      <Animated.View style={rnTitleAndInputFieldStyle}>
         <TextInput
           ref={inputRef}
           style={styles.input}
