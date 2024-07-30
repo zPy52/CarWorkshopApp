@@ -1,32 +1,25 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { StyleSheet, Text, View, Keyboard, TextInput } from "react-native";
 import Animated, {
   Easing,
-  useFrameCallback,
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
   withDelay,
   withSpring,
 } from "react-native-reanimated";
-import { StyleSheet, Text, View, Keyboard } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
 import {
   SafeAreaView,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
 import { useTheme } from "../../hooks/theme";
 import Insets from "../../constants/insets";
-import {
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from "react-native-reanimated";
 import Durations from "../../constants/durations";
-import Clickable from "../shared/Clickable";
-import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 
 type Props = {
   title: string;
   description: string;
-
   initialText?: string;
   placeholder?: string;
   textFormatter?: (text: string) => string;
@@ -40,83 +33,113 @@ export default function TextInputPageComponent({
   textFormatter = (text) => text,
 }: Props) {
   const { theme } = useTheme();
+  const [isOpeningKeyboard, setIsOpeningKeyboard] = useState(false);
   const [text, setText] = useState(initialText);
   const keyboardHeight = useSharedValue(0);
   const safeAreaInsets = useSafeAreaInsets();
-  const inputRef = useRef(null);
-  const inputLayout = useSharedValue({
-    x: 0,
-    y: 0,
-    width: 0,
-    height: 0,
-    pageX: 0,
-    pageY: 0,
-  });
 
-  const rnTitleAndInputFieldStyle = useAnimatedStyle(() => {
+  const springConfig = useRef({
+    damping: 20,
+    stiffness: 90,
+  }).current;
+
+  const rnTitleStyle = useAnimatedStyle(() => {
+    const duration = isOpeningKeyboard ? Durations.normal : 0;
+
     return {
       transform: [
-        { translateY: withDelay(Durations.veryFast, keyboardHeight.value) },
+        {
+          translateY: withDelay(
+            duration,
+            withSpring(keyboardHeight.value, springConfig)
+          ),
+        },
       ],
     };
-  });
+  }, [isOpeningKeyboard, keyboardHeight]);
 
   const rnDescriptionStyle = useAnimatedStyle(() => {
+    const duration = Durations.fast;
+
     return {
       transform: [
-        { translateY: withDelay(Durations.normal, keyboardHeight.value) },
+        {
+          translateY: withDelay(
+            duration,
+            withSpring(keyboardHeight.value, springConfig)
+          ),
+        },
       ],
     };
-  }, [keyboardHeight]);
+  }, [isOpeningKeyboard, keyboardHeight]);
+
+  const rnInputStyle = useAnimatedStyle(() => {
+    const duration = isOpeningKeyboard ? 0 : Durations.normal;
+
+    return {
+      transform: [
+        {
+          translateY: withDelay(
+            duration,
+            withSpring(keyboardHeight.value, springConfig)
+          ),
+        },
+      ],
+    };
+  }, [isOpeningKeyboard, keyboardHeight]);
 
   const rnLeftIconStyle = useAnimatedStyle(() => {
     return {
       transform: [
         {
           translateX: withDelay(
-            Durations.normal,
+            Durations.veryFast,
             withSpring(
               withTiming(-Insets.layoutSmall, {
                 duration: Durations.slow,
                 easing: Easing.inOut(Easing.cubic),
-              })
+              }),
+              springConfig
             )
           ),
         },
       ],
     };
-  }, [keyboardHeight]);
+  }, [isOpeningKeyboard, keyboardHeight]);
 
   const rnRightIconStyle = useAnimatedStyle(() => {
     return {
       transform: [
         {
           translateX: withDelay(
-            Durations.normal,
+            Durations.veryFast,
             withSpring(
-              withTiming(Insets.layoutSmall, {
+              withTiming(0, {
                 duration: Durations.slow,
                 easing: Easing.inOut(Easing.cubic),
-              })
+              }),
+              springConfig
             )
           ),
         },
       ],
     };
-  }, [keyboardHeight]);
+  }, [isOpeningKeyboard, keyboardHeight]);
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       "keyboardWillShow",
       (event) => {
-        keyboardHeight.value = withSpring(
-          withTiming(
-            -event.endCoordinates.height + Insets.large + safeAreaInsets.bottom,
-            {
-              duration: Durations.normal,
-              easing: Easing.out(Easing.cubic),
-            }
-          )
+        setIsOpeningKeyboard(true);
+
+        keyboardHeight.value = withTiming(
+          event.endCoordinates.height +
+            safeAreaInsets.bottom -
+            Insets.layoutMedium - Insets.layoutLarge,
+          {
+            duration: Durations.normal,
+            easing: Easing.out(Easing.cubic),
+          }
         );
       }
     );
@@ -124,112 +147,106 @@ export default function TextInputPageComponent({
     const keyboardDidHideListener = Keyboard.addListener(
       "keyboardWillHide",
       () => {
-        keyboardHeight.value = withSpring(
-          withTiming(0, {
-            duration: Durations.slow,
-            easing: Easing.inOut(Easing.cubic),
-          })
-        );
+        setIsOpeningKeyboard(false);
+
+        keyboardHeight.value = withTiming(0, {
+          duration: Durations.slow,
+          easing: Easing.inOut(Easing.cubic),
+        });
       }
     );
 
-    // Cleanup the event listeners
     return () => {
       keyboardDidShowListener.remove();
       keyboardDidHideListener.remove();
     };
-  }, [keyboardHeight]);
-
-  useFrameCallback(() => {
-    if (inputRef.current) {
-      inputRef.current.measure((x, y, width, height, pageX, pageY) => {
-        inputLayout.value = { x, y, width, height, pageX, pageY };
-      });
-    }
-  });
+  }, [keyboardHeight, safeAreaInsets]);
 
   const onChangeText = useRef((text: string) => {
     setText(textFormatter(text));
   }).current;
 
-  const styles = useRef(
-    StyleSheet.create({
-      absolute: {
-        position: "absolute",
-      },
-      mainContainer: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "flex-end",
-        backgroundColor: theme.colors.background,
-        paddingHorizontal: Insets.screenMarginLarge,
-      },
-      leftIcon: {
-        top: Insets.screenMarginLarge,
-        left: Insets.screenMarginLarge,
-      },
-      rightIcon: {
-        top: Insets.screenMarginLarge,
-        right: Insets.screenMarginLarge,
-      },
-      input: {
-        position: "absolute",
-        color: theme.colors.onBackground,
-        backgroundColor: theme.colors.primaryVariant,
-        borderRadius: Insets.medium,
-        paddingHorizontal: Insets.screenMarginMedium,
-        paddingVertical: Insets.screenMarginMedium,
-        ...theme.text.bodyLarge,
-        elevation: 5,
-      },
-    })
-  ).current;
+  const styles = StyleSheet.create({
+    absolute: {
+      position: "absolute",
+    },
+    mainContainer: {
+      flex: 1,
+      justifyContent: "flex-start",
+      backgroundColor: theme.colors.background,
+      paddingHorizontal: Insets.screenMarginLarge,
+    },
+    leftIcon: {
+      top: Insets.screenMarginLarge,
+      left: Insets.screenMarginLarge,
+    },
+    rightIcon: {
+      top: Insets.screenMarginLarge,
+      right: Insets.screenMarginLarge,
+    },
+    input: {
+      backgroundColor: theme.colors.primaryContainer,
+      color: theme.colors.onPrimary,
+      borderRadius: Insets.medium,
+      paddingHorizontal: Insets.screenMarginMedium,
+      paddingVertical: Insets.screenMarginMedium,
+      elevation: 5,
+    },
+  });
 
   return (
     <SafeAreaView style={styles.mainContainer}>
       <Animated.View
         style={[styles.absolute, styles.leftIcon, rnLeftIconStyle]}
       >
-        <Ionicons // should be a React.ReactNode prop, right?
+        <Ionicons
           name="arrow-forward"
           size={Insets.screenMarginLarge}
-          color={theme.colors.primary}
+          color={theme.colors.onBackground}
         />
       </Animated.View>
       <Animated.View
         style={[styles.absolute, styles.rightIcon, rnRightIconStyle]}
       >
-        <Ionicons // should be a React.ReactNode prop, right?
+        <Ionicons
           name="arrow-forward"
           size={Insets.screenMarginLarge}
-          color={theme.colors.primary}
+          color={theme.colors.onBackground}
         />
       </Animated.View>
-      <View>
-        <Clickable onPress={() => router.navigate("/")}>
-          <Text style={theme.text.bodyLarge}>Go back to home</Text>
-        </Clickable>
-        <Animated.Text style={theme.text.bodyLarge}>
-          Input Layout: {JSON.stringify(inputLayout.value)}
+      <View style={[{ paddingTop: Insets.layoutLarge }]}>
+        <Animated.Text
+          style={[
+            theme.text.titleLarge,
+            { textAlign: "center" },
+            rnTitleStyle,
+          ]}
+        >
+          {title}
         </Animated.Text>
-        <View style={{ height: 300 }}></View>
+        <Animated.Text
+          style={[
+            theme.text.bodyLarge,
+            { textAlign: "center" },
+            {
+              paddingTop: Insets.small,
+              paddingBottom: Insets.screenMarginLarge,
+            },
+            rnDescriptionStyle,
+          ]}
+        >
+          {description}
+        </Animated.Text>
+        <Animated.View style={rnInputStyle}>
+          <TextInput
+            style={[theme.text.bodyLarge, styles.input]}
+            onChangeText={onChangeText}
+            value={text}
+            placeholder={placeholder}
+            placeholderTextColor={theme.colors.surfaceVariant}
+          />
+        </Animated.View>
       </View>
-      <Animated.Text style={[theme.text.titleLarge, rnTitleAndInputFieldStyle]}>
-        {title}
-      </Animated.Text>
-      <Animated.Text style={[theme.text.bodyLarge, rnDescriptionStyle]}>
-        {description}
-      </Animated.Text>
-      <Animated.View style={rnTitleAndInputFieldStyle}>
-        <TextInput
-          ref={inputRef}
-          style={styles.input}
-          onChangeText={onChangeText}
-          value={text}
-          placeholder={placeholder}
-          placeholderTextColor={theme.colors.secondary}
-        />
-      </Animated.View>
     </SafeAreaView>
   );
 }

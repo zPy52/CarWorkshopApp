@@ -71,6 +71,16 @@ export default function App() {
             Navega al onboarding
           </Text>
         </Clickable>
+        <Clickable
+          onPress={() => {
+            router.navigate("/test");
+          }}
+          style={[{ paddingTop: 20 }, { alignItems: "center" }]}
+        >
+          <Text style={{ color: theme.colors.onBackground }}>
+            Navega al pedir teléfono
+          </Text>
+        </Clickable>
       </View>
     </SafeAreaView>
   );
