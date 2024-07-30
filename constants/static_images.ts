@@ -13,7 +13,7 @@ interface StaticImagesType {
   real: {
     [key: string]: ImageSourcePropType;
   };
-  other: {
+  promo: {
     [key: string]: ImageSourcePropType
   };
   carTypes: {
@@ -51,7 +51,7 @@ const StaticImages: StaticImagesType = {
   real: {
     tyre: require('../assets/images/real/tyre.png'),
   },
-  other: {
+  promo: {
     pr1: require("../assets/images/promoexamples/promo1prueba.png"),
     pr2: require("../assets/images/promoexamples/promo2prueba.png"),
     pr3: require("../assets/images/promoexamples/promo3prueba.png"),

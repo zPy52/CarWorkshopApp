@@ -1,5 +1,5 @@
 import { router } from "expo-router";
-import { View, Image, StyleSheet, Text} from "react-native"; // Import the 'Image' component, 'StyleSheet' module, 'Text' component, and 'useTheme' hook from 'react-native'
+import { View, Image, StyleSheet, Text, ViewStyle, StyleProp, ImageSourcePropType} from "react-native"; // Import the 'Image' component, 'StyleSheet' module, 'Text' component, and 'useTheme' hook from 'react-native'
 import { TouchableOpacity } from "react-native-gesture-handler";
 import StaticImages from "../../constants/static_images";
 import Insets from "../../constants/insets";
@@ -8,7 +8,11 @@ import { useTheme } from "../../hooks/theme";
 
 const MATRICULA = '1234ABC'; // CAMBIAR POR EL NÚMERO DE MATRÍCULA
 
-export default function TitleBar() {
+interface Props {
+    carId: string;
+  }
+
+export default function TitleBar({carId}: Props) {
     const handleAccButtonClick = () => {router.navigate('/')}; // CAMBIAR RUTAS
     const { theme } = useTheme();
 
@@ -49,7 +53,7 @@ export default function TitleBar() {
 
             <View style={{flex: 1}}>
                 <Text style={styles.secondaryText}>Tu coche</Text>
-                    <Text  style={styles.primaryText}>{MATRICULA}</Text>
+                    <Text  style={styles.primaryText}>{carId}</Text>
             </View>
 
             <TouchableOpacity style={styles.button} onPress={handleAccButtonClick}>

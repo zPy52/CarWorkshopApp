@@ -6,19 +6,19 @@ import { useTheme } from "../../hooks/theme";
 import StaticImages from "../../constants/static_images";
 import HomeCard from "../../components/home/HomeCard";
 import WrapView from "../../components/shared/WrapView";
-import SwipeButton from '../../components/home/SwipeButton';
+import PromoButton from '../../components/home/PromoButton';
 import TitleBar from '../../components/home/TitleBar';
 import BigCard from "../../components/home/BigCard";
 import Insets from "../../constants/insets";
 
 const HomeStation = () => {
-      // Array de Hashes
-      const data = [
-        { text: "", imageURL: StaticImages.other.pr1 },
-        { text: "", imageURL: StaticImages.other.pr2 },
-        { text: "", imageURL: StaticImages.other.pr3 },
-        { text: "", imageURL: StaticImages.other.pr4 },
-      ];
+  // Array de Hashes
+  const data = [
+    { id: "1", text: "", imageURL: StaticImages.promo.pr1 },
+    { id: "11", text: "", imageURL: StaticImages.promo.pr2 },
+    { id: "111", text: "", imageURL: StaticImages.promo.pr3 },
+    { id: "1111", text: "", imageURL: StaticImages.promo.pr4 },
+  ];
 
   const screenWidth = Dimensions.get("window").width;
   const { theme } = useTheme();
@@ -69,11 +69,11 @@ const HomeStation = () => {
   return (
     <SafeAreaView style={styles.mainContainer}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <TitleBar></TitleBar>
+        <TitleBar carId="1234FFF"></TitleBar>
 
-      <SwipeButton navigateTo="/" data={data.map(item => ({ text: item.text, ImageURL: item.imageURL }))}
+      <PromoButton navigateTo="/" data={data.map(item => ({ id:item.id, text: item.text, ImageURL: item.imageURL }))}
         style={styles.SwipeButton}>
-      </SwipeButton>
+      </PromoButton>
 
       <Text style={styles.text}>Nuestros Servicios</Text>
 
