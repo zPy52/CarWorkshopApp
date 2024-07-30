@@ -18,7 +18,7 @@ import OnboardingSplashButton from "./../../components/onboarding/splash-page/Bu
 import StaticImages from "../../constants/static_images";
 import Insets from "../../constants/insets";
 
-interface ItemProps {
+type ItemProps = {
   description: string;
   title: string;
   image: ImageSourcePropType;
