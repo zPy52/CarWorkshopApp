@@ -24,14 +24,6 @@ const LightColors: ColorPaletteType = {
   tertiaryContainer: Color.hsl(30, 100, 85),  // Light Soft Orange-Brown
   tertiaryContainerSoft: Color.hslo(30, 100, 85, 0.3),  // Light Soft Orange-Brown with 30% opacity
 
-  background: Color.hsl(0, 0, 96),  // Very Light Grey
-  backgroundVariant: Color.hsl(0, 0, 90),  // Slightly Darker Light Grey
-  onBackground: Color.hsl(0, 0, 10),  // Dark Grey
-
-  surface: Color.hsl(0, 0, 20),  // Light Grey
-  surfaceVariant: Color.hsl(0, 0, 35),  // Slightly Darker Light Grey
-  onSurface: Color.hsl(0, 0, 90),  // Dark Grey
-
   error: Color.hsl(0, 77, 48),  // Dark Red
   onError: Color.hsl(0, 100, 87),  // Very Light Red
   onErrorContainer: Color.hsl(0, 100, 87),  // Very Light Red
@@ -43,6 +35,19 @@ const LightColors: ColorPaletteType = {
   onSuccessContainer: Color.hsl(142, 100, 92),  // Pale Green
   successContainer: Color.hsl(142, 86, 17),  // Very Dark Green
   successContainerSoft: Color.hslo(142, 53, 41, 0.3),  // Medium Dark Green with 30% opacity
+
+  background: Color.hsl(0, 0, 96),  // Very Light Grey
+  onBackground: Color.hsl(0, 0, 10),  // Dark Grey
+
+  surface: Color.hsl(0, 0, 90),  // Light Grey
+  surfaceVariant: Color.hsl(0, 0, 80),  // Slightly Darker Light Grey
+  onSurface: Color.hsl(0, 0, 30),  // Dark Grey
+
+  surfaceContainerLowest: Color.hsl(0, 0, 85), 
+  surfaceContainerLow: Color.hsl(0, 0, 75), 
+  surfaceContainer: Color.hsl(0, 0, 65), 
+  surfaceContainerHigh: Color.hsl(0, 0, 55),
+  surfaceContainerHighest: Color.hsl(0, 0, 45), 
 
   outline: Color.hsl(0, 0, 65),  // Dark Grey
   outlineFocus: Color.hsl(0, 0, 45),  // Medium Grey

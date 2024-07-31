@@ -25,14 +25,6 @@ export interface ColorPaletteType {
   secondaryContainer: string;
   secondaryContainerSoft: string;
 
-  background: string;
-  backgroundVariant: string;
-  onBackground: string;
-
-  surface: string;
-  surfaceVariant: string;
-  onSurface: string;
-
   error: string;
   onError: string;
   onErrorContainer: string;
@@ -44,6 +36,19 @@ export interface ColorPaletteType {
   onSuccessContainer: string;
   successContainer: string;
   successContainerSoft: string;
+
+  background: string;
+  onBackground: string;
+
+  surface: string;
+  surfaceVariant: string;
+  onSurface: string;
+
+  surfaceContainerLowest: string;
+  surfaceContainerLow: string;
+  surfaceContainer: string;
+  surfaceContainerHigh: string;
+  surfaceContainerHighest: string;
 
   outline: string;
   outlineFocus: string;
