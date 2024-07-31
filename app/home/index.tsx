@@ -156,36 +156,6 @@ const HomeStation = () => {
 
         ]}
         </WrapView>
-
-        <Text style={{color: theme.colors.onBackground,fontSize: 18 ,fontWeight: 700, marginTop: 20, marginBottom: 20}}>Packs de Mantenimiento</Text>
-
-        <WrapView
-          horizontalSpacing={ Insets.screenMarginLarge }
-          verticalSpacing={ Insets.screenMarginMedium }
-          >{[
-            <BigCard
-              key={"sdds"}
-              navigateTo="/"
-              title="PreITV + ITV"
-              imageSource={ StaticImages.kitImages.ITVIm }
-              style={styles.secondaryElement} />,
-
-            <BigCard
-              key={"aysduydaca1132s"}
-              navigateTo="/"
-              title="Kit de Distribución"
-              imageSource={ StaticImages.kitImages.distrIm}
-              style={styles.secondaryElement} />,
-
-            <BigCard
-              key={"aysduy14daava1s"}
-              navigateTo="/"
-              title="Kit de Frenos"
-              imageSource={ StaticImages.kitImages.brakeIm }
-              style={styles.secondaryElement} />,
-
-          ]}
-          </WrapView>
       </ScrollView>
     </SafeAreaView>
   );

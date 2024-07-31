@@ -52,6 +52,11 @@ export default function App() {
               Navega al onboarding
             </Text>
           </Clickable>
+          <Clickable onPress={() => {router.navigate('/help');}} style={[{ paddingTop: 20 }, {alignItems: 'center'}]}>
+            <Text style={{ color: theme.colors.onBackground }}>
+              Navega a help
+            </Text>
+          </Clickable>
           <Clickable onPress={() => {toggleTheme();}} style={[{ paddingTop: 20 }, {alignItems: 'center'}]}>
             <Text style={{ color: theme.colors.onBackground }}>
               Cambia el color

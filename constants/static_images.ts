@@ -22,15 +22,6 @@ interface StaticImagesType {
   kitImages: {
     [key: string]: ImageSourcePropType
   };
-  other: {
-    [key: string]: ImageSourcePropType
-  };
-  carTypes: {
-    [key: string]: ImageSourcePropType
-  };
-  kitImages: {
-    [key: string]: ImageSourcePropType
-  };
 }
 
 const StaticImages: StaticImagesType = {
