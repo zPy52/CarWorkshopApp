@@ -43,14 +43,14 @@ export default function SwipeButton({ style, navigateTo, data }: Props) {
         paginationContainer: {
             flexDirection: 'row',
             position: 'absolute',
-            bottom: -Insets.screenMarginMedium,
+            bottom: -Insets.medium,
             alignSelf: 'center',
         },
         paginationDot: {
-            height: 10,
-            width: 10,
+            height: 5,
+            width: 8,
             borderRadius: 5,
-            backgroundColor: theme.colors.onBackground,
+            backgroundColor: theme.colors.onPrimary,
             margin: 5,
         },
     });
