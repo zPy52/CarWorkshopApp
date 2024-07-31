@@ -1,13 +1,25 @@
 import { ImageSourcePropType } from "react-native";
 
 interface StaticImagesType {
+  onboarding: {
+    [key: string]: ImageSourcePropType;
+  };
   icons: {
-    [key: string]: ImageSourcePropType
+    [key: string]: ImageSourcePropType;
   };
   detailedIcons: {
-    [key: string]: ImageSourcePropType
+    [key: string]: ImageSourcePropType;
   };
   real: {
+    [key: string]: ImageSourcePropType;
+  };
+  promo: {
+    [key: string]: ImageSourcePropType
+  };
+  carTypes: {
+    [key: string]: ImageSourcePropType
+  };
+  kitImages: {
     [key: string]: ImageSourcePropType
   };
   other: {
@@ -22,6 +34,13 @@ interface StaticImagesType {
 }
 
 const StaticImages: StaticImagesType = {
+  onboarding: {
+    itv: require("../assets/images/onboarding/itv.png"),
+    workshop: require("../assets/images/onboarding/workshop.png"),
+    fromHome: require("../assets/images/onboarding/from_home.png"),
+    tyresAndFixes: require("../assets/images/onboarding/tyres_and_fixes.png"),
+    customerService: require("../assets/images/onboarding/customer_service.png"),
+  },
   icons: {
     tyre: require('../assets/images/icons/tyre.png'),
     clutch: require('../assets/images/icons/clutch.png'),
@@ -41,7 +60,7 @@ const StaticImages: StaticImagesType = {
   real: {
     tyre: require('../assets/images/real/tyre.png'),
   },
-  other: {
+  promo: {
     pr1: require("../assets/images/promoexamples/promo1prueba.png"),
     pr2: require("../assets/images/promoexamples/promo2prueba.png"),
     pr3: require("../assets/images/promoexamples/promo3prueba.png"),

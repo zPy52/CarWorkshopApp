@@ -19,7 +19,6 @@ export default function TextFieldPage({}) {
   const inputRef = useRef(null)
   const inputLayout = useSharedValue({ x: 0, y: 0, width: 0, height: 0, pageX: 0, pageY: 0 });
 
-  
   const animatedStyle = useAnimatedStyle(() => {
     return {
       transform: [{ translateY: keyboardHeight.value }],
@@ -28,18 +27,18 @@ export default function TextFieldPage({}) {
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener('keyboardWillShow', (event) => {
-      keyboardHeight.value = withDelay(Durations.veryFast, 
-          withTiming(-event.endCoordinates.height + Insets.large + safeAreaInsets.bottom, { 
-          duration: Durations.normal, 
-          easing: Easing.out(Easing.cubic) 
+      keyboardHeight.value = withDelay(Durations.veryFast,
+          withTiming(-event.endCoordinates.height + Insets.large + safeAreaInsets.bottom, {
+          duration: Durations.normal,
+          easing: Easing.out(Easing.cubic)
         })
       )
     })
 
     const keyboardDidHideListener = Keyboard.addListener('keyboardWillHide', () => {
-      keyboardHeight.value = withTiming(0, { 
+      keyboardHeight.value = withTiming(0, {
         duration: Durations.slow,
-        easing: Easing.inOut(Easing.cubic) 
+        easing: Easing.inOut(Easing.cubic)
       })
     })
 
@@ -76,7 +75,7 @@ export default function TextFieldPage({}) {
   });
 
   return (
-    <SafeAreaView> 
+    <SafeAreaView>
       <View>
         <Clickable onPress={() => router.navigate('/')}>
           <Text style={theme.text.bodyLarge}>Go back to home</Text>
@@ -85,7 +84,7 @@ export default function TextFieldPage({}) {
         <View style={{height: 300}}></View>
       </View>
       <Animated.View style={[styles.inputContainer, animatedStyle]}>
-        <TextInput 
+        <TextInput
           ref={inputRef}
           style={styles.input}
           onChangeText={onChangeText}
