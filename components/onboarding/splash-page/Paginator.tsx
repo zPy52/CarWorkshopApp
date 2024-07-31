@@ -38,7 +38,7 @@ export default function OnboardingPaginator({ length, x }: Props) {
           index * SCREEN_WIDTH,
           (index + 1) * SCREEN_WIDTH,
         ],
-        [theme.colors.secondaryContainer, theme.colors.secondary, theme.colors.secondaryContainer]
+        [theme.colors.primaryContainer, theme.colors.primary, theme.colors.primaryContainer]
       );
 
       return {

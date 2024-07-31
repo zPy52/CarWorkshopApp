@@ -1,5 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import { StyleSheet, Text, View, Keyboard, TextInput } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Keyboard,
+  TextInput,
+  useWindowDimensions,
+} from "react-native";
 import Animated, {
   Easing,
   useSharedValue,
@@ -16,6 +23,7 @@ import { useTheme } from "../../hooks/theme";
 import Insets from "../../constants/insets";
 import Durations from "../../constants/durations";
 import { Ionicons } from "@expo/vector-icons";
+import Clickable from "../shared/Clickable";
 
 type Props = {
   title: string;
@@ -23,6 +31,7 @@ type Props = {
   initialText?: string;
   placeholder?: string;
   textFormatter?: (text: string) => string;
+  leftIcon?: React.ReactNode;
 };
 
 export default function TextInputPageComponent({
@@ -31,10 +40,14 @@ export default function TextInputPageComponent({
   initialText = "",
   placeholder = "",
   textFormatter = (text) => text,
+  leftIcon,
 }: Props) {
   const { theme } = useTheme();
+  const { height, width } = useWindowDimensions();
   const [isOpeningKeyboard, setIsOpeningKeyboard] = useState(false);
   const [text, setText] = useState(initialText);
+  const [isFocused, setIsFocused] = useState(false);
+  const labelAnim = useSharedValue(0);
   const keyboardHeight = useSharedValue(0);
   const safeAreaInsets = useSafeAreaInsets();
 
@@ -56,7 +69,7 @@ export default function TextInputPageComponent({
         },
       ],
     };
-  }, [isOpeningKeyboard, keyboardHeight]);
+  }, [isOpeningKeyboard]);
 
   const rnDescriptionStyle = useAnimatedStyle(() => {
     const duration = Durations.fast;
@@ -71,7 +84,7 @@ export default function TextInputPageComponent({
         },
       ],
     };
-  }, [isOpeningKeyboard, keyboardHeight]);
+  }, [isOpeningKeyboard]);
 
   const rnInputStyle = useAnimatedStyle(() => {
     const duration = isOpeningKeyboard ? 0 : Durations.normal;
@@ -86,45 +99,37 @@ export default function TextInputPageComponent({
         },
       ],
     };
-  }, [isOpeningKeyboard, keyboardHeight]);
+  }, [isOpeningKeyboard]);
 
   const rnLeftIconStyle = useAnimatedStyle(() => {
+    const displacement = isOpeningKeyboard
+      ? -Insets.layoutMedium - Insets.layoutSmall
+      : 0;
     return {
       transform: [
         {
           translateX: withDelay(
-            Durations.veryFast,
-            withSpring(
-              withTiming(-Insets.layoutSmall, {
-                duration: Durations.slow,
-                easing: Easing.inOut(Easing.cubic),
-              }),
-              springConfig
-            )
+            Durations.fast,
+            withSpring(displacement, springConfig)
           ),
         },
       ],
     };
-  }, [isOpeningKeyboard, keyboardHeight]);
+  }, [isOpeningKeyboard]);
 
   const rnRightIconStyle = useAnimatedStyle(() => {
+    const displacement = isOpeningKeyboard ? Insets.layoutMedium : 0;
     return {
       transform: [
         {
           translateX: withDelay(
-            Durations.veryFast,
-            withSpring(
-              withTiming(0, {
-                duration: Durations.slow,
-                easing: Easing.inOut(Easing.cubic),
-              }),
-              springConfig
-            )
+            Durations.fast,
+            withSpring(displacement, springConfig)
           ),
         },
       ],
     };
-  }, [isOpeningKeyboard, keyboardHeight]);
+  }, [isOpeningKeyboard]);
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -134,8 +139,10 @@ export default function TextInputPageComponent({
 
         keyboardHeight.value = withTiming(
           event.endCoordinates.height +
-            safeAreaInsets.bottom -
-            Insets.layoutMedium - Insets.layoutLarge,
+            safeAreaInsets.top -
+            Insets.layoutLarge * 2 -
+            Insets.screenMarginLarge -
+            Insets.screenMarginMedium,
           {
             duration: Durations.normal,
             easing: Easing.out(Easing.cubic),
@@ -166,6 +173,36 @@ export default function TextInputPageComponent({
     setText(textFormatter(text));
   }).current;
 
+  const handleFocus = () => {
+    setIsFocused(true);
+
+    labelAnim.value = withTiming(1, {
+      duration: Durations.fast,
+      easing: Easing.inOut(Easing.cubic),
+    });
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+    if (!text) {
+      labelAnim.value = withTiming(0, {
+        duration: Durations.fast,
+        easing: Easing.inOut(Easing.cubic),
+      });
+    }
+  };
+
+  const buttonEnableChecker = useRef((text: string) => {
+    const formattedText = text.replaceAll(" ", "").trim();
+    if (formattedText.length === 0) {
+      return false;
+    }
+
+    const numberRegex = /^-?\d*(\.\d+)?$/;
+
+    return numberRegex.test(formattedText);
+  }).current;
+
   const styles = StyleSheet.create({
     absolute: {
       position: "absolute",
@@ -176,48 +213,68 @@ export default function TextInputPageComponent({
       backgroundColor: theme.colors.background,
       paddingHorizontal: Insets.screenMarginLarge,
     },
-    leftIcon: {
-      top: Insets.screenMarginLarge,
-      left: Insets.screenMarginLarge,
-    },
-    rightIcon: {
-      top: Insets.screenMarginLarge,
-      right: Insets.screenMarginLarge,
-    },
     input: {
-      backgroundColor: theme.colors.primaryContainer,
-      color: theme.colors.onPrimary,
+      backgroundColor: theme.colors.surfaceContainerLowest,
+      paddingLeft: Insets.screenMarginLarge + Insets.medium,
+      color: theme.colors.onSurface,
       borderRadius: Insets.medium,
       paddingHorizontal: Insets.screenMarginMedium,
       paddingVertical: Insets.screenMarginMedium,
-      elevation: 5,
+      borderColor: isFocused ? theme.colors.outlineFocus : theme.colors.outline,
+      borderWidth: 1,
+    },
+    continueButton: {
+      height: Insets.layoutSmall,
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "center",
+      borderRadius: Insets.medium,
+      backgroundColor: buttonEnableChecker(text)
+        ? theme.colors.primary
+        : theme.colors.surfaceVariant,
+      width: width - 2 * Insets.screenMarginMedium,
     },
   });
 
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <Animated.View
-        style={[styles.absolute, styles.leftIcon, rnLeftIconStyle]}
+      <SafeAreaView
+        style={[
+          styles.absolute,
+          {
+            paddingHorizontal: Insets.screenMarginMedium,
+            paddingTop: Insets.screenMarginMedium,
+          },
+          {
+            width: width,
+            flex: 1,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+          },
+        ]}
       >
-        <Ionicons
-          name="arrow-forward"
-          size={Insets.screenMarginLarge}
-          color={theme.colors.onBackground}
-        />
-      </Animated.View>
-      <Animated.View
-        style={[styles.absolute, styles.rightIcon, rnRightIconStyle]}
+        <Animated.View style={rnLeftIconStyle}>
+          <Ionicons
+            name="person-circle"
+            size={Insets.layoutMedium}
+            color={theme.colors.onBackground}
+          />
+        </Animated.View>
+        <Animated.View style={rnRightIconStyle}>
+          <Ionicons
+            name="close"
+            size={Insets.screenMarginLarge}
+            color={theme.colors.surfaceContainerHighest}
+          />
+        </Animated.View>
+      </SafeAreaView>
+      <View
+        style={{ paddingTop: Insets.layoutLarge + Insets.screenMarginLarge }}
       >
-        <Ionicons
-          name="arrow-forward"
-          size={Insets.screenMarginLarge}
-          color={theme.colors.onBackground}
-        />
-      </Animated.View>
-      <View style={[{ paddingTop: Insets.layoutLarge }]}>
         <Animated.Text
           style={[
-            theme.text.titleLarge,
+            theme.text.headlineLarge,
             { textAlign: "center" },
             rnTitleStyle,
           ]}
@@ -243,10 +300,49 @@ export default function TextInputPageComponent({
             onChangeText={onChangeText}
             value={text}
             placeholder={placeholder}
-            placeholderTextColor={theme.colors.surfaceVariant}
+            placeholderTextColor={theme.colors.surfaceContainerHighest}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
           />
+
+          <View
+            style={[
+              styles.absolute,
+              {
+                height: "100%",
+                justifyContent: "center",
+                paddingLeft: Insets.large,
+              },
+            ]}
+          >
+            {leftIcon && leftIcon}
+          </View>
         </Animated.View>
       </View>
+      <SafeAreaView
+        style={[
+          styles.absolute,
+          {
+            paddingHorizontal: Insets.screenMarginMedium,
+            paddingBottom: Insets.screenMarginMedium,
+          },
+          { width: width, flex: 1, bottom: 0 },
+        ]}
+      >
+        <Clickable onPress={() => {}}>
+          <View style={styles.continueButton}>
+            <Text
+              style={[
+                theme.text.titleMedium,
+                { fontWeight: "bold", textAlign: "center" },
+                { color: theme.colors.onPrimary },
+              ]}
+            >
+              Continuar
+            </Text>
+          </View>
+        </Clickable>
+      </SafeAreaView>
     </SafeAreaView>
   );
 }
