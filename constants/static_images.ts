@@ -39,6 +39,12 @@ const StaticImages: StaticImagesType = {
     engineOil: require('../assets/images/icons/engine-oil.png'),
     shockAbsorbers: require('../assets/images/icons/shock-absorbers.png'),
     user: require("../assets/images/icons/Buser.png"),
+    lightblueclock: require("../assets/images/icons/lightBlueClock.png"),
+    darkblueclock: require("../assets/images/icons/darkBlueClock.png"),
+    yellowclock: require("../assets/images/icons/yellowClock.png"),
+    email: require("../assets/images/icons/email.png"),
+    whatsapp: require("../assets/images/icons/whatsapp.png"),
+    phone: require("../assets/images/icons/phone.png"),
   },
   detailedIcons: {
     wheel: require('../assets/images/detailed_icons/wheel.png'),

@@ -22,7 +22,7 @@ export default function TitleBar({carId}: Props) {
             padding: Insets.submedium,
             justifyContent: 'space-between',
             alignItems: 'center',
-            borderRadius: Insets.small
+            borderRadius: Insets.small,
         },
         image: {
             height: 25,
