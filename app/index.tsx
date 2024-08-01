@@ -75,14 +75,25 @@ export default function App() {
         </Clickable>
         <Clickable
           onPress={() => {
-            router.navigate("/test");
+            router.navigate("/help");
           }}
-          style={[{ paddingTop: 20 }, { alignItems: "center" }]}
+          style={[{ paddingTop: 20, alignItems: "center" }]}
         >
           <Text style={{ color: theme.colors.onBackground }}>
-            Navega al pedir teléfono
+            Navega a help
           </Text>
         </Clickable>
+        <Clickable
+          onPress={() => {
+            router.navigate("/test");
+          }}
+          style={[{ paddingTop: 20, alignItems: "center" }]}
+        >
+          <Text style={{ color: theme.colors.onBackground }}>
+            Navega al pedir telefono
+          </Text>
+        </Clickable>
+        
       </View>
     </SafeAreaView>
   );
