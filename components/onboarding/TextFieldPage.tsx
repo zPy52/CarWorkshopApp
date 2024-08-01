@@ -19,7 +19,6 @@ export default function TextFieldPage({}) {
   const inputRef = useRef(null)
   const inputLayout = useSharedValue({ x: 0, y: 0, width: 0, height: 0, pageX: 0, pageY: 0 });
 
-
   const animatedStyle = useAnimatedStyle(() => {
     return {
       transform: [{ translateY: keyboardHeight.value }],
