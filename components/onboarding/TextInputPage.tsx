@@ -24,6 +24,7 @@ import Insets from "../../constants/insets";
 import Durations from "../../constants/durations";
 import { Ionicons } from "@expo/vector-icons";
 import Clickable from "../shared/Clickable";
+import StdButton from "../shared/StdButton";
 
 type Props = {
   title: string;
@@ -329,19 +330,11 @@ export default function TextInputPageComponent({
           { width: width, flex: 1, bottom: 0 },
         ]}
       >
-        <Clickable onPress={() => {}}>
-          <View style={styles.continueButton}>
-            <Text
-              style={[
-                theme.text.titleMedium,
-                { fontWeight: "bold", textAlign: "center" },
-                { color: theme.colors.onPrimary },
-              ]}
-            >
-              Continuar
-            </Text>
-          </View>
-        </Clickable>
+        <StdButton
+          text="Continuar"
+          onPress={() => {}}
+          enabled={buttonEnableChecker(text)}
+        />
       </SafeAreaView>
     </SafeAreaView>
   );
