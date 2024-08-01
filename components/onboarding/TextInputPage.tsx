@@ -224,17 +224,6 @@ export default function TextInputPageComponent({
       borderColor: isFocused ? theme.colors.outlineFocus : theme.colors.outline,
       borderWidth: 1,
     },
-    continueButton: {
-      height: Insets.layoutSmall,
-      flex: 1,
-      alignItems: "center",
-      justifyContent: "center",
-      borderRadius: Insets.medium,
-      backgroundColor: buttonEnableChecker(text)
-        ? theme.colors.primary
-        : theme.colors.surfaceVariant,
-      width: width - 2 * Insets.screenMarginMedium,
-    },
   });
 
   return (
