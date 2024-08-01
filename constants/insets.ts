@@ -3,6 +3,7 @@ interface InsetsType {
   layoutMedium: number;
   layoutSmall: number;
   screenMarginLarge: number;
+  icon: number;
   screenMarginMedium: number;
   large: number;
   medium: number;
@@ -18,6 +19,7 @@ const Insets: InsetsType = {
   layoutMedium: 75.0,
   layoutSmall: 50.0,
   screenMarginLarge: 35.0,
+  icon: 24.0,
   screenMarginMedium: 20.0,
   large: 15.0,
   medium: 10.0,

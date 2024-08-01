@@ -39,7 +39,7 @@ const LightColors: ColorPaletteType = {
   onBackground: Color.hsl(0, 0, 10),
 
   surface: Color.hsl(0, 0, 90),
-  surfaceVariant: Color.hsl(0, 0, 80),
+  surfaceVariant: Color.hsl(0, 0, 50),
   onSurface: Color.hsl(0, 0, 30),
 
   surfaceContainerLowest: Color.hsl(0, 0, 85),
@@ -48,7 +48,7 @@ const LightColors: ColorPaletteType = {
   surfaceContainerHigh: Color.hsl(0, 0, 55),
   surfaceContainerHighest: Color.hsl(0, 0, 45),
 
-  outline: Color.hsl(0, 0, 65),
+  outline: Color.hsl(0, 0, 75),
   outlineFocus: Color.hsl(0, 0, 45),
   outlineVariant: Color.hsl(0, 0, 80),
 };
