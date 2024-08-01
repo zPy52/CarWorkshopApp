@@ -93,7 +93,16 @@ export default function App() {
             Navega al pedir telefono
           </Text>
         </Clickable>
-        
+        <Clickable
+          onPress={() => {
+            toggleTheme();
+          }}
+          style={[{ paddingTop: 20, alignItems: "center" }]}
+        >
+          <Text style={{ color: theme.colors.onBackground }}>
+            Cambia el color
+          </Text>
+        </Clickable>
       </View>
     </SafeAreaView>
   );

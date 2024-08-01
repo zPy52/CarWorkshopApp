@@ -2,19 +2,19 @@ import Color from "../../../utils/color";
 import { ColorPaletteType } from "../types";
 
 const DarkColors: ColorPaletteType = {
-  primary: Color.hsl(51, 100, 65), // Primarily Yellow with a touch of Orange, slightly darker
-  primaryVariant: Color.hsl(51, 100, 45), // Darker Yellow-Orange
-  onPrimary: Color.hsl(51, 100, 15), // Light Yellow
-  onPrimaryContainer: Color.hsl(45, 100, 80), // Lighter Yellow-Orange
-  primaryContainer: Color.hsl(45, 100, 25), // Dark Yellow-Orange
-  primaryContainerSoft: Color.hslo(45, 100, 25, 0.3), // Dark Yellow-Orange with 30% opacity
+  primary: Color.hsl(210, 100, 65), // Blue, slightly darker
+  primaryVariant: Color.hsl(210, 100, 55), // Darker Blue
+  onPrimary: Color.hsl(210, 50, 90), // Light Blue
+  onPrimaryContainer: Color.hsl(210, 100, 80), // Darker Light Blue
+  primaryContainer: Color.hsl(210, 100, 25), // Dark Blue
+  primaryContainerSoft: Color.hslo(210, 100, 25, 0.3), // Dark Blue with 30% opacity
 
-  secondary: Color.hsl(210, 100, 65), // Blue, slightly darker
-  secondaryVariant: Color.hsl(210, 100, 55), // Darker Blue
-  onSecondary: Color.hsl(210, 50, 90), // Light Blue
-  onSecondaryContainer: Color.hsl(210, 100, 80), // Darker Light Blue
-  secondaryContainer: Color.hsl(210, 100, 25), // Dark Blue
-  secondaryContainerSoft: Color.hslo(210, 100, 25, 0.3), // Dark Blue with 30% opacity
+  secondary: Color.hsl(51, 100, 65), // Primarily Yellow with a touch of Orange, slightly darker
+  secondaryVariant: Color.hsl(51, 100, 45), // Darker Yellow-Orange
+  onSecondary: Color.hsl(51, 100, 15), // Light Yellow
+  onSecondaryContainer: Color.hsl(45, 100, 80), // Lighter Yellow-Orange
+  secondaryContainer: Color.hsl(45, 100, 25), // Dark Yellow-Orange
+  secondaryContainerSoft: Color.hslo(45, 100, 25, 0.3), // Dark Yellow-Orange with 30% opacity
 
   tertiary: Color.hsl(30, 100, 50), // Soft Orange-Brown, slightly darker
   tertiaryVariant: Color.hsl(30, 100, 40), // Darker Soft Orange-Brown

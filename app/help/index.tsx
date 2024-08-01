@@ -48,7 +48,7 @@ const HelpStation = () => {
           alignContent: 'center',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: theme.colors.tertiary,
+          backgroundColor: theme.colors.primary,
         },
         PrimaryText: {
           fontWeight: "900",
@@ -64,7 +64,7 @@ const HelpStation = () => {
         TertiaryText: {
           alignSelf: 'center',
           marginLeft: Insets.medium,
-          color: theme.colors.tertiary,
+          color: theme.colors.primaryVariant,
         },
         }),
       [theme.colors.background, theme.colors.onBackground, theme.colors.tertiary, theme.colors.primary, screenWidth]
@@ -77,7 +77,7 @@ const HelpStation = () => {
         <Text style={[theme.text.headlineMedium, styles.PrimaryText]}>Obtener ayuda de CWapp</Text>
         <Text style={[theme.text.titleMedium, styles.SecondaryText]}>Estamos aquí para ayudarte con cualquier problema o pregunta que tengas.</Text>
         <View style={styles.secondaryContainer}>
-          <Image source={StaticImages.icons.yellowclock} style={styles.Icon}></Image>
+          <Image source={StaticImages.icons.lightblueclock} style={styles.Icon}></Image>
           <Text style={[theme.text.bodySmall, styles.TertiaryText]}>Horario de Atención: 9:00 AM - 7:00 PM</Text>
         </View>
         <View style={styles.buttonContainer}>
