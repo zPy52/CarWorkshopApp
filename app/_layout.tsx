@@ -1,5 +1,5 @@
 import React from "react";
-import { Slot, Stack } from "expo-router";
+import { Stack } from "expo-router";
 import { ThemeProvider } from "../styles/provider/provider";
 import { View, Text } from "react-native";
 import { useTheme } from "../hooks/theme";
@@ -42,8 +42,7 @@ export default function AppLayout() {
               headerShown: false,
               animation: "simple_push",
             }}
-          >
-          </Stack>
+          />
         </Scaffold>
       </GestureHandlerRootView>
     </ThemeProvider>

@@ -1,4 +1,3 @@
-import { Text } from "react-native";
 import ProfileSection from "../../components/profile/Section";
 import { useTheme } from "../../hooks/theme";
 import { SafeAreaView } from "react-native-safe-area-context";
