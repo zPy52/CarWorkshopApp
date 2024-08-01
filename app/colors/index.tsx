@@ -8,7 +8,7 @@ import Insets from "../../constants/insets";
 export default function ColorRoles() {
   const { theme, toggleTheme } = useTheme();
 
-  const colors = useRef([
+  const colors = [
     {
       name: "primary",
       color: theme.colors.primary,
@@ -103,38 +103,6 @@ export default function ColorRoles() {
     },
 
     {
-      name: "background",
-      color: theme.colors.background,
-      textColor: theme.colors.onBackground,
-    },
-    {
-      name: "backgroundVariant",
-      color: theme.colors.backgroundVariant,
-      textColor: theme.colors.onBackground,
-    },
-    {
-      name: "onBackground",
-      color: theme.colors.onBackground,
-      textColor: theme.colors.background,
-    },
-
-    {
-      name: "surface",
-      color: theme.colors.surface,
-      textColor: theme.colors.onSurface,
-    },
-    {
-      name: "surfaceVariant",
-      color: theme.colors.surfaceVariant,
-      textColor: theme.colors.onSurface,
-    },
-    {
-      name: "onSurface",
-      color: theme.colors.onSurface,
-      textColor: theme.colors.surface,
-    },
-
-    {
       name: "error",
       color: theme.colors.error,
       textColor: theme.colors.onError,
@@ -187,6 +155,59 @@ export default function ColorRoles() {
     },
 
     {
+      name: "background",
+      color: theme.colors.background,
+      textColor: theme.colors.onBackground,
+    },
+    {
+      name: "onBackground",
+      color: theme.colors.onBackground,
+      textColor: theme.colors.background,
+    },
+
+    {
+      name: "surface",
+      color: theme.colors.surface,
+      textColor: theme.colors.onSurface,
+    },
+    {
+      name: "surfaceVariant",
+      color: theme.colors.surfaceVariant,
+      textColor: theme.colors.onSurface,
+    },
+    {
+      name: "onSurface",
+      color: theme.colors.onSurface,
+      textColor: theme.colors.surface,
+    },
+
+    {
+      name: "surfaceContainerLowest",
+      color: theme.colors.surfaceContainerLowest,
+      textColor: theme.colors.onBackground,
+    },
+    {
+      name: "surfaceContainerLow",
+      color: theme.colors.surfaceContainerLow,
+      textColor: theme.colors.onBackground,
+    },
+    {
+      name: "surfaceContainer",
+      color: theme.colors.surfaceContainer,
+      textColor: theme.colors.onBackground,
+    },
+    {
+      name: "surfaceContainerHigh",
+      color: theme.colors.surfaceContainerHigh,
+      textColor: theme.colors.surface,
+    },
+    {
+      name: "surfaceContainerHighest",
+      color: theme.colors.surfaceContainerHighest,
+      textColor: theme.colors.background,
+    },
+
+    {
       name: "outline",
       color: theme.colors.outline,
       textColor: theme.colors.onSurface,
@@ -194,14 +215,14 @@ export default function ColorRoles() {
     {
       name: "outlineFocus",
       color: theme.colors.outlineFocus,
-      textColor: theme.colors.onSurface,
+      textColor: theme.colors.background,
     },
     {
       name: "outlineVariant",
       color: theme.colors.outlineVariant,
       textColor: theme.colors.onSurface,
     },
-  ]).current;
+  ];
 
   return (
     <SafeAreaView>
