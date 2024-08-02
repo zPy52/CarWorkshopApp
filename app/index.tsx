@@ -41,25 +41,78 @@ export default function App() {
           marginTop: Insets.screenMarginLarge,
         }}
       >
-        {clickables.map((item, index) => (
-          <View
-            key={`main-compt-lst-${index}`}
-            style={{ alignSelf: "flex-start" }}
-          >
-            {index > 0 && <View style={{ height: 20 }} />}
-            <Clickable
-              onPress={() => {
-                router.navigate(item.route);
-              }}
-              style={{ alignItems: "center" }}
-            >
-              <Text style={{ color: theme.colors.onBackground }}>
-                {item.label}
-              </Text>
-            </Clickable>
-          </View>
-        ))}
-      </ScrollView>
+        <Clickable
+          onPress={() => {
+            router.navigate("/colors");
+          }}
+          style={{ alignItems: "center" }}
+        >
+          <Text style={{ color: theme.colors.onBackground }}>
+            Ver color roles
+          </Text>
+        </Clickable>
+        <View style={{ height: 20 }}></View>
+        <Clickable
+          onPress={() => {
+            router.navigate("/home");
+          }}
+          style={{ alignItems: "center" }}
+        >
+          <Text style={{ color: theme.colors.onBackground }}>
+            Navega a la home
+          </Text>
+        </Clickable>
+        <Clickable
+          onPress={() => {
+            router.navigate("/onboarding");
+          }}
+          style={[{ paddingTop: 20 }, { alignItems: "center" }]}
+        >
+          <Text style={{ color: theme.colors.onBackground }}>
+            Navega al onboarding
+          </Text>
+        </Clickable>
+        <Clickable
+          onPress={() => {
+            router.navigate("/help");
+          }}
+          style={[{ paddingTop: 20, alignItems: "center" }]}
+        >
+          <Text style={{ color: theme.colors.onBackground }}>
+            Navega a help
+          </Text>
+        </Clickable>
+        <Clickable
+          onPress={() => {
+            router.navigate("/test");
+          }}
+          style={[{ paddingTop: 20, alignItems: "center" }]}
+        >
+          <Text style={{ color: theme.colors.onBackground }}>
+            Navega al pedir telefono
+          </Text>
+        </Clickable>
+        <Clickable
+          onPress={() => {
+            toggleTheme();
+          }}
+          style={[{ paddingTop: 20, alignItems: "center" }]}
+        >
+          <Text style={{ color: theme.colors.onBackground }}>
+            Cambia el color
+          </Text>
+        </Clickable>
+        <Clickable
+          onPress={() => {
+            router.navigate("/drawer");
+          }}
+          style={[{ paddingTop: 20, alignItems: "center" }]}
+        >
+          <Text style={{ color: theme.colors.onBackground }}>
+            Ver Drawer
+          </Text>
+        </Clickable>
+      </View>
     </SafeAreaView>
   );
 }
