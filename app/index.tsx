@@ -112,7 +112,7 @@ export default function App() {
             Ver Drawer
           </Text>
         </Clickable>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
