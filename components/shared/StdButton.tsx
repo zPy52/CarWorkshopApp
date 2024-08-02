@@ -22,9 +22,6 @@ export default function StdButton({ text, onPress, enabled = true }: Props) {
         alignItems: "center",
         justifyContent: "center",
         borderRadius: Insets.medium,
-        backgroundColor: enabled
-          ? theme.colors.primary
-          : theme.colors.surfaceVariant,
         width: width - 2 * Insets.screenMarginMedium,
       },
     })
@@ -32,7 +29,16 @@ export default function StdButton({ text, onPress, enabled = true }: Props) {
 
   return (
     <Clickable onPress={onPress}>
-      <View style={styles.continueButton}>
+      <View
+        style={[
+          styles.continueButton,
+          {
+            backgroundColor: enabled
+              ? theme.colors.primary
+              : theme.colors.surfaceVariant,
+          },
+        ]}
+      >
         <Text
           style={[
             theme.text.titleMedium,
