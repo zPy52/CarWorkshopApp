@@ -10,8 +10,6 @@ type Props = {};
 export default function ProfilePage({}: Props) {
   const { theme } = useTheme();
 
-  console.log("we are in!");
-
   return (
     <SafeAreaView
       style={{

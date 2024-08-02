@@ -69,4 +69,5 @@ const clickables = [
   { label: "Navega al pedir teléfono", route: "/test" },
   { label: "Navega al profile", route: "/profile" },
   { label: "Navega al drawer", route: "/drawer" },
+  { label: "Navega a los addresses bro", route: "/profile/addresses" },
 ];

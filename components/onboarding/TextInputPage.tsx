@@ -319,8 +319,7 @@ export default function TextInputPageComponent({
         style={[
           styles.absolute,
           {
-            paddingHorizontal: Insets.screenMarginMedium,
-            paddingBottom: Insets.screenMarginMedium,
+            padding: Insets.screenMarginMedium,
           },
           { width: width, flex: 1, bottom: 0 },
         ]}
