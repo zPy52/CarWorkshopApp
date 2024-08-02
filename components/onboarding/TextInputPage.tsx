@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
   StyleSheet,
-  Text,
   View,
   Keyboard,
   TextInput,
@@ -23,8 +22,9 @@ import { useTheme } from "../../hooks/theme";
 import Insets from "../../constants/insets";
 import Durations from "../../constants/durations";
 import { Ionicons } from "@expo/vector-icons";
-import Clickable from "../shared/Clickable";
 import StdButton from "../shared/StdButton";
+import Clickable from "../shared/Clickable";
+import { router } from "expo-router";
 
 type Props = {
   title: string;
@@ -44,7 +44,7 @@ export default function TextInputPageComponent({
   leftIcon,
 }: Props) {
   const { theme } = useTheme();
-  const { height, width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
   const [isOpeningKeyboard, setIsOpeningKeyboard] = useState(false);
   const [text, setText] = useState(initialText);
   const [isFocused, setIsFocused] = useState(false);
@@ -252,11 +252,17 @@ export default function TextInputPageComponent({
           />
         </Animated.View>
         <Animated.View style={rnRightIconStyle}>
-          <Ionicons
-            name="close"
-            size={Insets.screenMarginLarge}
-            color={theme.colors.surfaceContainerHighest}
-          />
+          <Clickable
+            onPress={() => {
+              router.navigate("/");
+            }}
+          >
+            <Ionicons
+              name="close"
+              size={Insets.screenMarginLarge}
+              color={theme.colors.surfaceVariant}
+            />
+          </Clickable>
         </Animated.View>
       </SafeAreaView>
       <View

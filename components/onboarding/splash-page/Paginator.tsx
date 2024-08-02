@@ -68,7 +68,6 @@ const styles = StyleSheet.create({
     width: Insets.screenMarginLarge,
     height: Insets.medium,
     borderRadius: Insets.small,
-
     marginHorizontal: Insets.small,
   },
 });

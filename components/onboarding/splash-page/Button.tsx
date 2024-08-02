@@ -115,7 +115,7 @@ export default function OnboardingSplashButton({
         <Animated.View style={[styles.absolute, iconAnimatedStyle]}>
           <Ionicons
             name="arrow-forward"
-            size={24}
+            size={Insets.icon}
             color={theme.colors.onPrimary}
           />
         </Animated.View>
