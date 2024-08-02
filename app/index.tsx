@@ -103,6 +103,16 @@ export default function App() {
             Cambia el color
           </Text>
         </Clickable>
+        <Clickable
+          onPress={() => {
+            router.navigate("/drawer");
+          }}
+          style={[{ paddingTop: 20, alignItems: "center" }]}
+        >
+          <Text style={{ color: theme.colors.onBackground }}>
+            Ver Drawer
+          </Text>
+        </Clickable>
       </View>
     </SafeAreaView>
   );

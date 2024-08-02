@@ -10,6 +10,7 @@ import PromoButton from '../../components/home/PromoButton';
 import TitleBar from '../../components/home/TitleBar';
 import BigCard from "../../components/home/BigCard";
 import Insets from "../../constants/insets";
+import Layout from "../drawer";
 
 const HomeStation = () => {
   // Array de Hashes
@@ -29,6 +30,7 @@ const HomeStation = () => {
         mainContainer: {
           backgroundColor: theme.colors.background, // Establece de color principal usando el color de Background
           paddingHorizontal: Insets.screenMarginMedium, // Relleno a los lados
+
         },
         SwipeButton: {
           width: screenWidth - Insets.screenMarginMedium * 2,
@@ -38,7 +40,6 @@ const HomeStation = () => {
           color: theme.colors.onBackground,
           fontSize: 18,
           fontWeight: 'bold',
-          marginTop: 20,
           marginBottom: 20
         },
         primaryElement: {
@@ -67,6 +68,7 @@ const HomeStation = () => {
 
   return (
       <SafeAreaView style={styles.mainContainer}>
+
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
 
           <TitleBar carId="1234FFF"></TitleBar>
@@ -123,7 +125,7 @@ const HomeStation = () => {
             ]}
           </WrapView>
 
-          <Text style={styles.text}>Packs de Mantenimiento</Text>
+          <Text style={[styles.text, {marginTop: 20}]}>Packs de Mantenimiento</Text>
 
           <WrapView
             horizontalSpacing={ Insets.screenMarginLarge }
