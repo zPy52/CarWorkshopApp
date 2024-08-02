@@ -24,6 +24,7 @@ import Insets from "../../constants/insets";
 import Durations from "../../constants/durations";
 import { Ionicons } from "@expo/vector-icons";
 import Clickable from "../shared/Clickable";
+import StdButton from "../shared/StdButton";
 
 type Props = {
   title: string;
@@ -223,17 +224,6 @@ export default function TextInputPageComponent({
       borderColor: isFocused ? theme.colors.outlineFocus : theme.colors.outline,
       borderWidth: 1,
     },
-    continueButton: {
-      height: Insets.layoutSmall,
-      flex: 1,
-      alignItems: "center",
-      justifyContent: "center",
-      borderRadius: Insets.medium,
-      backgroundColor: buttonEnableChecker(text)
-        ? theme.colors.primary
-        : theme.colors.surfaceVariant,
-      width: width - 2 * Insets.screenMarginMedium,
-    },
   });
 
   return (
@@ -329,19 +319,11 @@ export default function TextInputPageComponent({
           { width: width, flex: 1, bottom: 0 },
         ]}
       >
-        <Clickable onPress={() => {}}>
-          <View style={styles.continueButton}>
-            <Text
-              style={[
-                theme.text.titleMedium,
-                { fontWeight: "bold", textAlign: "center" },
-                { color: theme.colors.onPrimary },
-              ]}
-            >
-              Continuar
-            </Text>
-          </View>
-        </Clickable>
+        <StdButton
+          text="Continuar"
+          onPress={() => {}}
+          enabled={buttonEnableChecker(text)}
+        />
       </SafeAreaView>
     </SafeAreaView>
   );
