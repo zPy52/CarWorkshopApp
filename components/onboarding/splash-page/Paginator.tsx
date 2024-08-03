@@ -38,7 +38,7 @@ export default function OnboardingPaginator({ length, x }: Props) {
           index * SCREEN_WIDTH,
           (index + 1) * SCREEN_WIDTH,
         ],
-        [theme.colors.secondaryContainer, theme.colors.secondary, theme.colors.secondaryContainer]
+        [theme.colors.primaryContainer, theme.colors.primary, theme.colors.primaryContainer]
       );
 
       return {
@@ -68,7 +68,6 @@ const styles = StyleSheet.create({
     width: Insets.screenMarginLarge,
     height: Insets.medium,
     borderRadius: Insets.small,
-
     marginHorizontal: Insets.small,
   },
 });

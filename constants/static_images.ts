@@ -13,7 +13,7 @@ interface StaticImagesType {
   real: {
     [key: string]: ImageSourcePropType;
   };
-  other: {
+  promo: {
     [key: string]: ImageSourcePropType
   };
   carTypes: {
@@ -42,6 +42,12 @@ const StaticImages: StaticImagesType = {
     engineOil: require('../assets/images/icons/engine-oil.png'),
     shockAbsorbers: require('../assets/images/icons/shock-absorbers.png'),
     user: require("../assets/images/icons/Buser.png"),
+    lightblueclock: require("../assets/images/icons/lightBlueClock.png"),
+    darkblueclock: require("../assets/images/icons/darkBlueClock.png"),
+    yellowclock: require("../assets/images/icons/yellowClock.png"),
+    email: require("../assets/images/icons/email.png"),
+    whatsapp: require("../assets/images/icons/whatsapp.png"),
+    phone: require("../assets/images/icons/phone.png"),
   },
   detailedIcons: {
     wheel: require('../assets/images/detailed_icons/wheel.png'),
@@ -54,7 +60,7 @@ const StaticImages: StaticImagesType = {
   real: {
     tyre: require('../assets/images/real/tyre.png'),
   },
-  other: {
+  promo: {
     pr1: require("../assets/images/promoexamples/promo1prueba.png"),
     pr2: require("../assets/images/promoexamples/promo2prueba.png"),
     pr3: require("../assets/images/promoexamples/promo3prueba.png"),

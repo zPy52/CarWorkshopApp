@@ -89,7 +89,7 @@ export default function OnboardingSplashButton({
         paddingHorizontal: Insets.screenMarginMedium,
         paddingVertical: Insets.screenMarginMedium,
         borderRadius: Insets.layoutMedium,
-        backgroundColor: theme.colors.secondary,
+        backgroundColor: theme.colors.primary,
         alignItems: "center",
         justifyContent: "center",
         overflow: "hidden",
@@ -106,7 +106,7 @@ export default function OnboardingSplashButton({
         <Animated.Text
           style={[
             theme.text.bodyLarge,
-            { fontWeight: "bold", color: theme.colors.onSecondary },
+            { fontWeight: "bold", color: theme.colors.onPrimary },
             rnTextStyle,
           ]}
         >
@@ -115,8 +115,8 @@ export default function OnboardingSplashButton({
         <Animated.View style={[styles.absolute, iconAnimatedStyle]}>
           <Ionicons
             name="arrow-forward"
-            size={24}
-            color={theme.colors.onSecondary}
+            size={Insets.icon}
+            color={theme.colors.onPrimary}
           />
         </Animated.View>
       </Animated.View>

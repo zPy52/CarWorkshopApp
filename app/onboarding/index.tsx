@@ -1,7 +1,6 @@
 import { useCallback, useRef } from "react";
 import {
   ImageSourcePropType,
-  ImageURISource,
   SafeAreaView,
   StyleSheet,
   View,
@@ -13,8 +12,8 @@ import Animated, {
   useSharedValue,
 } from "react-native-reanimated";
 import OnboardingListItem from "../../components/onboarding/splash-page/Item";
-import OnboardingPaginator from "./../../components/onboarding/splash-page/Paginator";
-import OnboardingSplashButton from "./../../components/onboarding/splash-page/Button";
+import OnboardingPaginator from "../../components/onboarding/splash-page/Paginator";
+import OnboardingSplashButton from "../../components/onboarding/splash-page/Button";
 import StaticImages from "../../constants/static_images";
 import Insets from "../../constants/insets";
 
@@ -22,7 +21,7 @@ type ItemProps = {
   description: string;
   title: string;
   image: ImageSourcePropType;
-}
+};
 
 const pages: ItemProps[] = [
   {
@@ -60,9 +59,7 @@ const pages: ItemProps[] = [
 export default function OnboardingPage() {
   const x = useSharedValue(0);
   const flatListIndex = useSharedValue(0);
-  const flatListRef = useAnimatedRef<
-    Animated.FlatList<ItemProps>
-  >();
+  const flatListRef = useAnimatedRef<Animated.FlatList<ItemProps>>();
 
   const onViewableItemsChanged = useCallback(
     ({ viewableItems }: { viewableItems: ViewToken[] }) => {
@@ -77,13 +74,7 @@ export default function OnboardingPage() {
   });
 
   const renderItem = useCallback(
-    ({
-      item,
-      index,
-    }: {
-      item: ItemProps;
-      index: number;
-    }) => {
+    ({ item, index }: { item: ItemProps; index: number }) => {
       return <OnboardingListItem item={item} index={index} x={x} />;
     },
     [x]

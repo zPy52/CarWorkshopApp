@@ -1,5 +1,5 @@
 import React from "react";
-import { Slot } from "expo-router";
+import { Stack } from "expo-router";
 import { ThemeProvider } from "../styles/provider/provider";
 import { View, Text } from "react-native";
 import { useTheme } from "../hooks/theme";
@@ -22,11 +22,7 @@ function Scaffold({ children }) {
     Inter_700Bold,
   });
   if (!fontsLoaded) {
-    return (
-      <View>
-        <Text>Loading...</Text>
-      </View>
-    );
+    return <Text style={{ color: theme.colors.onBackground }}>Loading...</Text>;
   }
 
   return (
@@ -41,7 +37,12 @@ export default function AppLayout() {
     <ThemeProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <Scaffold>
-          <Slot />
+          <Stack
+            screenOptions={{
+              headerShown: false,
+              animation: "simple_push",
+            }}
+          />
         </Scaffold>
       </GestureHandlerRootView>
     </ThemeProvider>
