@@ -22,6 +22,9 @@ interface StaticImagesType {
   kitImages: {
     [key: string]: ImageSourcePropType
   };
+  asegurador: {
+    [key: string]: ImageSourcePropType
+  };
 }
 
 const StaticImages: StaticImagesType = {
@@ -71,6 +74,9 @@ const StaticImages: StaticImagesType = {
     distrIm: require("../assets/images/kits/distr.jpg"),
     brakeIm: require("../assets/images/kits/brake2.jpg"),
     ITVIm: require("../assets/images/kits/itv.jpg"),
+  },
+  asegurador: {
+    photo: require("../assets/images/kits/asegurador.png"),
   }
 };
 

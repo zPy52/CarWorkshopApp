@@ -135,7 +135,7 @@ const HomeStation = () => {
         >{[
           <BigCard
             key={"bc1"}
-            navigateTo="/"
+            navigateTo="../preITV+ITV"
             title="PreITV + ITV"
             imageSource={ StaticImages.kitImages.ITVIm }
             style={styles.secondaryElement} />,
@@ -149,7 +149,7 @@ const HomeStation = () => {
 
           <BigCard
             key={"bc3"}
-            navigateTo="/"
+            navigateTo="../frenos"
             title="Kit de Frenos"
             imageSource={ StaticImages.kitImages.brakeIm }
             style={styles.secondaryElement} />,
