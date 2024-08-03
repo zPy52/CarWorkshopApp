@@ -3,12 +3,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Insets from "../../../constants/insets";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "../../../hooks/theme";
-import StdButton from "../../shared/StdButton";
-import ChevronBack from "../../shared/ChevronBack";
+import StdButton from "../../../components/shared/StdButton";
+import ChevronBack from "../../../components/shared/ChevronBack";
 
 type Props = {};
 
-export default function EmptyAddressScreen({}: Props) {
+export default function EmptyAddressPage({}: Props) {
   const { theme } = useTheme();
   const { width } = useWindowDimensions();
 

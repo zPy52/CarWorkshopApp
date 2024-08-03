@@ -22,9 +22,9 @@ import { useTheme } from "../../hooks/theme";
 import Insets from "../../constants/insets";
 import Durations from "../../constants/durations";
 import { Ionicons } from "@expo/vector-icons";
-import StdButton from "../shared/StdButton";
-import Clickable from "../shared/Clickable";
 import { router } from "expo-router";
+import Clickable from "../../components/shared/Clickable";
+import StdButton from "../../components/shared/StdButton";
 
 type Props = {
   title: string;
@@ -35,7 +35,7 @@ type Props = {
   leftIcon?: React.ReactNode;
 };
 
-export default function TextInputPageComponent({
+export default function TextInputPage({
   title,
   description,
   initialText = "",

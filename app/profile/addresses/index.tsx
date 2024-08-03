@@ -2,7 +2,8 @@ import { StyleSheet, Text, View } from "react-native";
 import { useTheme } from "../../../hooks/theme";
 import { ScrollView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
-import EmptyAddressScreen from "../../../components/profile/addresses/EmptyScreen";
+import EmptyAddressScreen from "../../../pages/profile/addresses/Empty";
+import AddressesListPage from "../../../pages/profile/addresses/AddressesList";
 
 type Props = {};
 
@@ -12,7 +13,7 @@ export default function AddressesPage({}: Props) {
   const styles = StyleSheet.create({});
 
   if (true) {
-    return <EmptyAddressScreen />;
+    return <AddressesListPage />;
   }
 
   return (
