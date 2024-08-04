@@ -43,7 +43,7 @@ export default function StdButton({ text, onPress, enabled = true }: Props) {
           style={[
             theme.text.titleMedium,
             { fontWeight: "bold", textAlign: "center" },
-            { color: theme.colors.onPrimary },
+            { color: theme.colors.background },
           ]}
         >
           {text}

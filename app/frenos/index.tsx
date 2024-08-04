@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 import Insets from '../../constants/insets';
 import { useTheme } from "../../hooks/theme";
@@ -13,6 +13,7 @@ const BrakeSelector = () => {
 
   const styles = StyleSheet.create({
     container: {
+      flex: 1, // Asegura que el contenedor ocupe todo el espacio disponible
       marginLeft: 20,
       marginRight: 20,
     },
@@ -51,7 +52,7 @@ const BrakeSelector = () => {
     },
     title: {
       fontSize: 20,
-      marginTop: Insets.screenMarginLarge,
+      marginTop: 10,
       fontWeight: 'bold',
       color: theme.colors.onBackground,
     },
@@ -80,7 +81,18 @@ const BrakeSelector = () => {
       marginVertical: 20,
       alignItems: 'center',
     },
+    buttonPresupuesto: {
+      marginTop: 10,
+      height: Insets.layoutSmall,
+      width: '100%',
+    },
+    scrollViewContent: {
+      flexGrow: 1,
+      justifyContent: 'space-between', // Espacia el contenido
+      marginBottom:20
+    },
   });
+
 
   const renderBrakeButtons = (options, selectedValue, onSelect) => (
     <View style={styles.buttonContainer}>
@@ -113,71 +125,75 @@ const BrakeSelector = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <Text style={styles.title}>Servicio de recambio de frenos</Text>
-        <View style={styles.row}>
-          <Ionicons
-            name="timer"
-            size={Insets.screenMarginMedium}
-            color={theme.colors.surfaceVariant}
-          />
-          <Text style={styles.duration}>3h-6h</Text>
-        </View>
-        <Text style={styles.description}>
-          El servicio esencial para asegurar que los frenos de tu coche funcionen de manera óptima y segura.
-        </Text>
-      </View>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        <View>
+          <View style={styles.headerContainer}>
+            <Text style={styles.title}>Servicio de recambio de frenos</Text>
+            <View style={styles.row}>
+              <Ionicons
+                name="timer"
+                size={Insets.screenMarginMedium}
+                color={theme.colors.surfaceVariant}
+              />
+              <Text style={styles.duration}>3h-6h</Text>
+            </View>
+            <Text style={styles.description}>
+              El servicio esencial para asegurar que los frenos de tu coche funcionen de manera óptima y segura.
+            </Text>
+          </View>
 
-      {/* Divider */}
-      <View style={styles.divider} />
+          {/* Divider */}
+          <View style={styles.divider} />
 
-      {/* Selector de frenos */}
-      <Text style={styles.header}>Seleccione una opción de recambio</Text>
-      {renderBrakeButtons(
-        [
-          { label: 'Delanteros', value: 'front' },
-          { label: 'Traseros', value: 'rear' },
-          { label: 'Delanteros y Traseros', value: 'both' },
-        ],
-        brakeType,
-        setBrakeType
-      )}
-
-      {/* Selector de recambio de pastillas */}
-      <Text style={styles.header}>¿Desea además un recambio de pastillas?</Text>
-      {renderBrakeButtons(
-        [
-          { label: 'Sí', value: 'yes' },
-          { label: 'No', value: 'no' },
-        ],
-        padChangeOption,
-        setPadChangeOption
-      )}
-
-      {/* Condicional para mostrar los botones adicionales */}
-      {padChangeOption === 'yes' && (
-        <>
-          <Text style={styles.header}>Selecciona la opción de recambio de pastillas</Text>
+          {/* Selector de frenos */}
+          <Text style={styles.header}>Seleccione una opción de recambio</Text>
           {renderBrakeButtons(
             [
-              { label: 'Delanteros', value: 'frontPads' },
-              { label: 'Traseros', value: 'rearPads' },
-              { label: 'Delanteros y Traseros', value: 'bothPads' },
+              { label: 'Delanteros', value: 'front' },
+              { label: 'Traseros', value: 'rear' },
+              { label: 'Ambos', value: 'both' },
             ],
-            additionalBrakePadChange,
-            setAdditionalBrakePadChange
+            brakeType,
+            setBrakeType
           )}
-        </>
-      )}
 
-      {/* Botón para solicitar el servicio
-      <View style={styles.centeredButton}>
-        <StdButton
-          text="Pedir presupuesto"
-          onPress={handleRequestQuote}
-          enabled={true} // Puedes cambiar esto a una condición si necesitas deshabilitar el botón
-        />
-      </View> */}
+          {/* Selector de recambio de pastillas */}
+          <Text style={styles.header}>¿Desea además un recambio de pastillas?</Text>
+          {renderBrakeButtons(
+            [
+              { label: 'Sí', value: 'yes' },
+              { label: 'No', value: 'no' },
+            ],
+            padChangeOption,
+            setPadChangeOption
+          )}
+
+          {/* Condicional para mostrar los botones adicionales */}
+          {padChangeOption === 'yes' && (
+            <>
+              <Text style={styles.header}>Selecciona la opción de recambio de pastillas</Text>
+              {renderBrakeButtons(
+                [
+                  { label: 'Delanteros', value: 'frontPads' },
+                  { label: 'Traseros', value: 'rearPads' },
+                  { label: 'Ambos', value: 'bothPads' },
+                ],
+                additionalBrakePadChange,
+                setAdditionalBrakePadChange
+              )}
+            </>
+          )}
+        </View>
+
+        {/* Botón para solicitar el servicio*/}
+        <View style={styles.buttonPresupuesto}>
+          <StdButton
+            text="Pedir presupuesto"
+            onPress={handleRequestQuote}
+            enabled={true} // Puedes cambiar esto a una condición si necesitas deshabilitar el botón
+          />
+        </View>
+      </ScrollView>
     </View>
   );
 };
