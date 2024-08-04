@@ -7,7 +7,7 @@ import {
   Image,
   SafeAreaView,
   Animated,
-  TouchableOpacity, // Importa TouchableOpacity para hacer la flecha clicable
+  TouchableOpacity,
 } from 'react-native';
 import { useTheme } from '../../hooks/theme';
 import Insets from '../../constants/insets';
@@ -15,12 +15,13 @@ import StdButton from '../shared/StdButton';
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import StaticImages from '../../constants/static_images';
-import { useNavigation } from '@react-navigation/native'; // Importa useNavigation de React Navigation
+import { useNavigation } from '@react-navigation/native';
+import ChevronBack from '../../components/shared/ChevronBack'; // Import the ChevronBack component
 
 const App = () => {
   const { theme } = useTheme();
-  const [scrollY] = useState(new Animated.Value(0)); // Estado para controlar la posición del scroll
-  const navigation = useNavigation(); // Usa el hook useNavigation para la navegación
+  const [scrollY] = useState(new Animated.Value(0));
+  const navigation = useNavigation();
 
   const styles = StyleSheet.create({
     container: {
@@ -41,12 +42,8 @@ const App = () => {
       borderBottomWidth: 1,
       borderBottomColor: theme.colors.outlineVariant,
       alignItems: 'center',
-      flexDirection: 'row', // Alinea elementos en una fila
-      justifyContent: 'center', // Centra el contenido horizontalmente
-    },
-    goBackBottom:{
-      marginTop: 20,
-      right:90,
+      flexDirection: 'row',
+      justifyContent: 'center',
     },
     header: {
       marginBottom: 5,
@@ -105,7 +102,7 @@ const App = () => {
     },
     divider: {
       height: 1,
-      backgroundColor: theme.colors.outlineVariant, // Cambia a un color más claro
+      backgroundColor: theme.colors.outlineVariant,
       marginVertical: 10,
     },
     asegurador: {
@@ -147,9 +144,10 @@ const App = () => {
           },
         ]}
       >
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.goBackBottom}>
-          <Ionicons name="arrow-back" size={24} color={theme.colors.onBackground} />
-        </TouchableOpacity>
+        {/* Use ChevronBack component */}
+        <View style={{ position: 'absolute', left: 0 }}>
+          <ChevronBack />
+        </View>
         <Text style={styles.title}>Pre-ITV + ITV</Text>
       </Animated.View>
 
@@ -161,7 +159,6 @@ const App = () => {
           { useNativeDriver: false }
         )}
       >
-        {/* Encabezado con título y duración */}
         <View style={styles.header}>
           <Text style={styles.title}>Pre-ITV + ITV</Text>
           <View style={styles.row}>
@@ -178,10 +175,8 @@ const App = () => {
           </Text>
         </View>
 
-        {/* divider */}
         <View style={styles.divider} />
 
-        {/* Sección de cómo funciona */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>¿Cómo funciona?</Text>
           <View style={styles.step}>
@@ -238,7 +233,6 @@ const App = () => {
           </View>
         </View>
 
-        {/* Sección de seguro */}
         <View style={styles.asegurador}>
           <View style={styles.row}>
             <Image source={StaticImages.asegurador.photo} style={styles.image} />
@@ -251,7 +245,6 @@ const App = () => {
           </View>
         </View>
 
-        {/* Sección de requisitos */}
         <View style={styles.section2}>
           <Text style={styles.sectionTitle}>
             Requisitos para solicitar el servicio
@@ -294,10 +287,8 @@ const App = () => {
           </View>
         </View>
 
-        {/* divider */}
         <View style={styles.divider} />
 
-        {/* Sección de cancelación */}
         <View>
           <Text style={styles.cancelacion}>
             Podrás cancelar la reserva de manera gratuita si cancelas antes de
@@ -307,7 +298,6 @@ const App = () => {
           </Text>
         </View>
 
-        {/* Botón para solicitar el servicio */}
         <View style={styles.buttonContainer}>
           <StdButton
             text="Pedir presupuesto"
