@@ -32,7 +32,7 @@ export default function BigCard({ style, navigateTo, title, imageSource }: Props
     },
     overlay: {
       ...StyleSheet.absoluteFillObject,
-      backgroundColor: 'rgba(0, 0, 0, 0.7)'
+      backgroundColor: 'rgba(0, 0, 200, 0.4)'
     },
     textContainer: {
       marginTop: -10,

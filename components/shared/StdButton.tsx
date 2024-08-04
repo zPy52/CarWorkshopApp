@@ -1,5 +1,5 @@
 import { StyleSheet, View, Text, useWindowDimensions } from "react-native";
-import Clickable from "./Clickable";
+import Clickable from "../shared/Clickable";
 import { useTheme } from "../../hooks/theme";
 import Insets from "../../constants/insets";
 import { useRef } from "react";

@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Insets from "../../constants/insets";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import BottomBar from "../../components/home/BottomBar";
 
 type Props = {};
 

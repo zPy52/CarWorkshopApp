@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { View, TouchableOpacity, Text, StyleSheet, Animated } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../hooks/theme';
 import { router } from 'expo-router';
@@ -7,31 +7,85 @@ import { router } from 'expo-router';
 const BottomBar = ({ currentScreen }) => {
   const { theme } = useTheme();
 
+  const [translateValues, setTranslateValues] = useState([0, 0, 0]);
+
   const tabs = [
     { name: 'home', label: 'Home', icon: "home-outline", route: '/home' },
-    { name: 'reserva', label: 'Reserva', icon: "calendar-outline", route: '/reserva' },
+    { name: '/', label: 'Reserva', icon: "calendar-outline", route: '/' },
     { name: 'contacto', label: 'Contacto', icon: "mail-outline", route: '/help' },
-    { name: 'cuenta', label: 'Cuenta', icon: "person-outline", route: '/profile' },
   ];
+
+  const scaleAnims = useRef(tabs.map(() => new Animated.Value(1))).current;
+  const translateXAnims = useRef(tabs.map(() => new Animated.Value(0))).current;
+
+  useEffect(() => {
+    const newTranslateValues = [...translateValues];
+
+    tabs.forEach((tab, index) => {
+      const isActive = currentScreen === tab.name;
+      Animated.timing(scaleAnims[index], {
+        toValue: isActive ? 1.2 : 1,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+
+      let toValue;
+
+      if (isActive) {
+        if (index === 0) {
+          toValue = 0;
+        } else {
+          toValue = -10;
+        }
+      } else {
+        if (currentScreen === 'home' && index > 0) {
+          toValue = 10;
+        } else {
+          toValue = translateValues[index] || -10;
+        }
+      }
+
+      newTranslateValues[index] = toValue;
+
+      Animated.timing(translateXAnims[index], {
+        toValue: newTranslateValues[index],
+        duration: 900,
+        useNativeDriver: true,
+      }).start();
+    });
+
+    setTranslateValues(newTranslateValues);
+  }, [currentScreen]);
 
   return (
     <View style={styles(theme).container}>
-      {tabs.map(tab => (
-        <TouchableOpacity
-          key={tab.name}
-          style={styles(theme, currentScreen === tab.name).tab}
-          onPress={() => router.push(tab.route)}
-        >
-          <Ionicons
-            name={tab.icon as "home" | "home-outline" | "calendar-outline" | "person-outline"}
-            size={24}
-            color={currentScreen === tab.name ? theme.colors.primary : theme.colors.onSurface}
-          />
-          <Text style={styles(theme, currentScreen === tab.name).label}>
-            {tab.label}
-          </Text>
-        </TouchableOpacity>
-      ))}
+      {tabs.map((tab, index) => {
+        const isActive = currentScreen === tab.name;
+        return (
+          <TouchableOpacity
+            key={tab.name}
+            style={styles(theme, isActive).tab}
+            onPress={() => router.push(tab.route)}
+          >
+            <Animated.View style={[styles(theme).iconLabelContainer, { transform: [{ scale: scaleAnims[index] }, { translateX: translateXAnims[index] }] }]}>
+
+              <View style={[styles(theme, isActive).background]}>
+
+                <Ionicons
+                  name={tab.icon as any}
+                  size={24}
+                  color={isActive ? theme.colors.onPrimary : theme.colors.onSurface}
+                />
+                {isActive && (
+                  <Text style={styles(theme, isActive).label}>
+                    {tab.label}
+                  </Text>
+                )}
+              </View>
+            </Animated.View>
+          </TouchableOpacity>
+        );
+      })}
     </View>
   );
 };
@@ -50,11 +104,24 @@ const styles = (theme, isActive?) =>
       alignItems: 'center',
       flex: 1,
     },
+    iconLabelContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    background: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingHorizontal: 8,
+      paddingVertical: 4,
+      backgroundColor: isActive ? theme.colors.primary : 'transparent',
+      borderRadius: 20,
+    },
     label: {
-      fontSize: 12,
-      fontWeight: isActive ? 'bold' : 'normal',
-      color: isActive ? theme.colors.primary : theme.colors.onSurface,
-      marginTop: 4,
+      marginLeft: 8,
+      fontSize: 14,
+      fontWeight: 'bold',
+      color: theme.colors.onPrimary,
+      fontFamily: 'Inter_500Medium',
     },
   });
 
