@@ -4,7 +4,6 @@ import Clickable from "../shared/Clickable";
 import { router } from "expo-router";
 import Insets from "../../constants/insets";
 
-
 interface Props {
   style?: StyleProp<ViewStyle>;
   navigateTo: string;
@@ -21,15 +20,15 @@ export default function HomeCard({ style, navigateTo, title, imageSource }: Prop
         { height: '100%', width: '100%' },
         { padding: Insets.submedium },
         { borderRadius: Insets.small },
-        { alignContent: 'center', alignItems: 'center', justifyContent: 'center' },
-        style
+        { alignContent: 'center', alignItems: 'center', justifyContent: 'center', },
+        style,
       ]}>
         <Image source={imageSource} style={[
           { width: 40, height: 40, padding: Insets.small},
         ]} />
         <Text style={[
           theme.text.labelMedium,
-          {color: theme.colors.onPrimary, marginTop: Insets.small},
+          {color: theme.colors.onBackground, marginTop: Insets.small, fontWeight: 'bold', opacity: 0.6 },
         ]}>
           { title }
         </Text>

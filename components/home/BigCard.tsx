@@ -1,9 +1,9 @@
-import React, { Image, ImageSourcePropType, StyleProp, View, Text, ViewStyle, Dimensions, StyleSheet } from "react-native";
+import React from "react";
+import { Image, ImageSourcePropType, StyleProp, View, Text, ViewStyle, Dimensions, StyleSheet } from "react-native";
 import { useTheme } from "../../hooks/theme";
 import Clickable from "../shared/Clickable";
 import { router } from "expo-router";
 import Insets from "../../constants/insets";
-import { LinearGradient } from "expo-linear-gradient"; // Add this import statement
 
 interface Props {
   style?: StyleProp<ViewStyle>;
@@ -32,7 +32,7 @@ export default function BigCard({ style, navigateTo, title, imageSource }: Props
     },
     overlay: {
       ...StyleSheet.absoluteFillObject,
-      backgroundColor: 'rgba(0, 0, 0, 0.3)', // Yellowish overlay
+      backgroundColor: 'rgba(0, 0, 0, 0.7)'
     },
     textContainer: {
       marginTop: -10,
