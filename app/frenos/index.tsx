@@ -35,12 +35,12 @@ const BrakeSelector = () => {
       paddingVertical: 10,
       marginHorizontal: 5,
       borderRadius: 10,
-      backgroundColor: theme.colors.onSurface,
+      backgroundColor: theme.colors.surfaceContainerLow,
       alignItems: 'center',
       justifyContent: 'center',
     },
     selectedButton: {
-      backgroundColor: theme.colors.secondary,
+      backgroundColor: theme.colors.primary,
     },
     buttonText: {
       fontSize: 16,
@@ -53,7 +53,7 @@ const BrakeSelector = () => {
       fontSize: 20,
       marginTop: Insets.screenMarginLarge,
       fontWeight: 'bold',
-      color: theme.colors.surface,
+      color: theme.colors.onBackground,
     },
     row: {
       flexDirection: 'row',
@@ -67,11 +67,12 @@ const BrakeSelector = () => {
     description: {
       fontSize: 14,
       color: theme.colors.outlineFocus,
-      marginTop: 10,
+      marginTop: 5,
+      marginBottom: 5
     },
     divider: {
       height: 1,
-      backgroundColor: theme.colors.onSurface,
+      backgroundColor: theme.colors.outlineVariant,
       marginVertical: 10,
     },
     // Estilo para centrar el botón

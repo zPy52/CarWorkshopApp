@@ -57,7 +57,7 @@ const App = () => {
     duration: {
       fontSize: 16,
       color: theme.colors.outlineFocus,
-      marginLeft: 7.5,
+      marginLeft: 5,
     },
     row: {
       flexDirection: 'row',
@@ -69,7 +69,7 @@ const App = () => {
     description: {
       fontSize: 14,
       color: theme.colors.outlineFocus,
-      marginTop: 10,
+      marginTop: 5,
     },
     section: {
       marginTop: 10,
