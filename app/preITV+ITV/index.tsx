@@ -121,7 +121,9 @@ const App = () => {
       marginBottom: 10,
     },
     buttonContainer: {
-      marginTop: 15,
+      marginTop: 10,
+      width: 320,
+      height: 60,
     },
     image: {
       width: 60,
