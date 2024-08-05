@@ -52,6 +52,7 @@ const StaticImages: StaticImagesType = {
     oil:  require('../assets/images/detailed_icons/aceite.png'),
     shockAbsorber:  require('../assets/images/detailed_icons/amortiguador2.png'),
     timingBelt:  require('../assets/images/detailed_icons/correa.png'),
+    artificialIntelligence: require('../assets/images/detailed_icons/inteligencia-artificial.png'),
   },
   real: {
     tyre: require('../assets/images/real/tyre.png'),
