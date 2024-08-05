@@ -1,4 +1,7 @@
-import { ImageSourcePropType } from "react-native";
+export interface HomeSnippetPaletteType {
+  background: string;
+  container: string;
+}
 
 export interface ColorPaletteType {
   primary: string;
@@ -22,37 +25,30 @@ export interface ColorPaletteType {
   secondaryContainer: string;
   secondaryContainerSoft: string;
 
-  background: string;
-  backgroundVariant: string;
-  onBackground: string;
-
-  surface: string;
-  surfaceVariant: string;
-  onSurface: string;
-
   error: string;
   onError: string;
   onErrorContainer: string;
   errorContainer: string;
   errorContainerSoft: string;
-
-  regular: string;
-  onRegular: string;
-  onRegularContainer: string;
-  regularContainer: string;
-  regularContainerSoft: string;
-
+  
   success: string;
   onSuccess: string;
   onSuccessContainer: string;
   successContainer: string;
   successContainerSoft: string;
 
-  fire: string;
-  onFire: string;
-  onFireContainer: string;
-  fireContainer: string;
-  fireContainerSoft: string;
+  background: string;
+  onBackground: string;
+
+  surface: string;
+  surfaceVariant: string;
+  onSurface: string;
+
+  surfaceContainerLowest: string;
+  surfaceContainerLow: string;
+  surfaceContainer: string;
+  surfaceContainerHigh: string;
+  surfaceContainerHighest: string;
 
   outline: string;
   outlineFocus: string;
@@ -84,6 +80,7 @@ export interface TextThemeType {
   bodyMedium: TextStyleType;
   bodySmall: TextStyleType;
 }
+
 
 export interface ConcreteThemeType {
   mode: 'light' | 'dark';
