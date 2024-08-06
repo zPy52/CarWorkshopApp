@@ -88,7 +88,7 @@ const HomeStation = () => {
         {[
               <HomeCard
                 key={"k1"}
-                navigateTo="/"
+                navigateTo="/tyres"
                 title="Neumáticos"
                 imageSource={ StaticImages.detailedIcons.tyre }
                 style={styles.element} />,
