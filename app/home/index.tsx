@@ -87,42 +87,42 @@ const HomeStation = () => {
         {[
               <HomeCard
                 key={"k1"}
-                navigateTo="/"
+                navigateTo='../../basket'
                 title="Neumáticos"
                 imageSource={ StaticImages.detailedIcons.tyre }
                 style={styles.element} />,
 
               <HomeCard
                 key={"k2"}
-                navigateTo="/"
+                navigateTo='../../basket'
                 title="Repuestos"
                 imageSource={ StaticImages.detailedIcons.brake}
                 style={styles.element} />,
 
               <HomeCard
                 key={"k3"}
-                navigateTo="/"
+                navigateTo='../../basket'
                 title="Aceite"
                 imageSource={ StaticImages.detailedIcons.oil }
                 style={styles.element} />,
 
               <HomeCard
                 key={"k4"}
-                navigateTo="/"
+                navigateTo='../../basket'
                 title="Motor"
                 imageSource={ StaticImages.detailedIcons.engine}
                 style={styles.element} />,
 
               <HomeCard
                 key={"k5"}
-                navigateTo="/"
+                navigateTo='../../basket'
                 title="Amortiguador"
                 imageSource={ StaticImages.detailedIcons.shockAbsorber }
                 style={styles.element} />,
 
               <HomeCard
                 key={"k6"}
-                navigateTo="/"
+                navigateTo='../../basket/ProductList'
                 title="Correas"
                 imageSource={ StaticImages.detailedIcons.timingBelt}
                 style={styles.element} />,
@@ -135,21 +135,21 @@ const HomeStation = () => {
           {[
               <BigCard
                 key={"bc1"}
-                navigateTo="/"
+                navigateTo='../../basket'
                 title="PreITV + ITV"
                 imageSource={ StaticImages.kitImages.ITVIm }
                 style={styles.secondaryElement} />,
 
               <BigCard
                 key={"bc2"}
-                navigateTo="/"
+                navigateTo='../../basket'
                 title="Kit de Distribución"
                 imageSource={ StaticImages.kitImages.distrIm}
                 style={styles.secondaryElement} />,
 
               <BigCard
                 key={"bc3"}
-                navigateTo="/"
+                navigateTo= '../../basket'
                 title="Kit de Frenos"
                 imageSource={ StaticImages.kitImages.brakeIm }
                 style={styles.secondaryElement} />,

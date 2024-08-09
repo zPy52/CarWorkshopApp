@@ -69,5 +69,5 @@ const clickables = [
   { label: "Navega al pedir teléfono", route: "/test" },
   { label: "Navega al profile", route: "/profile" },
   { label: "Navega al product catalog", route: "/productCatalog" },
-  
+  { label: "Navega a basket", route: "/basket" },
 ];

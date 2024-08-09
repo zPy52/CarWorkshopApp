@@ -1,27 +1,27 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, Button } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { router } from 'expo-router';
 import { useBasket } from './BasketContext';
+import BottomBar from '../home/BottomBar';
 
 const products = [
-  { id: '1', 
-    name: '800 neumaticos', 
-    description: 'Llevandote estos 800 neumaticos sale mas barato vender cosas en el mercado negro', 
+  { id: '1',
+    name: '800 neumaticos',
+    description: 'Llevandote estos 800 neumaticos sale mas barato vender cosas en el mercado negro',
     price: 300 },
-  
-    { id: '2', 
-    name: 'Kit ITV', 
-    description: 'Con este kit vas, vienes, haces lo que quieras, hasta te quita multas', 
+
+    { id: '2',
+    name: 'Kit ITV',
+    description: 'Con este kit vas, vienes, haces lo que quieras, hasta te quita multas',
     price: 200 },
-  
-    { id: '3', 
-      name: 'Frenos', 
-      description: 'Estoy cansado son las 2am me voy a sobar', 
+
+    { id: '3',
+      name: 'Frenos',
+      description: 'Estoy cansado son las 2am me voy a sobar',
       price: 100 },
 ];
 
 const ProductList = () => {
-  const navigation = useNavigation();
   const { addToBasket } = useBasket();
 
   const handleAddToBasket = (product) => {
@@ -44,7 +44,7 @@ const ProductList = () => {
         )}
       />
       <View style={styles.buttonContainer}>
-        <Button title="Go to Basket" onPress={() => navigation.navigate('Basket')} />
+        <Button title="Go to Basket" onPress={() => router.navigate('../../basket/Basket')} />
       </View>
     </View>
   );

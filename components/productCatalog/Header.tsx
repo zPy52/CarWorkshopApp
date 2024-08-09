@@ -1,31 +1,35 @@
-import { Text, View, StyleSheet, Image } from 'react-native';
-import StaticImages from '../../constants/static_images';
+import React from 'react';
+import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { useTheme } from '../../hooks/theme';
 
-export default function Header(props) {
-    return (
-        <View testID="cabecera" style={styles.container}>
-            <Text testID="mensaje" style={styles.mensaje}>Bienvenido a CWA</Text>
-        </View>)
-}
+const Header = () => {
+  const {theme} = useTheme();
 
-const styles = StyleSheet.create({
-    container: {
-        width: 400,
-        height: 80,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#212121',
+  const styles = StyleSheet.create({
+    headerContainer: {
+      padding: 15,
+      backgroundColor: theme.colors.primary,
     },
-
-    mensaje: {
-        color: '#E0E0E0',
-        fontWeight: 'bold',
-        fontSize: 15,
+    headerTitle: {
+      fontSize: 20,
+      color: 'white',
+      fontWeight: 'bold',
     },
+    searchBox: {
+      marginTop: 10,
+      backgroundColor: theme.colors.background,
+      borderRadius: 5,
+      padding: 10,
+    },
+  });
 
-    logo: {
-        width: 50,
-        height: 50
-    }
-})
+  return (
+    <View style={styles.headerContainer}>
+      <Text style={styles.headerTitle}>Frenos</Text>
+      <TextInput style={styles.searchBox} placeholder="Search" />
+    </View>
+  );
+};
+
+
+export default Header;

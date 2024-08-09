@@ -6,6 +6,7 @@ import { useRouter, Stack } from 'expo-router';
 import HomeScreen from '../../components/productCatalog/HomeScreen';
 import Header from '../../components/productCatalog/Header';
 import { mockdata } from '../../constants/products';
+import { useTheme } from "../../hooks/theme";
 
 interface Product {
   id: number;
@@ -28,9 +29,25 @@ const CONFIG = {
 };
 
 export default function ProductCatalog() {
+
+  const { theme } = useTheme();
   const [isLoading, setIsLoading] = useState(true);
   const [products, setProducts] = useState<Product[] | undefined>(undefined);
   const router = useRouter();
+
+  const styles = StyleSheet.create({
+    loading: {
+      width: 120,
+      height: 120,
+      alignSelf: 'center',
+      justifyContent: 'center',
+      marginTop: 50,
+    },
+    container: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
+    },
+  });
 
   const download = async () => {
     let downloadedProducts: ProductsData | undefined;
@@ -65,7 +82,7 @@ export default function ProductCatalog() {
         <Image testID="loading" style={styles.loading} />
       </View>
     ) : (
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={styles.container}>
         <Header />
         <HomeScreen theproducts={products} />
         <StatusBar />
@@ -74,12 +91,3 @@ export default function ProductCatalog() {
   );
 }
 
-const styles = StyleSheet.create({
-  loading: {
-    width: 120,
-    height: 120,
-    alignSelf: 'center',
-    justifyContent: 'center',
-    marginTop: 50,
-  }
-});
