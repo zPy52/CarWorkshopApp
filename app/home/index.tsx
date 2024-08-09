@@ -158,9 +158,8 @@ const HomeStation = () => {
         </WrapView>
       </ScrollView>
 
-      <BottomBar currentScreen="home" />
+      <BottomBar currentScreen="home"/>
     </SafeAreaView>
   );
 }
-
 export default HomeStation;

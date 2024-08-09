@@ -1,10 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Animated } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Animated, ViewStyle, StyleProp } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../hooks/theme';
 import { router } from 'expo-router';
 
-const BottomBar = ({ currentScreen }) => {
+type ItemProps = {
+  currentScreen: string;
+  style?:  StyleProp<ViewStyle>;
+};
+
+const BottomBar = ({ currentScreen, style}: ItemProps) => {
   const { theme } = useTheme();
 
   const [translateValues, setTranslateValues] = useState([0, 0, 0]);
@@ -58,7 +63,7 @@ const BottomBar = ({ currentScreen }) => {
   }, [currentScreen]);
 
   return (
-    <View style={styles(theme).container}>
+    <View style={[styles(theme).container, style]}>
       {tabs.map((tab, index) => {
         const isActive = currentScreen === tab.name;
         return (

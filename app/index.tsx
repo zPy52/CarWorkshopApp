@@ -68,5 +68,6 @@ const clickables = [
   { label: "Navega al onboarding", route: "/onboarding" },
   { label: "Navega al pedir teléfono", route: "/test" },
   { label: "Navega al profile", route: "/profile" },
-  { label: "Navega al drawer", route: "/drawer" },
+  { label: "Navega al product catalog", route: "/productCatalog" },
+  
 ];
