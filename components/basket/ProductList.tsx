@@ -6,8 +6,8 @@ import BottomBar from '../home/BottomBar';
 
 const products = [
   { id: '1',
-    name: '800 neumaticos',
-    description: 'Llevandote estos 800 neumaticos sale mas barato vender cosas en el mercado negro',
+    name: 'Neumaticos',
+    description: 'Estos neumaticos con tal medida y de tal marca son de tal calidad y precio',
     price: 300 },
 
     { id: '2',
@@ -17,7 +17,7 @@ const products = [
 
     { id: '3',
       name: 'Frenos',
-      description: 'Estoy cansado son las 2am me voy a sobar',
+      description: 'Estoy cansado son las 3am me voy a dormir, mañana sera otro dia',
       price: 100 },
 ];
 
@@ -30,7 +30,7 @@ const ProductList = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Products TestMikel</Text>
+      <Text style={styles.title}>Products TESTMikel</Text>
       <FlatList
         data={products}
         keyExtractor={(item) => item.id}
@@ -39,12 +39,12 @@ const ProductList = () => {
             <Text style={styles.itemtitle}>{item.name}</Text>
             <Text>{item.description}</Text>
             <Text>Price: ${item.price}</Text>
-            <Button title="Add to Basket" onPress={() => handleAddToBasket(item)} />
+            <Button title="Anadir a la cesta" onPress={() => handleAddToBasket(item)} />
           </View>
         )}
       />
       <View style={styles.buttonContainer}>
-        <Button title="Go to Basket" onPress={() => router.navigate('../../basket/Basket')} />
+        <Button title="Ir a la cesta" onPress={() => router.navigate('../../basket/Basket')} />
       </View>
     </View>
   );

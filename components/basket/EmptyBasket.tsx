@@ -75,10 +75,10 @@ const EmptyBasket = () => {
         <Text style={[theme.text.titleMedium, styles.SecondaryText]}>Comprueba que todo esté en orden</Text>
         <View style={styles.emptyContainer}>
             <Image style={styles.emptyImage} source={require('../../assets/images/basket/shopping-cart.png')} />
-            <Text style={[theme.text.headlineMedium, styles.PrimaryText]}>Your Bag is Empty</Text>
-            <Text style={[theme.text.titleMedium, styles.SecondaryText]}>There are no products in your bag</Text>
+            <Text style={[theme.text.headlineMedium, styles.PrimaryText]}>Su cesta esta vacia</Text>
+            <Text style={[theme.text.titleMedium, styles.SecondaryText]}>No tiene productos seleccionados</Text>
             <View style={styles.emptyButtonContainer}>
-             <StdButton text="ProductList" onPress={() => router.navigate('../../basket')} />
+             <StdButton text="Lista de Productos" onPress={() => router.navigate('../../basket')} />
             </View>
         </View>
     </SafeAreaView>
