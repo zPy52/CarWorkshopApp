@@ -38,6 +38,7 @@ const Basket = () => {
           fontSize: 20,
           fontWeight: 'bold',
           marginTop: 10,
+          marginBottom: 10,
           color: theme.colors.onBackground,
         },
         //----------------------------------------
