@@ -10,9 +10,10 @@ interface Props {
   navigateTo: string;
   title: string;
   imageSource: ImageSourcePropType;
+  subtitle: string;
 }
 
-export default function BigCard({ style, navigateTo, title, imageSource }: Props) {
+export default function BigCard({ style, navigateTo, title, imageSource, subtitle }: Props) {
   const { theme } = useTheme();
 
   const styles = StyleSheet.create({
@@ -60,7 +61,7 @@ export default function BigCard({ style, navigateTo, title, imageSource }: Props
         <View style={styles.overlay} />
         <View style={styles.textContainer}>
           <Text style={styles.title}>{title}</Text>
-          <Text style={styles.subtitle}>Lorem ipsum dolor sit amet.</Text>
+          <Text style={styles.subtitle}>{subtitle}</Text>
         </View>
       </View>
     </Clickable>

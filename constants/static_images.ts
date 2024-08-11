@@ -55,6 +55,7 @@ const StaticImages: StaticImagesType = {
   },
   real: {
     tyre: require('../assets/images/real/tyre.png'),
+    callCenter: require('../assets/images/real/callCenter.png'),
   },
   promo: {
     pr1: require("../assets/images/promoexamples/promo1prueba.png"),

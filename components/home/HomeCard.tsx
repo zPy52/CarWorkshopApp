@@ -19,7 +19,6 @@ export default function HomeCard({ style, navigateTo, title, imageSource }: Prop
       <View style={[
         { height: '100%', width: '100%' },
         { padding: Insets.submedium },
-        { borderRadius: Insets.small },
         { alignContent: 'center', alignItems: 'center', justifyContent: 'center', },
         style,
       ]}>
