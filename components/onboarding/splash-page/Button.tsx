@@ -10,15 +10,18 @@ import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "../../../hooks/theme";
 import Clickable from "../../shared/Clickable";
 import Insets from "../../../constants/insets";
+import { router } from "expo-router";
 
 type Props = {
   x: SharedValue<number>;
+  currentIndex: SharedValue<number>;
   length: number;
   flatListRef: any;
 };
 
 export default function OnboardingSplashButton({
   x,
+  currentIndex,
   length,
   flatListRef,
 }: Props) {
@@ -73,12 +76,15 @@ export default function OnboardingSplashButton({
 
   const onPress = useCallback(() => {
     if (x.value / width >= length - 1 - threshold) {
-      console.log("Get Started");
-      return;
+      router.navigate("/");
     } else {
-      flatListRef?.current?.scrollToIndex({
-        index: length - 1,
-      });
+      if (currentIndex.value < length - 1) {
+        flatListRef?.current?.scrollToIndex({
+          index: currentIndex.value + 1,
+        });
+
+        currentIndex.value = currentIndex.value + 1;
+      }
     }
   }, []);
 

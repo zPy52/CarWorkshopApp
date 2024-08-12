@@ -84,7 +84,7 @@ export default function OnboardingPage() {
     StyleSheet.create({
       container: {
         flex: 1,
-        backgroundColor: "white", // This is necessary to match the background of chosen (with background) images
+        backgroundColor: "white",
       },
       bottomContainer: {
         flexDirection: "row",
@@ -114,6 +114,7 @@ export default function OnboardingPage() {
         <OnboardingPaginator length={pages.length} x={x} />
         <OnboardingSplashButton
           x={x}
+          currentIndex={flatListIndex}
           length={pages.length}
           flatListRef={flatListRef}
         />
