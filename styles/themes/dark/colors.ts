@@ -2,6 +2,8 @@ import Color from "../../../utils/color";
 import { ColorPaletteType } from "../types";
 
 const DarkColors: ColorPaletteType = {
+  transparent: Color.hslo(0, 0, 0, 0),
+  
   primary: Color.hsl(210, 100, 65), // Blue, slightly darker
   primaryVariant: Color.hsl(210, 100, 55), // Darker Blue
   onPrimary: Color.hsl(210, 50, 90), // Light Blue

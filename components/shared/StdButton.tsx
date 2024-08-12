@@ -1,51 +1,52 @@
-import { StyleSheet, View, Text, useWindowDimensions } from "react-native";
-import Clickable from "../shared/Clickable";
+import { StyleSheet, View, Text } from "react-native";
+import Clickable from "./Clickable";
 import { useTheme } from "../../hooks/theme";
 import Insets from "../../constants/insets";
-import { useRef } from "react";
+import { useMemo } from "react";
 
 type Props = {
   text: string;
   onPress: () => void;
+  borderRadius?: number | undefined;
   enabled?: boolean;
 };
 
-export default function StdButton({ text, onPress, enabled = true }: Props) {
+export default function StdButton({
+  text,
+  onPress,
+  borderRadius,
+  enabled = true,
+}: Props) {
   const { theme } = useTheme();
-  const { width } = useWindowDimensions();
 
-  const styles = useRef(
-    StyleSheet.create({
-      continueButton: {
-        height: Insets.layoutSmall,
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        borderRadius: Insets.medium,
-        width: width - 2 * Insets.screenMarginMedium,
-      },
-    })
-  ).current;
+  const styles = useMemo(
+    () =>
+      StyleSheet.create({
+        continueButton: {
+          height: "100%",
+          width: "100%",
+          alignItems: "center",
+          justifyContent: "center",
+          borderRadius: borderRadius == null ? Insets.medium : borderRadius,
+          backgroundColor: enabled
+            ? theme.colors.primary
+            : theme.colors.surfaceVariant,
+        },
+        buttonText: {
+          ...theme.text.titleMedium,
+          fontWeight: "bold",
+          textAlign: "center",
+          color: theme.colors.onPrimary,
+          paddingHorizontal: Insets.medium,
+        },
+      }),
+    [theme, borderRadius, enabled]
+  );
 
   return (
     <Clickable onPress={onPress}>
-      <View
-        style={[
-          styles.continueButton,
-          {
-            backgroundColor: enabled
-              ? theme.colors.primary
-              : theme.colors.surfaceVariant,
-          },
-        ]}
-      >
-        <Text
-          style={[
-            theme.text.titleMedium,
-            { fontWeight: "bold", textAlign: "center" },
-            { color: theme.colors.onPrimary },
-          ]}
-        >
+      <View style={styles.continueButton}>
+        <Text style={styles.buttonText} numberOfLines={1} ellipsizeMode="tail">
           {text}
         </Text>
       </View>

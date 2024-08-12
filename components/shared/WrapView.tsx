@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useMemo } from "react";
 import { View, StyleSheet, StyleProp, ViewStyle } from "react-native";
 
 type Props = {
@@ -6,7 +6,7 @@ type Props = {
   children: React.ReactNode[];
   horizontalSpacing?: number;
   verticalSpacing?: number;
-}
+};
 
 export default function WrapView({
   children,
@@ -14,20 +14,22 @@ export default function WrapView({
   verticalSpacing = 0,
   style = {},
 }: Props) {
-  const styles = useRef(
-    StyleSheet.create({
-      container: {
-        flexDirection: "row",
-        flexWrap: "wrap",
-        marginHorizontal: -horizontalSpacing / 2, // Negative margin to offset the padding added to each item
-        marginVertical: -verticalSpacing / 2, // Negative margin to offset the padding added to each item
-      },
-      item: {
-        marginHorizontal: horizontalSpacing / 2,
-        marginVertical: verticalSpacing / 2,
-      },
-    })
-  ).current;
+  const styles = useMemo(
+    () =>
+      StyleSheet.create({
+        container: {
+          flexDirection: "row",
+          flexWrap: "wrap",
+          marginHorizontal: -horizontalSpacing / 2, // Negative margin to offset the padding added to each item
+          marginVertical: -verticalSpacing / 2, // Negative margin to offset the padding added to each item
+        },
+        item: {
+          marginHorizontal: horizontalSpacing / 2,
+          marginVertical: verticalSpacing / 2,
+        },
+      }),
+    [horizontalSpacing, verticalSpacing]
+  );
 
   return (
     <View style={[styles.container, style]}>
