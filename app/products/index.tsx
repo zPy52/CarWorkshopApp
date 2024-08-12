@@ -4,6 +4,8 @@ import { useWindowDimensions } from "react-native";
 import Insets from "../../constants/insets";
 import WrapView from "../../components/shared/WrapView";
 import ProductSnippet from "../../components/products/ProductSnippet";
+import Clickable from "../../components/shared/Clickable";
+import { router } from "expo-router";
 
 type Props = {};
 
@@ -13,7 +15,9 @@ export default function CatalogPage({}: Props) {
 
   return (
     <SafeAreaView>
+      <Clickable onPress={() => router.navigate("/")}>
       <ProductSnippet key={"mama"} />
+      </Clickable>
     </SafeAreaView>
   );
 }
