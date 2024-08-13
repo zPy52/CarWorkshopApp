@@ -11,6 +11,7 @@ import Insets from "../../constants/insets";
 import { router } from "expo-router";
 import { useMemo } from "react";
 import { Ionicons } from "@expo/vector-icons";
+import PriceComponent from "./Price";
 
 type Props = {};
 
@@ -67,21 +68,6 @@ export default function ProductSnippet({}: Props) {
           fontWeight: "bold",
           flexShrink: 1,
         },
-
-        priceSection: {
-          paddingTop: Insets.large,
-          flexDirection: "row",
-          alignItems: "flex-start",
-        },
-        price: {
-          ...theme.text.titleLarge,
-          fontWeight: "bold",
-          flexShrink: 1,
-        },
-        centsCorrection: {
-          lineHeight: theme.text.titleLarge.lineHeight - Insets.medium,
-          fontSize: Insets.medium,
-        },
       }),
     [theme, width]
   );
@@ -134,22 +120,7 @@ export default function ProductSnippet({}: Props) {
               color={theme.colors.tertiary}
             />
           </View>
-          <View style={styles.priceSection}>
-            <Text style={styles.price} numberOfLines={1}>
-              19
-            </Text>
-
-            <Text
-              style={[styles.price, styles.centsCorrection]}
-              numberOfLines={1}
-            >
-              99
-            </Text>
-
-            <Text style={styles.price} numberOfLines={1}>
-              €
-            </Text>
-          </View>
+          <PriceComponent price={24.31} />
         </View>
       </View>
     </View>

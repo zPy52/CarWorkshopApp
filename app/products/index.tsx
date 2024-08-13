@@ -15,7 +15,7 @@ export default function CatalogPage({}: Props) {
 
   return (
     <SafeAreaView>
-      <Clickable onPress={() => router.navigate("/")}>
+      <Clickable onPress={() => router.navigate("/products/pages/tyres")}>
       <ProductSnippet key={"mama"} />
       </Clickable>
     </SafeAreaView>

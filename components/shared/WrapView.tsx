@@ -1,19 +1,23 @@
 import React, { useMemo } from "react";
 import { View, StyleSheet, StyleProp, ViewStyle } from "react-native";
 
-type Props = {
+type Props<T> = {
   style?: StyleProp<ViewStyle>;
-  children: React.ReactNode[];
+  data: T[];
+  keyExtractor: (item: T, index: number) => string;
+  renderItem: (item: T, index: number) => React.ReactNode;
   horizontalSpacing?: number;
   verticalSpacing?: number;
 };
 
-export default function WrapView({
-  children,
+export default function WrapView<T>({
+  data,
+  keyExtractor,
+  renderItem,
   horizontalSpacing = 0,
   verticalSpacing = 0,
   style = {},
-}: Props) {
+}: Props<T>) {
   const styles = useMemo(
     () =>
       StyleSheet.create({
@@ -33,8 +37,10 @@ export default function WrapView({
 
   return (
     <View style={[styles.container, style]}>
-      {React.Children.map(children, (child) => (
-        <View style={styles.item}>{child}</View>
+      {data.map((item, index) => (
+        <View key={keyExtractor(item, index)} style={styles.item}>
+          {renderItem(item, index)}
+        </View>
       ))}
     </View>
   );
