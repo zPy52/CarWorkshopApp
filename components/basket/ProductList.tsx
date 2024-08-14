@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, StyleSheet, FlatList, Button } from 'react-native';
 import { router } from 'expo-router';
 import { useBasket } from './BasketContext';
-import BottomBar from '../home/BottomBar';
 
 const products = [
   { id: '1',
