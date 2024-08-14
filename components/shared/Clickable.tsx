@@ -37,17 +37,16 @@ export default function Clickable({
   }, []);
 
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      onPressIn={handlePressIn}
-      onPressOut={handlePressOut}
-      activeOpacity={0.8}
-      style={[
-        { overflow: "hidden", alignItems: "center", justifyContent: "center" },
-        style,
-      ]}
-    >
-      <Animated.View style={rnScaleStyle}>{children}</Animated.View>
-    </TouchableOpacity>
+    <Animated.View style={rnScaleStyle}>
+      <TouchableOpacity
+        onPress={onPress}
+        onPressIn={handlePressIn}
+        onPressOut={handlePressOut}
+        activeOpacity={0.8}
+        style={[{ alignItems: "center", justifyContent: "center" }, style]}
+      >
+        {children}
+      </TouchableOpacity>
+    </Animated.View>
   );
 }

@@ -4,6 +4,8 @@ export interface HomeSnippetPaletteType {
 }
 
 export interface ColorPaletteType {
+  transparent: string;
+
   primary: string;
   primaryVariant: string;
   onPrimary: string;

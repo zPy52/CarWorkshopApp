@@ -1,7 +1,7 @@
-import TextInputPageComponent from "../../components/onboarding/TextInputPage";
 import Insets from "../../constants/insets";
 import { useTheme } from "../../hooks/theme";
 import { Ionicons } from "@expo/vector-icons";
+import TextInputPageComponent from "../../pages/shared/TextInput";
 
 type Props = {};
 
