@@ -17,6 +17,7 @@ import PriceComponent from "../../../components/products/Price";
 import ProductImageSlider from "../../../components/products/ProductImageSlider";
 import StdButton from "../../../components/shared/StdButton";
 import Clickable from "../../../components/shared/Clickable";
+import OtherProductSnippet from "../../../components/products/snippets/OtherProductSnippet";
 
 type Props = {
   id: number;
@@ -43,6 +44,7 @@ export default function TyresProductPage({}: Props) {
           paddingVertical: Insets.screenMarginMedium,
           paddingHorizontal: Insets.screenMarginMedium,
         },
+
         productName: {
           ...theme.text.titleLarge,
           fontWeight: "bold",
@@ -95,6 +97,14 @@ export default function TyresProductPage({}: Props) {
 
         otherProductsSection: {
           marginVertical: Insets.medium,
+        },
+
+        sectionTitle: {
+          ...theme.text.titleLarge,
+
+          fontWeight: "bold",
+          paddingHorizontal: Insets.screenMarginMedium,
+          paddingBottom: Insets.large,
         },
       }),
     [theme, width]
@@ -180,14 +190,41 @@ export default function TyresProductPage({}: Props) {
           <View style={{ height: Insets.screenMarginLarge }} />
 
           <TyresDescriptionTable data={data} horizontalPadding={0} />
+        </View>
+        <View style={styles.otherProductsSection}>
+          <Text style={styles.sectionTitle}>
+            Productos que podrían interesarte
+          </Text>
+          <FlatList
+            data={otherProducts}
+            keyExtractor={(_, index) => `othr-rlted-prodcts-${index}`}
+            renderItem={({ index, item }) => {
+              const snippet = (
+                <View style={{ paddingLeft: Insets.screenMarginMedium }}>
+                  <OtherProductSnippet
+                    imageUri={item.imageUri}
+                    productName={item.productName}
+                    description={item.description}
+                    tags={item.tags}
+                  />
+                </View>
+              );
 
-          <View style={styles.otherProductsSection}>
-            <FlatList
-              data={otherProducts}
-              renderItem={(item) => (<View></View>)}
-              horizontal
-            />
-          </View>
+              if (index === otherProducts.length - 1) {
+                return (
+                  <View style={{ paddingRight: Insets.screenMarginMedium }}>
+                    {snippet}
+                  </View>
+                );
+              }
+
+              return snippet;
+            }}
+            horizontal
+            pagingEnabled
+            bounces={false}
+            showsHorizontalScrollIndicator={false}
+          />
         </View>
       </SafeAreaView>
     </ScrollView>
@@ -199,13 +236,14 @@ const otherProducts = [
     productName: "Pregliatto XXX 45Y",
     tags: ["Turismo", "Invierno", "SUV"],
     description: "Seguridad y comfort en cualquier condición invernal",
-    imageUri: "https://i.imgur.com/P6trNJP.jpeg"
+    imageUri: "https://i.imgur.com/P6trNJP.jpeg",
   },
   {
     productName: "Cinturato P7",
     tags: ["Turismo", "Verano", "Touring"],
     description: "Emoción de largo recorrido",
-    imageUri: "https://i.imgur.com/P6trNJP.jpeg"},
+    imageUri: "https://i.imgur.com/P6trNJP.jpeg",
+  },
 ];
 
 const images = [
