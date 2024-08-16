@@ -6,6 +6,7 @@ import WrapView from "../../components/shared/WrapView";
 import ProductSnippet from "../../components/products/snippets/ProductSnippet";
 import Clickable from "../../components/shared/Clickable";
 import { router } from "expo-router";
+import SearchBar from "../../components/products/SearchBar";
 
 type Props = {};
 
@@ -15,8 +16,9 @@ export default function CatalogPage({}: Props) {
 
   return (
     <SafeAreaView>
+      <SearchBar placeholder={"Buscar productos"} onSearch={() => {}}/>
       <Clickable onPress={() => router.navigate("/products/pages/tyres")}>
-      <ProductSnippet key={"mama"} />
+        <ProductSnippet key={"mama"} />
       </Clickable>
     </SafeAreaView>
   );

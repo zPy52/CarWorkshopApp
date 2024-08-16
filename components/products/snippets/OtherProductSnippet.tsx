@@ -10,6 +10,7 @@ import Insets from "../../../constants/insets";
 import { Ionicons } from "@expo/vector-icons";
 import PriceComponent from "../Price";
 import TyreTag from "../tyres/TyreTag";
+import { useMemo } from "react";
 
 type Props = {
   imageUri: string;
@@ -27,62 +28,65 @@ export default function ProductSnippet({
   const { theme } = useTheme();
   const { width } = useWindowDimensions();
 
-  const styles = StyleSheet.create({
-    container: {
-      width: width / 1.5 - Insets.screenMarginMedium * 2, 
-      borderRadius: Insets.small,
-      borderColor: theme.colors.outlineVariant,
-      borderWidth: Insets.pixel / 2
-    },
-    imageContainer: {
-      backgroundColor: theme.colors.surface,
-
-    },
-    image: {
-      width: "100%",
-      aspectRatio: 1,
-      resizeMode: "contain",
-    },
-    textContainer: {
-      padding: Insets.medium,
-    },
-    title: {
-      ...theme.text.titleMedium,
-      fontWeight: "bold",
-      marginBottom: Insets.dwarf,
-    },
-    description: {
-      ...theme.text.bodyMedium,
-      color: theme.colors.surfaceContainerHighest,
-      marginBottom: Insets.small,
-    },
-    reviewsContainer: {
-      flexDirection: "row",
-      alignItems: "center",
-      marginBottom: Insets.small,
-    },
-    reviewCount: {
-      marginRight: Insets.small,
-      ...theme.text.bodyMedium,
-      fontWeight: "bold",
-    },
-    tagContainer: {
-      flexDirection: "row",
-      flexWrap: "wrap",
-    },
-    tag: {
-      backgroundColor: theme.colors.primary,
-      color: theme.colors.onPrimary,
-      borderRadius: Insets.small,
-      padding: Insets.small,
-      marginRight: Insets.small,
-    },
-  });
+  const styles = useMemo(
+    () =>
+      StyleSheet.create({
+        container: {
+          width: width / 1.5 - Insets.screenMarginMedium * 2,
+          borderRadius: Insets.small,
+          borderColor: theme.colors.outlineVariant,
+          borderWidth: Insets.pixel / 2,
+        },
+        imageContainer: {
+          backgroundColor: theme.colors.surface,
+        },
+        image: {
+          width: "100%",
+          aspectRatio: 1,
+          resizeMode: "contain",
+        },
+        textContainer: {
+          padding: Insets.medium,
+        },
+        title: {
+          ...theme.text.titleMedium,
+          fontWeight: "bold",
+          marginBottom: Insets.dwarf,
+        },
+        description: {
+          ...theme.text.bodyMedium,
+          color: theme.colors.surfaceContainerHighest,
+          marginBottom: Insets.small,
+        },
+        reviewsContainer: {
+          flexDirection: "row",
+          alignItems: "center",
+          marginBottom: Insets.small,
+        },
+        reviewCount: {
+          marginRight: Insets.small,
+          ...theme.text.bodyMedium,
+          fontWeight: "bold",
+        },
+        tagContainer: {
+          flexDirection: "row",
+          flexWrap: "wrap",
+        },
+        tag: {
+          backgroundColor: theme.colors.primary,
+          color: theme.colors.onPrimary,
+          borderRadius: Insets.small,
+          padding: Insets.small,
+          marginRight: Insets.small,
+        },
+      }),
+    [theme, width]
+  );
 
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-      <Image source={{ uri: imageUri }} style={styles.image} />
+        <Image source={{ uri: imageUri }} style={styles.image} />
       </View>
       <View style={styles.textContainer}>
         <Text style={styles.title} numberOfLines={2} ellipsizeMode="tail">
@@ -120,11 +124,11 @@ export default function ProductSnippet({
           />
         </View>
         <PriceComponent price={24.31} />
-        <View style={{height: Insets.large}}/>
+        <View style={{ height: Insets.large }} />
         {tags.length > 0 && (
           <View style={styles.tagContainer}>
             {tags.map((tag, _) => (
-              <TyreTag tag={tag}/>
+              <TyreTag tag={tag} />
             ))}
           </View>
         )}

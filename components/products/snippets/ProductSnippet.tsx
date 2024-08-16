@@ -1,4 +1,3 @@
-import { useTheme } from "../../hooks/theme";
 import {
   StyleSheet,
   Image,
@@ -6,12 +5,12 @@ import {
   View,
   useWindowDimensions,
 } from "react-native";
-import StdButton from "../shared/StdButton";
-import Insets from "../../constants/insets";
 import { router } from "expo-router";
 import { useMemo } from "react";
 import { Ionicons } from "@expo/vector-icons";
-import PriceComponent from "./Price";
+import { useTheme } from "../../../hooks/theme";
+import Insets from "../../../constants/insets";
+import PriceComponent from "../Price";
 
 type Props = {};
 
