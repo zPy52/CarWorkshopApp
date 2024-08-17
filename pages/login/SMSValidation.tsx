@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -25,11 +25,16 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import Clickable from "../../components/shared/Clickable";
 import StdButton from "../../components/shared/StdButton";
+import CodeKeySnippet from "../../components/login/CodeKeySnippet";
 
 type Props = {
   title: string;
   description: string;
 };
+
+function isCodeComplete(code: string[], expectedLength: number): boolean {
+  return code.filter((item) => item !== "").length === expectedLength;
+}
 
 export default function SMSValidationPage({ title, description }: Props) {
   const { theme } = useTheme();
@@ -160,28 +165,24 @@ export default function SMSValidationPage({ title, description }: Props) {
 
   const handleChangeText = useCallback(
     (text: string, index: number) => {
-      console.log(text);
       text = text.trim();
 
       const newCode = [...code];
       newCode[index] = text.length > 0 ? text.charAt(text.length - 1) : "";
       setCode(newCode);
 
-      if (newCode.filter(item => item !== "").length === code.length) {
-        Keyboard.dismiss(); 
-      } else if (index < inputsRef.current.length - 1) {
+      if (isCodeComplete(newCode, code.length)) {
+        Keyboard.dismiss();
+      } else if (index < inputsRef.current.length - 1 && text.length > 0) {
         inputsRef.current[index + 1]?.focus();
       }
     },
-    [code]
+    [code, theme]
   );
 
   const handleKeyPress = useCallback(
     (e: any, index: number) => {
-      if (
-        e.nativeEvent.key === "Backspace" &&
-        index > 0
-      ) {
+      if (e.nativeEvent.key === "Backspace" && index > 0) {
         inputsRef.current[index - 1]?.focus();
       }
     },
@@ -193,49 +194,55 @@ export default function SMSValidationPage({ title, description }: Props) {
     [code]
   );
 
-  const styles = StyleSheet.create({
-    absolute: {
-      position: "absolute",
-    },
+  const styles = useMemo(() => StyleSheet.create({
     mainContainer: {
       flex: 1,
       justifyContent: "flex-start",
       backgroundColor: theme.colors.background,
       paddingHorizontal: Insets.screenMarginLarge,
     },
+
+    iconsHeaderSection: {
+      position: "absolute",
+      paddingHorizontal: Insets.screenMarginMedium,
+      paddingTop: Insets.screenMarginMedium,
+
+      width: width,
+      flex: 1,
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+    },
+
+    headline: {
+      ...theme.text.headlineLarge,
+      textAlign: "center",
+    },
+
+    description: {
+      ...theme.text.bodyLarge,
+      textAlign: "center",
+      paddingTop: Insets.small,
+      paddingBottom: Insets.screenMarginLarge,
+    },
+
     inputContainer: {
       flexDirection: "row",
       justifyContent: "space-between",
       marginVertical: Insets.large,
     },
-    input: {
-      backgroundColor: theme.colors.surface,
-      borderRadius: Insets.medium,
-      borderColor: theme.colors.outline,
-      borderWidth: 1,
-      textAlign: "center",
+    buttonContainer: {
+      position: "absolute",
       padding: Insets.screenMarginMedium,
+      width: width,
+      flex: 1,
+      bottom: 0,
     },
-  });
+  }), [theme, width]);
 
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <SafeAreaView
-        style={[
-          styles.absolute,
-          {
-            paddingHorizontal: Insets.screenMarginMedium,
-            paddingTop: Insets.screenMarginMedium,
-          },
-          {
-            width: width,
-            flex: 1,
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-          },
-        ]}
-      >
+      <SafeAreaView style={styles.iconsHeaderSection}>
         <Animated.View style={rnLeftIconStyle}>
           <Ionicons
             name="chatbubbles"
@@ -260,59 +267,38 @@ export default function SMSValidationPage({ title, description }: Props) {
       <View
         style={{ paddingTop: Insets.layoutLarge + Insets.screenMarginLarge }}
       >
-        <Animated.Text
-          style={[
-            theme.text.headlineLarge,
-            { textAlign: "center" },
-            rnTitleStyle,
-          ]}
-        >
+        <Animated.Text style={[styles.headline, rnTitleStyle]}>
           {title}
         </Animated.Text>
-        <Animated.Text
-          style={[
-            theme.text.bodyLarge,
-            { textAlign: "center" },
-            {
-              paddingTop: Insets.small,
-              paddingBottom: Insets.screenMarginLarge,
-            },
-            rnDescriptionStyle,
-          ]}
-        >
+        <Animated.Text style={[styles.description, rnDescriptionStyle]}>
           {description}
         </Animated.Text>
         <Animated.View style={rnInputStyle}>
           <View style={styles.inputContainer}>
             {code.map((digit, index) => (
-              <TextInput
+              <CodeKeySnippet
                 key={`t-sms-inpt-${index}`}
                 ref={(input) => (inputsRef.current[index] = input)}
-                style={[theme.text.bodyLarge, styles.input]}
+                value={digit}
                 onChangeText={(text) => handleChangeText(text, index)}
                 onKeyPress={(e) => handleKeyPress(e, index)}
-                value={digit}
-                keyboardType="numeric"
-                maxLength={1}
                 autoFocus={index === 0}
               />
             ))}
           </View>
         </Animated.View>
       </View>
-      <SafeAreaView
-        style={[
-          styles.absolute,
-          {
-            padding: Insets.screenMarginMedium,
-          },
-          { width: width, flex: 1, bottom: 0 },
-        ]}
-      >
+      <SafeAreaView style={styles.buttonContainer}>
         <View style={{ height: Insets.layoutSmall }}>
           <StdButton
-            text="Continue"
-            onPress={() => {}}
+            text="Validar"
+            onPress={() => {
+              if (!isCodeComplete(code, code.length)) {
+                return;
+              }
+
+              console.log(code);
+            }}
             enabled={buttonEnableChecker()}
           />
         </View>

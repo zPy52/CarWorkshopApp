@@ -9,7 +9,7 @@ type Props = {};
 export default function AskForPhone({}: Props) {
   const { theme } = useTheme();
 
-  //return <SMSValidationPage title="Validación SMS" description="Confirma tu número de teléfono con el código SMS que te enviamos" />
+  return <SMSValidationPage title="Validación SMS" description="Confirma tu número de teléfono con el código SMS que te enviamos" />
 
   return (
     <TextInputPageComponent
