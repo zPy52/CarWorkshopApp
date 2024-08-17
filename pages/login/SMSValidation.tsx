@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -29,27 +29,15 @@ import StdButton from "../../components/shared/StdButton";
 type Props = {
   title: string;
   description: string;
-  initialText?: string;
-  placeholder?: string;
-  textFormatter?: (text: string) => string;
-  leftIcon?: React.ReactNode;
 };
 
-export default function TextInputPage({
-  title,
-  description,
-  initialText = "",
-  placeholder = "",
-  textFormatter = (text) => text,
-  leftIcon,
-}: Props) {
+export default function SMSValidationPage({ title, description }: Props) {
   const { theme } = useTheme();
   const { width } = useWindowDimensions();
   const [isOpeningKeyboard, setIsOpeningKeyboard] = useState(false);
-  const [text, setText] = useState(initialText);
-  const [isFocused, setIsFocused] = useState(false);
-  const labelAnim = useSharedValue(0);
   const keyboardHeight = useSharedValue(0);
+  const [code, setCode] = useState(["", "", "", "", "", ""]);
+  const inputsRef = useRef<(TextInput | null)[]>([]);
   const safeAreaInsets = useSafeAreaInsets();
 
   const springConfig = useRef({
@@ -170,39 +158,40 @@ export default function TextInputPage({
     };
   }, [keyboardHeight, safeAreaInsets]);
 
-  const onChangeText = useRef((text: string) => {
-    setText(textFormatter(text));
-  }).current;
+  const handleChangeText = useCallback(
+    (text: string, index: number) => {
+      console.log(text);
+      text = text.trim();
 
-  const handleFocus = () => {
-    setIsFocused(true);
+      const newCode = [...code];
+      newCode[index] = text.length > 0 ? text.charAt(text.length - 1) : "";
+      setCode(newCode);
 
-    labelAnim.value = withTiming(1, {
-      duration: Durations.fast,
-      easing: Easing.inOut(Easing.cubic),
-    });
-  };
+      if (newCode.filter(item => item !== "").length === code.length) {
+        Keyboard.dismiss(); 
+      } else if (index < inputsRef.current.length - 1) {
+        inputsRef.current[index + 1]?.focus();
+      }
+    },
+    [code]
+  );
 
-  const handleBlur = () => {
-    setIsFocused(false);
-    if (!text) {
-      labelAnim.value = withTiming(0, {
-        duration: Durations.fast,
-        easing: Easing.inOut(Easing.cubic),
-      });
-    }
-  };
+  const handleKeyPress = useCallback(
+    (e: any, index: number) => {
+      if (
+        e.nativeEvent.key === "Backspace" &&
+        index > 0
+      ) {
+        inputsRef.current[index - 1]?.focus();
+      }
+    },
+    [code]
+  );
 
-  const buttonEnableChecker = useRef((text: string) => {
-    const formattedText = text.replaceAll(" ", "").trim();
-    if (formattedText.length === 0) {
-      return false;
-    }
-
-    const numberRegex = /^-?\d*(\.\d+)?$/;
-
-    return numberRegex.test(formattedText);
-  }).current;
+  const buttonEnableChecker = useCallback(
+    () => code.every((digit) => digit !== ""),
+    [code]
+  );
 
   const styles = StyleSheet.create({
     absolute: {
@@ -214,15 +203,18 @@ export default function TextInputPage({
       backgroundColor: theme.colors.background,
       paddingHorizontal: Insets.screenMarginLarge,
     },
+    inputContainer: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      marginVertical: Insets.large,
+    },
     input: {
       backgroundColor: theme.colors.surface,
-      paddingLeft: Insets.screenMarginLarge + Insets.medium,
-      color: theme.colors.onSurface,
       borderRadius: Insets.medium,
-      paddingHorizontal: Insets.screenMarginMedium,
-      paddingVertical: Insets.screenMarginMedium,
-      borderColor: isFocused ? theme.colors.outlineFocus : theme.colors.outline,
+      borderColor: theme.colors.outline,
       borderWidth: 1,
+      textAlign: "center",
+      padding: Insets.screenMarginMedium,
     },
   });
 
@@ -246,9 +238,9 @@ export default function TextInputPage({
       >
         <Animated.View style={rnLeftIconStyle}>
           <Ionicons
-            name="person-circle"
+            name="chatbubbles"
             size={Insets.layoutMedium}
-            color={theme.colors.onBackground}
+            color={theme.colors.primary}
           />
         </Animated.View>
         <Animated.View style={rnRightIconStyle}>
@@ -291,27 +283,20 @@ export default function TextInputPage({
           {description}
         </Animated.Text>
         <Animated.View style={rnInputStyle}>
-          <TextInput
-            style={[theme.text.bodyLarge, styles.input]}
-            onChangeText={onChangeText}
-            value={text}
-            placeholder={placeholder}
-            placeholderTextColor={theme.colors.surfaceContainerHighest}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-          />
-
-          <View
-            style={[
-              styles.absolute,
-              {
-                height: "100%",
-                justifyContent: "center",
-                paddingLeft: Insets.large,
-              },
-            ]}
-          >
-            {leftIcon && leftIcon}
+          <View style={styles.inputContainer}>
+            {code.map((digit, index) => (
+              <TextInput
+                key={`t-sms-inpt-${index}`}
+                ref={(input) => (inputsRef.current[index] = input)}
+                style={[theme.text.bodyLarge, styles.input]}
+                onChangeText={(text) => handleChangeText(text, index)}
+                onKeyPress={(e) => handleKeyPress(e, index)}
+                value={digit}
+                keyboardType="numeric"
+                maxLength={1}
+                autoFocus={index === 0}
+              />
+            ))}
           </View>
         </Animated.View>
       </View>
@@ -326,9 +311,9 @@ export default function TextInputPage({
       >
         <View style={{ height: Insets.layoutSmall }}>
           <StdButton
-            text="Continuar"
+            text="Continue"
             onPress={() => {}}
-            enabled={buttonEnableChecker(text)}
+            enabled={buttonEnableChecker()}
           />
         </View>
       </SafeAreaView>
