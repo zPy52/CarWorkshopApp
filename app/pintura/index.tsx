@@ -279,7 +279,7 @@ const CarPartSelector = () => {
           <View style={styles.containerTitleBotom}>
             <TouchableOpacity
               onPress={handleChevronBackPress}
-              style={{ position: 'absolute', left: 0, top:-13}}
+              style={{ position: 'absolute', left: -25, top:-13}}
             >
               <ChevronBack />
             </TouchableOpacity>

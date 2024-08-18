@@ -7,6 +7,7 @@ import {
   Image,
   SafeAreaView,
   Animated,
+  TouchableOpacity,
 } from 'react-native';
 import { useTheme } from '../../hooks/theme';
 import Insets from '../../constants/insets';
@@ -21,6 +22,16 @@ const App = () => {
   const { theme } = useTheme();
   const [scrollY] = useState(new Animated.Value(0));
   const navigation = useNavigation();
+  const [selectedPart, setSelectedPart] = useState(null);
+  const [selectedSection, setSelectedSection] = useState(null);
+
+  const handleChevronBackPress = () => {
+    if (selectedPart) {
+      setSelectedPart(null);
+    } else if (selectedSection) {
+      setSelectedSection(null);
+    }
+  };
 
   const styles = StyleSheet.create({
     container: {
@@ -52,6 +63,12 @@ const App = () => {
       fontSize: 20,
       fontWeight: 'bold',
       color: theme.colors.onBackground,
+    },
+    containerTitleBotom:{
+      alignItems: 'center',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      marginBottom: 5,
     },
     duration: {
       fontSize: 16,
@@ -161,7 +178,15 @@ const App = () => {
         )}
       >
         <View style={styles.header}>
-          <Text style={styles.title}>Pre-ITV + ITV</Text>
+        <View style={styles.containerTitleBotom}>
+            <TouchableOpacity
+              onPress={handleChevronBackPress}
+              style={{ position: 'absolute', left: -25, top:-3}}
+            >
+              <ChevronBack />
+            </TouchableOpacity>
+            <Text style={styles.title}>Pre-ITV + ITV</Text>
+          </View>
           <View style={styles.row}>
             <Ionicons
               name="timer"
@@ -174,7 +199,8 @@ const App = () => {
             El servicio clave para mantener tu coche en perfecto estado de
             seguridad y funcionamiento.
           </Text>
-        </View>
+          </View>
+
 
         <View style={styles.divider} />
 

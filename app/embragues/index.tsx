@@ -44,6 +44,16 @@ const ClutchSelector = () => {
   const [sortOrder, setSortOrder] = useState("asc");
   const [selectedModel, setSelectedModel] = useState(null);
   const [selectedClutch, setSelectedClutch] = useState(null);
+  const [selectedPart, setSelectedPart] = useState(null);
+  const [selectedSection, setSelectedSection] = useState(null);
+
+  const handleChevronBackPress = () => {
+    if (selectedPart) {
+      setSelectedPart(null);
+    } else if (selectedSection) {
+      setSelectedSection(null);
+    }
+  };
 
   const [currentPage, setCurrentPage] = useState(0); // Estado para la página actual
   const itemsPerPage = 7; // Máximo de elementos por página
@@ -88,7 +98,7 @@ const ClutchSelector = () => {
       marginBottom: 10,
     },
     headerContainer: {
-      marginTop: Insets.screenMarginLarge,
+      marginTop: 10,
     },
     buttonContainer: {
       flexDirection: "row",
@@ -120,6 +130,12 @@ const ClutchSelector = () => {
       marginTop: 10,
       fontWeight: "bold",
       color: theme.colors.onBackground,
+    },
+    containerTitleBotom:{
+      alignItems: 'center',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      marginBottom: 5,
     },
     stickyHeader: {
       position: 'absolute',
@@ -274,7 +290,15 @@ const ClutchSelector = () => {
         )}
       >
         <View style={styles.headerContainer}>
-          <Text style={styles.title}>Servicio de embragues</Text>
+        <View style={styles.containerTitleBotom}>
+            <TouchableOpacity
+              onPress={handleChevronBackPress}
+              style={{ position: 'absolute', left: -25, top:-13}}
+            >
+              <ChevronBack />
+            </TouchableOpacity>
+            <Text style={styles.title}>Servicio de embragues</Text>
+          </View>
           <View style={styles.row}>
             <Ionicons
               name="timer"

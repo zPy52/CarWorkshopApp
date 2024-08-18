@@ -4,12 +4,23 @@ import { Ionicons } from "@expo/vector-icons";
 import Insets from '../../constants/insets';
 import { useTheme } from "../../hooks/theme";
 import StdButton from '../shared/StdButton'; // Asegúrate de que la ruta sea correcta
+import ChevronBack from '../../components/shared/ChevronBack';
 
 const BrakeSelector = () => {
   const [brakeType, setBrakeType] = useState(''); // Estado para el selector de frenos
   const [padChangeOption, setPadChangeOption] = useState(''); // Estado para el selector de recambio de pastillas
   const [additionalBrakePadChange, setAdditionalBrakePadChange] = useState(''); // Estado para el selector de opciones adicionales
   const { theme } = useTheme();
+  const [selectedPart, setSelectedPart] = useState(null);
+  const [selectedSection, setSelectedSection] = useState(null);
+
+  const handleChevronBackPress = () => {
+    if (selectedPart) {
+      setSelectedPart(null);
+    } else if (selectedSection) {
+      setSelectedSection(null);
+    }
+  };
 
   const styles = StyleSheet.create({
     container: {
@@ -55,6 +66,12 @@ const BrakeSelector = () => {
       marginTop: 10,
       fontWeight: 'bold',
       color: theme.colors.onBackground,
+    },
+    containerTitleBotom:{
+      alignItems: 'center',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      marginBottom: 5,
     },
     row: {
       flexDirection: 'row',
@@ -128,7 +145,15 @@ const BrakeSelector = () => {
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View>
           <View style={styles.headerContainer}>
-            <Text style={styles.title}>Servicio de recambio de frenos</Text>
+          <View style={styles.containerTitleBotom}>
+            <TouchableOpacity
+              onPress={handleChevronBackPress}
+              style={{ position: 'absolute', left: -25, top:-13}}
+            >
+              <ChevronBack />
+            </TouchableOpacity>
+            <Text style={styles.title}>Servicio de frenos</Text>
+          </View>
             <View style={styles.row}>
               <Ionicons
                 name="timer"
