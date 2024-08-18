@@ -140,7 +140,7 @@ const HomeStation = () => {
             />,
             <BigCard
               key={"bc2"}
-              navigateTo="../frenos"
+              navigateTo="../pintura" // aqui va frenos pero estoy haciendo pruebas con embragues
               title="Kit de Frenos"
               imageSource={StaticImages.kitImages.brakeIm}
               style={styles.secondaryElement}

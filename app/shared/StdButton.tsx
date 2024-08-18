@@ -32,12 +32,15 @@ export default function StdButton({ text, onPress, enabled = true }: Props) {
 
   return (
     <Clickable onPress={onPress}>
-      <View style={styles.continueButton}>
+      <View style={[
+    styles.continueButton,
+    { backgroundColor: theme.colors.primary } // pongo el color aqui por error en embrague
+  ]}>
         <Text
           style={[
             theme.text.titleMedium,
             { fontWeight: "bold", textAlign: "center" },
-            { color: theme.colors.onPrimary },
+            { color: theme.colors.background }, // texto en blanco sobre azul
           ]}
         >
           {text}

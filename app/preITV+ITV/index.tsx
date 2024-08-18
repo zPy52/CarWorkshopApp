@@ -7,7 +7,6 @@ import {
   Image,
   SafeAreaView,
   Animated,
-  TouchableOpacity,
 } from 'react-native';
 import { useTheme } from '../../hooks/theme';
 import Insets from '../../constants/insets';
@@ -197,7 +196,7 @@ const App = () => {
               color={theme.colors.surfaceVariant}
               style={styles.iconSpacing}
             />
-            <Text style={styles.definition}>Un chófer recogerá tu coche</Text>
+            <Text style={styles.definition}>Un asistente recogerá tu coche</Text>
           </View>
           <View style={styles.step}>
             <MaterialCommunityIcons
