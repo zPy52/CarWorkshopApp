@@ -4,7 +4,6 @@ import React, { forwardRef, useCallback, useMemo } from "react";
 import { TextInput, StyleSheet } from "react-native";
 import Animated, {
   interpolateColor,
-  StyleProps,
   useAnimatedStyle,
   useSharedValue,
   withTiming,

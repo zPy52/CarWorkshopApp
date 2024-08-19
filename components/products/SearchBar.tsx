@@ -3,6 +3,7 @@ import { View, TextInput, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "../../hooks/theme";
 import Insets from "../../constants/insets";
+import Clickable from "../shared/Clickable";
 
 type Props = { placeholder: string; onSearch: () => void };
 
@@ -31,13 +32,13 @@ export default function SearchBar({ placeholder, onSearch }: Props) {
       shadowRadius: Insets.medium,
     },
     icon: {
-      marginRight: Insets.submedium,
+      marginLeft: Insets.submedium,
     },
     input: {
       width: "100%",
       flexShrink: 1,
       ...theme.text.bodyLarge,
-      textAlignVertical: "center", 
+      textAlignVertical: "center",
       lineHeight: theme.text.bodyLarge.lineHeight - Insets.dwarf,
     },
   });
@@ -45,12 +46,6 @@ export default function SearchBar({ placeholder, onSearch }: Props) {
   return (
     <View style={styles.container}>
       <View style={styles.searchBar}>
-        <Ionicons
-          name="search"
-          size={Insets.icon}
-          color={theme.colors.surfaceContainerHighest}
-          style={styles.icon}
-        />
         <TextInput
           style={styles.input}
           placeholder={placeholder}
@@ -58,6 +53,14 @@ export default function SearchBar({ placeholder, onSearch }: Props) {
           onSubmitEditing={onSearch}
           returnKeyType="search"
         />
+        <Clickable onPress={onSearch}>
+          <Ionicons
+            name="search"
+            size={Insets.icon}
+            color={theme.colors.surfaceContainerHighest}
+            style={styles.icon}
+          />
+        </Clickable>
       </View>
     </View>
   );
