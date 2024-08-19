@@ -14,7 +14,9 @@ export default function CatalogPage({}: Props) {
   const { theme } = useTheme();
   const { width } = useWindowDimensions();
 
-  const [modalStatus, setModalStatus] = useState<"open" | "close" | undefined>(undefined);
+  const [modalStatus, setModalStatus] = useState<"open" | "close" | undefined>(
+    undefined
+  );
 
   const toggleModal = useCallback(() => {
     setModalStatus((prevStatus) => (prevStatus === "open" ? "close" : "open"));
@@ -35,8 +37,23 @@ export default function CatalogPage({}: Props) {
       <Clickable onPress={() => router.navigate("/products/pages/tyres")}>
         <ProductSnippet key={"mama"} />
       </Clickable>
-      
-      <FiltersBottomModalSheet command={modalStatus} />
+
+      <FiltersBottomModalSheet
+        command={modalStatus}
+        filters={[
+          {
+            categoryName: "Price",
+            categoryType: "range",
+            startRange: 10,
+            endRange: 1000,
+          },
+          {
+            categoryName: "Size",
+            categoryType: "options",
+            options: ["34", "41", "93", "810"]
+          },
+        ]}
+      />
     </SafeAreaView>
   );
 }

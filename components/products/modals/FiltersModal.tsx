@@ -1,49 +1,75 @@
-import React, { useCallback, useRef, useMemo, useEffect } from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import React, {
+  useCallback,
+  useRef,
+  useMemo,
+  useEffect,
+  useState,
+} from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+  useWindowDimensions,
+} from "react-native";
 import BottomSheet from "@gorhom/bottom-sheet";
+import Slider from "@react-native-community/slider";
 import { useTheme } from "../../../hooks/theme";
+import Insets from "../../../constants/insets";
+import Clickable from "../../shared/Clickable";
 
-type Props = {
-  command?: "open" | "close" | undefined;
+// Reuse the types from above
+type OptionFilter = {
+  categoryName: string;
+  categoryType: "options";
+  options: string[];
 };
 
-export default function FiltersBottomModalSheet({ command }: Props) {
+type RangeFilter = {
+  categoryName: string;
+  categoryType: "range";
+  startRange: number;
+  endRange: number;
+};
+
+type FilterCategory = OptionFilter | RangeFilter;
+
+type Props = {
+  command?: "open" | "close";
+  filters: FilterCategory[];
+};
+
+export default function FiltersBottomModalSheet({ command, filters }: Props) {
   const { theme } = useTheme();
+  const { height } = useWindowDimensions();
+  const bottomSheetRef = useRef<BottomSheet>(null);
+  const snapPoints = ["100%"];
 
-  // ref to access BottomSheet
-  const bottomSheetRef = useRef(null);
-
-  // snapPoints define the sheet's height
-  const snapPoints = useRef(["50%", "80%"]).current;
-
-  // function to open the sheet
   const openBottomSheet = useCallback(() => {
     bottomSheetRef.current?.expand();
   }, []);
 
-  // function to close the sheet
   const closeBottomSheet = useCallback(() => {
     bottomSheetRef.current?.close();
   }, []);
 
-  // Handle bottom sheet changes
-  const handleSheetChanges = useCallback((index: number) => {
-    if (index < 1) {
-      closeBottomSheet(); // Fully close the sheet if it's at the bottom (index 0 or -1)
-    }
-  }, []);
-
   useEffect(() => {
-    if (command == null) {
-      return;
-    }
-
     if (command === "open") {
       openBottomSheet();
-    } else {
+    } else if (command === "close") {
       closeBottomSheet();
     }
-  }, [command]);
+  }, [command, openBottomSheet, closeBottomSheet]);
+
+  const renderFilterItem = useCallback(({ item }: { item: FilterCategory }) => {
+    if (item.categoryType === "options") {
+      return <OptionFilterComponent filter={item as OptionFilter} />;
+    } else if (item.categoryType === "range") {
+      return <RangeFilterComponent filter={item as RangeFilter} />;
+    }
+    return null;
+  }, []);
 
   const styles = useMemo(
     () =>
@@ -54,33 +80,153 @@ export default function FiltersBottomModalSheet({ command }: Props) {
         },
         contentContainer: {
           flex: 1,
-          alignItems: "center",
-        },
-        contentText: {
-          marginBottom: 20,
-          fontSize: 18,
-          fontWeight: "bold",
-          color: "black",
+          padding: Insets.screenMarginMedium,
         },
       }),
-    [theme]
+    []
   );
 
   return (
     <View style={styles.container}>
       <BottomSheet
         ref={bottomSheetRef}
-        detached={true}
-        enablePanDownToClose={true}
-        index={-1} // initially closed
+        detached
+        enablePanDownToClose
+        index={-1}
         snapPoints={snapPoints}
-        onChange={handleSheetChanges}
       >
         <View style={styles.contentContainer}>
-          <Text style={styles.contentText}>Hello, I'm a Bottom Sheet!</Text>
-          <Text>a</Text>
+          <FlatList
+            data={filters}
+            renderItem={renderFilterItem}
+            keyExtractor={(item, index) => `${item.categoryName}-${index}`}
+            showsVerticalScrollIndicator={false}
+          />
         </View>
       </BottomSheet>
     </View>
   );
 }
+
+const OptionFilterComponent: React.FC<{ filter: OptionFilter }> = ({
+  filter,
+}) => {
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const { theme } = useTheme();
+
+  const styles = useMemo(
+    () =>
+      StyleSheet.create({
+        filterContainer: {
+          marginVertical: Insets.medium,
+          
+        },
+        filterTitle: {
+          ...theme.text.titleLarge,
+          fontWeight: "bold",
+          marginBottom: Insets.medium,
+        },
+        optionButton: {
+          padding: Insets.medium,
+          borderWidth: Insets.pixel,
+          borderColor: theme.colors.primary,
+          borderRadius: Insets.submedium,
+          marginVertical: Insets.small,
+          backgroundColor: theme.colors.background,
+        },
+        optionText: {
+          ...theme.text.bodyLarge,
+        },
+      }),
+    [theme]
+  );
+
+  return (
+    <View style={styles.filterContainer}>
+      <Text style={styles.filterTitle}>{filter.categoryName}</Text>
+      {filter.options.map((option) => (
+        <Clickable onPress={() => setSelectedOption(option)}>
+          <View
+            key={option}
+            style={[
+              styles.optionButton,
+              {
+                backgroundColor:
+                  selectedOption === option
+                    ? theme.colors.primary
+                    : theme.colors.background,
+              },
+            ]}
+          >
+            <Text
+              style={[
+                styles.optionText,
+                {
+                  color:
+                    selectedOption === option
+                      ? theme.colors.background
+                      : theme.text.bodyLarge.color,
+                },
+              ]}
+            >
+              {option}
+            </Text>
+          </View>
+        </Clickable>
+      ))}
+    </View>
+  );
+};
+
+const RangeFilterComponent: React.FC<{ filter: RangeFilter }> = ({
+  filter,
+}) => {
+  const [rangeValue, setRangeValue] = useState([
+    filter.startRange,
+    filter.endRange,
+  ]);
+  const { theme } = useTheme();
+
+  const styles = useMemo(
+    () =>
+      StyleSheet.create({
+        filterContainer: {
+          marginVertical: Insets.medium,
+        },
+        filterTitle: {
+          ...theme.text.titleLarge,
+          fontWeight: "bold",
+          marginBottom: Insets.medium,
+        },
+        rangeValueText: {
+          ...theme.text.bodyLarge,
+          textAlign: "center",
+          marginVertical: Insets.medium,
+        },
+      }),
+    [theme]
+  );
+
+  return (
+    <View style={styles.filterContainer}>
+      <Text style={styles.filterTitle}>{filter.categoryName}</Text>
+      <Slider
+        style={{ width: "100%", height: Insets.screenMarginLarge }}
+        minimumValue={filter.startRange}
+        maximumValue={filter.endRange}
+        onValueChange={(value) =>
+          setRangeValue([Math.round(value), rangeValue[1]])
+        }
+        onSlidingComplete={(value) =>
+          setRangeValue([Math.round(value), rangeValue[1]])
+        }
+        minimumTrackTintColor={theme.colors.primary}
+        maximumTrackTintColor={theme.text.bodyLarge.color}
+        thumbTintColor={theme.colors.primary}
+      />
+      <Text style={styles.rangeValueText}>
+        {rangeValue[0]} - {rangeValue[1]}
+      </Text>
+    </View>
+  );
+};
