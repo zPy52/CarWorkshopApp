@@ -24,7 +24,7 @@ export default function HomeCard({ style, navigateTo, title, imageSource }: Prop
       ]}>
         <Image
           source={imageSource}
-          style={{ width: '70%', height: '70%' }}
+          style={{ width: '100%', height: '100%' }}
           resizeMode="contain"
         />
         <Text style={[

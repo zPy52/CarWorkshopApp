@@ -31,7 +31,7 @@ export default function HomeStation() {
       StyleSheet.create({
         mainContainer: {
           flex: 1,
-          backgroundColor: "rgb(248, 252, 255)",
+          backgroundColor: theme.colors.background,
           paddingHorizontal: Insets.screenMarginMedium,
         },
         scrollViewContent: {
@@ -62,7 +62,6 @@ export default function HomeStation() {
           width: width * 0.46 - Insets.screenMarginMedium,
           height: Insets.layoutMedium,
           marginLeft: Insets.small,
-          backgroundColor: theme.colors.surface,
           borderRadius: Insets.small,
         },
         secondaryElement: {
@@ -71,29 +70,31 @@ export default function HomeStation() {
           alignContent: 'stretch',
           flexDirection: 'row',
           justifyContent: 'flex-start',
-          backgroundColor : "rgb(248, 252, 255)",
+          backgroundColor : theme.colors.background,
           borderRadius: Insets.small,
 
         },
         helpContainer: {
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "flex-start",
-          padding: Insets.large,
+          alignItems: 'center',
+          justifyContent: 'center', // Centra los elementos en la dirección vertical
+          margin: Insets.large,
+          padding: Insets.small,
           borderRadius: Insets.small,
-          backgroundColor: theme.colors.primaryVariant,
-        },
-        helpText: {
-          flex: 1,
-          color: theme.colors.onPrimary,
-          fontSize: 16,
-          fontWeight: "bold",
-          marginLeft: Insets.large,
+          backgroundColor: theme.colors.surface,
         },
         helpImage: {
-          width: 60,
-          height: 60,
+    // Ajusta según el tamaño necesario, dejando espacio para el texto
+          width: '100%',
+          height: 175,
+          resizeMode: 'contain',
           borderRadius: Insets.small,
+        },
+        helpText: {
+          color: theme.colors.onSurface,
+          fontSize: 16,
+          fontWeight: 'bold',
+          margin: Insets.submedium, // Separación del texto con la imagen
+          textAlign: 'center', // Centrar el texto
         },
         modalContainer: {
           flex: 1,
@@ -130,11 +131,22 @@ export default function HomeStation() {
         },
         modalOptionButton: {
           marginLeft: Insets.small,
-          backgroundColor: theme.colors.primary,
+          backgroundColor: 'green',
           borderRadius: Insets.small,
         },
+        modalOptionButtonSecondary: {
+          marginLeft: Insets.small,
+          backgroundColor: theme.colors.surfaceContainerLow,
+          borderRadius: Insets.small,
+          opacity: 0.6,
+        },
         modalOptionText: {
-          color: theme.colors.onSurface,
+          color: theme.colors.primary,
+          fontSize: 18,
+          fontWeight: "bold",
+        },
+        modalOptionTextSecondary: {
+          color: theme.colors.primary,
           fontSize: 18,
           fontWeight: "bold",
         },
@@ -161,7 +173,7 @@ export default function HomeStation() {
     {
       key: "k2",
       navigateTo: "../../basket",
-      title: "Repuestos",
+      title: "Frenos",
       imageSource: StaticImages.detailedIcons.brake,
       style: styles.element,
     },
@@ -175,7 +187,7 @@ export default function HomeStation() {
     {
       key: "k4",
       navigateTo: "../../basket",
-      title: "Motor",
+      title: "Embrague",
       imageSource: StaticImages.detailedIcons.engine,
       style: styles.element,
     },
@@ -198,15 +210,6 @@ export default function HomeStation() {
   // Data for BigCard components
   const bigCardData = [
     {
-      key: "bc1",
-      navigateTo: "../../basket",
-      title: "PreITV + ITV",
-      imageSource: StaticImages.kitImages.ITVIm,
-      style: styles.secondaryElement,
-      subtitle:
-        "Este pack incluye una revisión previa y la gestión completa de tu ITV.",
-    },
-    {
       key: "bc2",
       navigateTo: "../../basket",
       title: "Kit de Distribución",
@@ -224,6 +227,36 @@ export default function HomeStation() {
       subtitle: "Renueva los frenos de tu coche con nuestro completo kit.",
     },
   ];
+
+    // Data for BigCard components
+    const bigCardMantenimiento = [
+      {
+        key: "bc1c",
+        navigateTo: "../../basket",
+        title: "PreITV + ITV",
+        imageSource: StaticImages.kitImages.ITVIm,
+        style: styles.secondaryElement,
+        subtitle:
+          "Este pack incluye una revisión previa y la gestión completa de tu ITV.",
+      },
+      {
+        key: "bc2c",
+        navigateTo: "../../basket",
+        title: "Diagnosis",
+        imageSource: StaticImages.kitImages.diagnosis,
+        style: styles.secondaryElement,
+        subtitle:
+          "Realizamos un diagnóstico de las averías y un presupuesto de reparación.",
+      },
+      {
+        key: "bc3c",
+        navigateTo: "../../basket",
+        title: "Pintura del coche",
+        imageSource: StaticImages.kitImages.pintura,
+        style: styles.secondaryElement,
+        subtitle: "Pintamos los rayones o partes completas de tu coche.",
+      },
+    ];
 
   return (
     <SafeAreaView style={styles.mainContainer}>
@@ -245,10 +278,10 @@ export default function HomeStation() {
         contentContainerStyle={styles.scrollViewContent}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={styles.text}>Encuentra y reemplaza tus piezas</Text>
+        <Text style={[styles.text, { marginBottom: Insets.screenMarginLarge, marginLeft: Insets.large  }]}>Encuentra y reemplaza tus piezas</Text>
         <WrapView
           horizontalSpacing={Insets.large}
-          verticalSpacing={Insets.screenMarginMedium}
+          verticalSpacing={Insets.screenMarginLarge}
           data={homeCardData} // Pass the data array
           keyExtractor={(item) => item.key} // Extract the key from each item
           renderItem={(item) => (
@@ -261,11 +294,11 @@ export default function HomeStation() {
           )}
         />
 
-        <Text style={[styles.text, { marginTop: 20 }]}>
-          Packs de Mantenimiento
+        <Text style={[styles.text, { marginTop: Insets.screenMarginLarge, marginLeft: Insets.large}]}>
+          Kits de Reparación
         </Text>
         <WrapView
-          horizontalSpacing={Insets.screenMarginLarge}
+          horizontalSpacing={Insets.large}
           verticalSpacing={Insets.screenMarginMedium}
           data={bigCardData} // Pass the data array
           keyExtractor={(item) => item.key} // Extract the key from each item
@@ -279,8 +312,27 @@ export default function HomeStation() {
             />
           )}
         />
+        <Text style={[styles.text, { marginTop: Insets.screenMarginLarge, marginLeft: Insets.large}]}>
+          Packs de Mantenimiento
+        </Text>
 
-        <Text style={[styles.text, { marginTop: 20 }]}>
+        <WrapView
+          horizontalSpacing={Insets.large}
+          verticalSpacing={Insets.screenMarginMedium}
+          data={bigCardMantenimiento} // Pass the data array
+          keyExtractor={(item) => item.key} // Extract the key from each item
+          renderItem={(item) => (
+            <BigCard
+              navigateTo={item.navigateTo}
+              title={item.title}
+              imageSource={item.imageSource}
+              style={item.style}
+              subtitle={item.subtitle}
+            />
+          )}
+        />
+
+        <Text style={[styles.text, { marginTop: Insets.screenMarginLarge, marginLeft: Insets.large}]}>
           ¿Necesita Asesoramiento?
         </Text>
 
@@ -321,26 +373,6 @@ export default function HomeStation() {
             </View>
             <View style={styles.modalOptionContainer}>
               <View>
-                <Text style={styles.modalOptionText}>911 98 68 40</Text>
-                <Text style={styles.modalOptionSecondaryText}>
-                  De lunes a viernes
-                </Text>
-                <Text style={styles.modalOptionSecondaryText}>9h - 19h</Text>
-              </View>
-              <TouchableOpacity
-                onPress={() => router.navigate("/help")}
-                style={styles.modalOptionButton}
-              >
-                <Ionicons
-                  name="call-outline"
-                  size={24}
-                  color={theme.colors.background}
-                  style={styles.modalOptionIcon}
-                />
-              </TouchableOpacity>
-            </View>
-            <View style={styles.modalOptionContainer}>
-              <View>
                 <Text style={styles.modalOptionText}>Contacto de Whatsapp</Text>
                 <Text style={styles.modalOptionSecondaryText}>
                   De lunes a viernes
@@ -353,8 +385,28 @@ export default function HomeStation() {
               >
                 <Ionicons
                   name="logo-whatsapp"
-                  size={24}
-                  color={theme.colors.background}
+                  size={30}
+                  color= 'white'
+                  style={styles.modalOptionIcon}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.modalOptionContainer}>
+              <View>
+                <Text style={styles.modalOptionTextSecondary}>911 98 68 40</Text>
+                <Text style={styles.modalOptionSecondaryText}>
+                  De lunes a viernes
+                </Text>
+                <Text style={styles.modalOptionSecondaryText}>9h - 19h</Text>
+              </View>
+              <TouchableOpacity
+                onPress={() => router.navigate("/help")}
+                style={styles.modalOptionButtonSecondary}
+              >
+                <Ionicons
+                  name="call-outline"
+                  size={30}
+                  color={theme.colors.onBackground}
                   style={styles.modalOptionIcon}
                 />
               </TouchableOpacity>
@@ -363,7 +415,7 @@ export default function HomeStation() {
         </View>
       </Modal>
 
-      <BottomBar currentScreen="home" style={{backgroundColor:'rgb(240, 248, 255)'}}/>
+      <BottomBar currentScreen="home"/>
     </SafeAreaView>
   );
 }

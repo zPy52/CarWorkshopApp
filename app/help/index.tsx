@@ -90,7 +90,7 @@ const HelpStation = () => {
             <Ionicons name="mail-outline" style={styles.buttonIcon} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={[styles.button, {backgroundColor: 'green'}]}>
             <Ionicons name="logo-whatsapp" style={styles.buttonIcon} />
           </TouchableOpacity>
         </View>
