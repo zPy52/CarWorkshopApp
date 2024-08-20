@@ -2,6 +2,11 @@ import Color from "../../../utils/color";
 import { ColorPaletteType } from "../types";
 
 const DarkColors: ColorPaletteType = {
+  misc: {
+    euBlue: Color.hsl(213, 100, 35),
+    euText: Color.hsl(0, 0, 100),
+  },
+  
   transparent: Color.hslo(0, 0, 0, 0),
   
   primary: Color.hsl(210, 100, 65), // Blue, slightly darker
