@@ -2,6 +2,11 @@ import { ColorPaletteType } from "../types";
 import Color from "../../../utils/color";
 
 const LightColors: ColorPaletteType = {
+  misc: {
+    euBlue: Color.hsl(213, 100, 35),
+    euText: Color.hsl(0, 0, 100),
+  },
+
   transparent: Color.hslo(0, 0, 0, 0),
 
   primary: Color.hsl(210, 100, 50),

@@ -238,15 +238,15 @@ export default function CarLicenseInputPage({
       paddingHorizontal: Insets.small,
       justifyContent: "center",
       alignItems: "center",
-      backgroundColor: "#0052B4",
-      borderColor: "#0052B4",
+      backgroundColor: theme.colors.misc.euBlue,
+      borderColor: theme.colors.misc.euBlue,
       // Note: we have to subtract parent's borderWidth to get a smooth fit with the left borders.
       borderTopLeftRadius: Insets.medium - Insets.pixel,
       borderBottomLeftRadius: Insets.medium - Insets.pixel,
     },
     euLabel: {
       ...theme.text.titleMedium,
-      color: "white",
+      color: theme.colors.misc.euText,
       fontWeight: "bold",
     },
     euImage: {

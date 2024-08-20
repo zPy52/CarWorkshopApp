@@ -1,9 +1,11 @@
-export interface HomeSnippetPaletteType {
-  background: string;
-  container: string;
+export interface Miscellaneous {
+  euBlue: string;
+  euText: string;
 }
 
 export interface ColorPaletteType {
+  misc: Miscellaneous;
+
   transparent: string;
 
   primary: string;
@@ -82,7 +84,6 @@ export interface TextThemeType {
   bodyMedium: TextStyleType;
   bodySmall: TextStyleType;
 }
-
 
 export interface ConcreteThemeType {
   mode: 'light' | 'dark';
