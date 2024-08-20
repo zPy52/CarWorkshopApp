@@ -11,6 +11,8 @@ import {
   Inter_600SemiBold,
   Inter_700Bold,
 } from "@expo-google-fonts/inter";
+import { Provider } from "react-redux";
+import { store } from "../redux/store";
 
 function Scaffold({ children }) {
   const { theme } = useTheme();
@@ -34,17 +36,19 @@ function Scaffold({ children }) {
 
 export default function AppLayout() {
   return (
-    <ThemeProvider>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <Scaffold>
-          <Stack
-            screenOptions={{
-              headerShown: false,
-              animation: "simple_push",
-            }}
-          />
-        </Scaffold>
-      </GestureHandlerRootView>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <Scaffold>
+            <Stack
+              screenOptions={{
+                headerShown: false,
+                animation: "simple_push",
+              }}
+            />
+          </Scaffold>
+        </GestureHandlerRootView>
+      </ThemeProvider>
+    </Provider>
   );
 }

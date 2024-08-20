@@ -41,6 +41,13 @@ const Basket = () => {
           marginBottom: 10,
           color: theme.colors.onBackground,
         },
+        totalTextContainer: {
+          flexDirection: 'row',
+          justifyContent: 'space-between', 
+          alignItems: 'center',
+          marginTop: 10,
+          marginBottom: 10,
+        },
         //----------------------------------------
         secondaryContainer: {
           flex: 1,
@@ -53,20 +60,6 @@ const Basket = () => {
           alignItems: 'center',
           height: Insets.layoutSmall,
         },
-        /*confirmButton: {
-          width: screenWidth - Insets.screenMarginLarge * 2.1,
-          height: 60,
-          borderRadius: Insets.large,
-          margin: Insets.large,
-          alignContent: 'center',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: theme.colors.primary,
-        },
-        confirmButtonText: {
-          color: theme.colors.onPrimary,
-          fontWeight: 'bold',
-        }, */
         //----------------------------------------
         SwipeButton: {
           width: screenWidth - Insets.screenMarginMedium * 2,
@@ -158,9 +151,12 @@ const Basket = () => {
         />
       </View>
       <View style={styles.totalContainer}>
-        <Text style={styles.totalText}>Coste total: ${getTotal()}</Text>
+        <View style={styles.totalTextContainer}>
+          <Text style={styles.totalText}>Coste total:</Text>
+          <Text style={styles.totalText}>${getTotal()}</Text>
+        </View>
         <View style={styles.confirmButtonContainer}>
-          <StdButton text="Confirmar" onPress={() => router.navigate('/home')} />
+          <StdButton text="Confirmar" onPress={() => router.navigate('../../basket/Delivery')} />
         </View>
       </View>
     </SafeAreaView>

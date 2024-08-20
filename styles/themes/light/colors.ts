@@ -2,6 +2,8 @@ import { ColorPaletteType } from "../types";
 import Color from "../../../utils/color";
 
 const LightColors: ColorPaletteType = {
+  transparent: Color.hslo(0, 0, 0, 0),
+
   primary: Color.hsl(210, 100, 50),
   primaryVariant: Color.hsl(210, 100, 40),
   onPrimary: Color.hsl(210, 50, 95),
