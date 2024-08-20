@@ -11,7 +11,6 @@ import WrapView from "../../components/shared/WrapView";
 import BigCard from "../../components/home/BigCard";
 import Insets from "../../constants/insets";
 import StaticImages from "../../constants/static_images";
-import PromoButton from "../../components/home/PromoButton";
 
 const HomeStation = () => {
   const screenWidth = Dimensions.get("window").width;
@@ -23,7 +22,7 @@ const HomeStation = () => {
       StyleSheet.create({
         mainContainer: {
           flex: 1,
-          backgroundColor: theme.colors.background,
+          backgroundColor: "rgb(248, 252, 255)",
           paddingHorizontal: Insets.screenMarginMedium,
         },
         scrollViewContent: {
@@ -54,19 +53,18 @@ const HomeStation = () => {
           width: screenWidth * 0.46 - Insets.screenMarginMedium,
           height: Insets.layoutMedium,
           marginLeft: Insets.small,
-          backgroundColor: theme.colors.background,
+          backgroundColor: theme.colors.surface,
           borderRadius: Insets.small,
-          borderWidth: 1,
-          borderColor: theme.colors.primary,
         },
         secondaryElement: {
           width: screenWidth - Insets.screenMarginMedium * 1.5,
-          height: Insets.layoutLarge,
+          height: Insets.layoutLarge - 20,
           alignContent: 'stretch',
           flexDirection: 'row',
           justifyContent: 'flex-start',
-          backgroundColor : theme.colors.tertiary,
+          backgroundColor : "rgb(248, 252, 255)",
           borderRadius: Insets.small,
+
         },
         helpContainer: {
           flexDirection: 'row',
@@ -294,7 +292,7 @@ const HomeStation = () => {
         </View>
       </Modal>
 
-      <BottomBar currentScreen="home" />
+      <BottomBar currentScreen="home" style={{backgroundColor:'rgb(240, 248, 255)'}}/>
     </SafeAreaView>
   );
 }

@@ -22,9 +22,11 @@ export default function HomeCard({ style, navigateTo, title, imageSource }: Prop
         { alignContent: 'center', alignItems: 'center', justifyContent: 'center', },
         style,
       ]}>
-        <Image source={imageSource} style={[
-          { width: 40, height: 40, padding: Insets.small},
-        ]} />
+        <Image
+          source={imageSource}
+          style={{ width: '70%', height: '70%' }}
+          resizeMode="contain"
+        />
         <Text style={[
           theme.text.labelMedium,
           {color: theme.colors.onBackground, marginTop: Insets.small, fontWeight: 'bold', opacity: 0.6 },

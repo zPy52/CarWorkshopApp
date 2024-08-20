@@ -56,6 +56,12 @@ const StaticImages: StaticImagesType = {
   real: {
     tyre: require('../assets/images/real/tyre.png'),
     callCenter: require('../assets/images/real/callCenter.png'),
+    aceite: require('../assets/images/real/aceitereal.png'),
+    amortiguador: require('../assets/images/real/amortiguadorreal.png'),
+    correa: require('../assets/images/real/correareal.png'),
+    freno: require('../assets/images/real/frenoreal.png'),
+    motor: require('../assets/images/real/motorreal.png'),
+    neumatico: require('../assets/images/real/neumaticoreal.png'),
   },
   promo: {
     pr1: require("../assets/images/promoexamples/promo1prueba.png"),

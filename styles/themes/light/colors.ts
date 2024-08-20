@@ -35,10 +35,10 @@ const LightColors: ColorPaletteType = {
   successContainer: Color.hsl(142, 86, 17),
   successContainerSoft: Color.hslo(142, 53, 41, 0.3),
 
-  background: Color.hsl(0, 0, 96),
+  background: Color.hsl(0, 0, 86),
   onBackground: Color.hsl(0, 0, 10),
 
-  surface: Color.hsl(0, 0, 90),
+  surface: Color.hsl(0, 0, 145),
   surfaceVariant: Color.hsl(0, 0, 50),
   onSurface: Color.hsl(0, 0, 30),
 

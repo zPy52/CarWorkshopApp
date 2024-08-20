@@ -18,47 +18,49 @@ export default function BigCard({ style, navigateTo, title, imageSource, subtitl
 
   const styles = StyleSheet.create({
     container: {
+      flexDirection: 'row',
+      alignItems: 'center',
       padding: Insets.submedium,
       borderRadius: Insets.large,
-      alignItems: 'center',
       maxWidth: Dimensions.get('window').width - 43,
       overflow: 'hidden',
-      position: 'relative',
+      backgroundColor: theme.colors.background, // Ajusta según el tema para modo light
+    },
+    imageContainer: {
+      margin: Insets.small,
+      borderRadius: Insets.small,
+      overflow: 'hidden',
+      width: 70, // Ajusta el tamaño del contenedor de la imagen
+      height: 70, // Hace que la altura sea igual a la del botón
     },
     image: {
-      ...StyleSheet.absoluteFillObject,
-      width: '150%', // Zoom in the image
-      height: '150%', // Zoom in the image
+      width: '100%',
+      height: '100%',
       resizeMode: 'cover',
     },
-    overlay: {
-      ...StyleSheet.absoluteFillObject,
-      backgroundColor: 'rgba(0, 0, 200, 0.4)'
-    },
     textContainer: {
-      marginTop: -10,
-      margin: 15,
-      maxWidth: '100%',
+      flex: 1,
+      justifyContent: 'center',
+      marginLeft: Insets.small,
     },
     title: {
       fontSize: 15,
       fontWeight: '700',
-      marginLeft: Insets.small,
-      color: theme.colors.onTertiary,
+      color: theme.colors.onBackground, // Ajuste para modo light
     },
     subtitle: {
       fontSize: 12,
-      marginLeft: Insets.small,
       marginTop: Insets.small,
-      color: theme.colors.onTertiary,
+      color: theme.colors.onBackground, // Ajuste para modo light
     },
   });
 
   return (
     <Clickable onPress={() => router.navigate(navigateTo)}>
       <View style={[styles.container, style]}>
-        <Image source={imageSource} style={styles.image} />
-        <View style={styles.overlay} />
+        <View style={styles.imageContainer}>
+          <Image source={imageSource} style={styles.image} />
+        </View>
         <View style={styles.textContainer}>
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.subtitle}>{subtitle}</Text>
