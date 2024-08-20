@@ -9,6 +9,8 @@ type Props = {
   onPress: () => void;
   borderRadius?: number | undefined;
   enabled?: boolean;
+  backgroundColor?: string | undefined;
+  textColor?: string | undefined;
 };
 
 export default function StdButton({
@@ -16,6 +18,8 @@ export default function StdButton({
   onPress,
   borderRadius,
   enabled = true,
+  backgroundColor,
+  textColor,
 }: Props) {
   const { theme } = useTheme();
 
@@ -29,18 +33,20 @@ export default function StdButton({
           justifyContent: "center",
           borderRadius: borderRadius == null ? Insets.medium : borderRadius,
           backgroundColor: enabled
-            ? theme.colors.primary
+            ? backgroundColor == null
+              ? theme.colors.primary
+              : backgroundColor
             : theme.colors.surfaceVariant,
         },
         buttonText: {
           ...theme.text.titleMedium,
           fontWeight: "bold",
           textAlign: "center",
-          color: theme.colors.onPrimary,
+          color: textColor == null ? theme.colors.onPrimary : textColor,
           paddingHorizontal: Insets.medium,
         },
       }),
-    [theme, borderRadius, enabled]
+    [theme, borderRadius, enabled, backgroundColor, textColor]
   );
 
   return (

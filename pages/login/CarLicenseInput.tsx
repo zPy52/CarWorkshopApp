@@ -5,6 +5,8 @@ import {
   Keyboard,
   TextInput,
   useWindowDimensions,
+  Text,
+  Image,
 } from "react-native";
 import Animated, {
   Easing,
@@ -25,28 +27,27 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import Clickable from "../../components/shared/Clickable";
 import StdButton from "../../components/shared/StdButton";
+import StaticImages from "../../constants/static_images";
 
 type Props = {
   title: string;
   description: string;
   initialText?: string;
   placeholder?: string;
-  textFormatter?: (text: string) => string;
   leftIcon?: React.ReactNode;
 };
+
+const allowedConsonantsByEU = "BCDFGHJKLMNPRSTVWXYZ";
 
 const springConfig = {
   damping: 20,
   stiffness: 90,
 };
 
-export default function TextInputPage({
+export default function CarLicenseInputPage({
   title,
   description,
   initialText = "",
-  placeholder = "",
-  textFormatter = (text) => text,
-  leftIcon,
 }: Props) {
   const { theme } = useTheme();
   const { width } = useWindowDimensions();
@@ -170,12 +171,23 @@ export default function TextInputPage({
     };
   }, [keyboardHeight, safeAreaInsets]);
 
-  const onChangeText = useCallback(
-    (text: string) => {
-      setText(textFormatter(text));
-    },
-    [textFormatter]
-  );
+  const onChangeText = useCallback((text: string) => {
+    text = text.replaceAll(" ", "").toUpperCase();
+
+    if (text.length > 4) {
+      text = text.substring(0, 4) + " " + text.substring(4, text.length);
+    }
+
+    for (let i = text.length - 1; i > -1; i--) {
+      if (i > 4 && !allowedConsonantsByEU.includes(text[i])) {
+        text = text.substring(0, i);
+      } else if (i < 4 && !/^\d+$/.test(text[i])) {
+        text = text.substring(0, i);
+      }
+    }
+
+    setText(text);
+  }, []);
 
   const handleFocus = useCallback(() => {
     setIsFocused(true);
@@ -197,14 +209,7 @@ export default function TextInputPage({
   }, []);
 
   const buttonEnableChecker = useCallback((text: string) => {
-    const formattedText = text.replaceAll(" ", "").trim();
-    if (formattedText.length === 0) {
-      return false;
-    }
-
-    const numberRegex = /^-?\d*(\.\d+)?$/;
-
-    return numberRegex.test(formattedText);
+    return text.length === 8;
   }, []);
 
   const styles = StyleSheet.create({
@@ -217,15 +222,43 @@ export default function TextInputPage({
       backgroundColor: theme.colors.background,
       paddingHorizontal: Insets.screenMarginLarge,
     },
-    input: {
-      backgroundColor: theme.colors.surface,
-      paddingLeft: Insets.screenMarginLarge + Insets.medium,
-      color: theme.colors.onSurface,
-      borderRadius: Insets.medium,
-      paddingHorizontal: Insets.screenMarginMedium,
-      paddingVertical: Insets.screenMarginMedium,
+    inputContainer: {
+      flexDirection: "row",
+      alignItems: "center",
+      height: Insets.layoutMedium,
+      borderWidth: Insets.pixel,
       borderColor: isFocused ? theme.colors.outlineFocus : theme.colors.outline,
-      borderWidth: 1,
+      borderRadius: Insets.medium,
+      paddingRight: Insets.small,
+      backgroundColor: theme.colors.surface,
+    },
+    euContainer: {
+      height: "100%",
+      marginRight: Insets.medium,
+      paddingHorizontal: Insets.small,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "#0052B4",
+      borderColor: "#0052B4",
+      // Note: we have to subtract parent's borderWidth to get a smooth fit with the left borders.
+      borderTopLeftRadius: Insets.medium - Insets.pixel,
+      borderBottomLeftRadius: Insets.medium - Insets.pixel,
+    },
+    euLabel: {
+      ...theme.text.titleMedium,
+      color: "white",
+      fontWeight: "bold",
+    },
+    euImage: {
+      height: Insets.screenMarginMedium + Insets.small,
+      aspectRatio: 1,
+      resizeMode: "contain",
+    },
+    input: {
+      flex: 1,
+      ...theme.text.headlineMedium,
+      color: theme.colors.onSurface,
+      fontWeight: "bold",
     },
   });
 
@@ -249,7 +282,7 @@ export default function TextInputPage({
       >
         <Animated.View style={rnLeftIconStyle}>
           <Ionicons
-            name="person-circle"
+            name="car-sport"
             size={Insets.layoutMedium}
             color={theme.colors.onBackground}
           />
@@ -294,27 +327,24 @@ export default function TextInputPage({
           {description}
         </Animated.Text>
         <Animated.View style={rnInputStyle}>
-          <TextInput
-            style={[theme.text.bodyLarge, styles.input]}
-            onChangeText={onChangeText}
-            value={text}
-            placeholder={placeholder}
-            placeholderTextColor={theme.colors.surfaceContainerHighest}
-            onFocus={handleFocus}
-            onBlur={handleUnfocus}
-          />
-
-          <View
-            style={[
-              styles.absolute,
-              {
-                height: "100%",
-                justifyContent: "center",
-                paddingLeft: Insets.large,
-              },
-            ]}
-          >
-            {leftIcon && leftIcon}
+          <View style={styles.inputContainer}>
+            <View style={styles.euContainer}>
+              <Image
+                source={StaticImages.countries.euLogoStars}
+                style={styles.euImage}
+              />
+              <Text style={styles.euLabel}>E</Text>
+            </View>
+            <TextInput
+              style={styles.input}
+              onChangeText={onChangeText}
+              value={text}
+              placeholder="0000 XYZ"
+              placeholderTextColor={theme.colors.surfaceContainerHighest}
+              maxLength={8}
+              onFocus={handleFocus}
+              onBlur={handleUnfocus}
+            />
           </View>
         </Animated.View>
       </View>

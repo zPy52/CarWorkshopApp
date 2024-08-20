@@ -11,10 +11,14 @@
   "dependencies": {
     "@expo-google-fonts/inter": "^0.2.3",
     "@expo/vector-icons": "^14.0.2",
+    "@gorhom/bottom-sheet": "^4.6.4",
+    "@react-native-community/slider": "^4.5.2",
     "@react-native-community/datetimepicker": "^8.2.0",
     "@react-navigation/drawer": "^6.7.2",
     "@reduxjs/toolkit": "^2.2.6",
     "@types/react": "~18.2.79",
+    "babel-plugin-inline-import": "^3.0.0",
+    "drizzle-orm": "^0.33.0",
     "expo": "~51.0.26",
     "expo-app-loading": "^1.0.3",
     "expo-constants": "~16.0.1",
@@ -23,6 +27,7 @@
     "expo-linking": "~6.3.1",
     "expo-router": "~3.5.23",
     "expo-splash-screen": "~0.27.4",
+    "expo-sqlite": "^14.0.6",
     "expo-status-bar": "~1.12.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -38,7 +43,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
-    "@types/react-native": "^0.73.0"
+    "@types/react-native": "^0.73.0",
+    "drizzle-kit": "^0.24.0"
   },
   "private": true
 }

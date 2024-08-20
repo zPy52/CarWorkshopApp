@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -25,37 +25,30 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import Clickable from "../../components/shared/Clickable";
 import StdButton from "../../components/shared/StdButton";
+import CodeKeySnippet from "../../components/login/CodeKeySnippet";
 
 type Props = {
   title: string;
   description: string;
-  initialText?: string;
-  placeholder?: string;
-  textFormatter?: (text: string) => string;
-  leftIcon?: React.ReactNode;
 };
 
-const springConfig = {
-  damping: 20,
-  stiffness: 90,
-};
+function isCodeComplete(code: string[], expectedLength: number): boolean {
+  return code.filter((item) => item !== "").length === expectedLength;
+}
 
-export default function TextInputPage({
-  title,
-  description,
-  initialText = "",
-  placeholder = "",
-  textFormatter = (text) => text,
-  leftIcon,
-}: Props) {
+export default function SMSValidationPage({ title, description }: Props) {
   const { theme } = useTheme();
   const { width } = useWindowDimensions();
   const [isOpeningKeyboard, setIsOpeningKeyboard] = useState(false);
-  const [text, setText] = useState(initialText);
-  const [isFocused, setIsFocused] = useState(false);
-  const labelAnim = useSharedValue(0);
   const keyboardHeight = useSharedValue(0);
+  const [code, setCode] = useState(["", "", "", "", "", ""]);
+  const inputsRef = useRef<(TextInput | null)[]>([]);
   const safeAreaInsets = useSafeAreaInsets();
+
+  const springConfig = useRef({
+    damping: 20,
+    stiffness: 90,
+  }).current;
 
   const rnTitleStyle = useAnimatedStyle(() => {
     const duration = isOpeningKeyboard ? Durations.normal : 0;
@@ -170,88 +163,91 @@ export default function TextInputPage({
     };
   }, [keyboardHeight, safeAreaInsets]);
 
-  const onChangeText = useCallback(
-    (text: string) => {
-      setText(textFormatter(text));
+  const handleChangeText = useCallback(
+    (text: string, index: number) => {
+      text = text.trim();
+
+      const newCode = [...code];
+      newCode[index] = text.length > 0 ? text.charAt(text.length - 1) : "";
+      setCode(newCode);
+
+      if (isCodeComplete(newCode, code.length)) {
+        Keyboard.dismiss();
+      } else if (index < inputsRef.current.length - 1 && text.length > 0) {
+        inputsRef.current[index + 1]?.focus();
+      }
     },
-    [textFormatter]
+    [code, theme]
   );
 
-  const handleFocus = useCallback(() => {
-    setIsFocused(true);
-
-    labelAnim.value = withTiming(1, {
-      duration: Durations.fast,
-      easing: Easing.inOut(Easing.cubic),
-    });
-  }, []);
-
-  const handleUnfocus = useCallback(() => {
-    setIsFocused(false);
-    if (!text) {
-      labelAnim.value = withTiming(0, {
-        duration: Durations.fast,
-        easing: Easing.inOut(Easing.cubic),
-      });
-    }
-  }, []);
-
-  const buttonEnableChecker = useCallback((text: string) => {
-    const formattedText = text.replaceAll(" ", "").trim();
-    if (formattedText.length === 0) {
-      return false;
-    }
-
-    const numberRegex = /^-?\d*(\.\d+)?$/;
-
-    return numberRegex.test(formattedText);
-  }, []);
-
-  const styles = StyleSheet.create({
-    absolute: {
-      position: "absolute",
+  const handleKeyPress = useCallback(
+    (e: any, index: number) => {
+      if (e.nativeEvent.key === "Backspace" && index > 0) {
+        inputsRef.current[index - 1]?.focus();
+      }
     },
+    [code]
+  );
+
+  const buttonEnableChecker = useCallback(
+    () => code.every((digit) => digit !== ""),
+    [code]
+  );
+
+  const styles = useMemo(() => StyleSheet.create({
     mainContainer: {
       flex: 1,
       justifyContent: "flex-start",
       backgroundColor: theme.colors.background,
       paddingHorizontal: Insets.screenMarginLarge,
     },
-    input: {
-      backgroundColor: theme.colors.surface,
-      paddingLeft: Insets.screenMarginLarge + Insets.medium,
-      color: theme.colors.onSurface,
-      borderRadius: Insets.medium,
+
+    iconsHeaderSection: {
+      position: "absolute",
       paddingHorizontal: Insets.screenMarginMedium,
-      paddingVertical: Insets.screenMarginMedium,
-      borderColor: isFocused ? theme.colors.outlineFocus : theme.colors.outline,
-      borderWidth: 1,
+      paddingTop: Insets.screenMarginMedium,
+
+      width: width,
+      flex: 1,
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
     },
-  });
+
+    headline: {
+      ...theme.text.headlineLarge,
+      textAlign: "center",
+    },
+
+    description: {
+      ...theme.text.bodyLarge,
+      textAlign: "center",
+      paddingTop: Insets.small,
+      paddingBottom: Insets.screenMarginLarge,
+    },
+
+    inputContainer: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      marginVertical: Insets.large,
+    },
+    buttonContainer: {
+      position: "absolute",
+      padding: Insets.screenMarginMedium,
+      width: width,
+      flex: 1,
+      bottom: 0,
+    },
+  }), [theme, width]);
 
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <SafeAreaView
-        style={[
-          styles.absolute,
-          {
-            paddingHorizontal: Insets.screenMarginMedium,
-            paddingTop: Insets.screenMarginMedium,
-          },
-          {
-            width: width,
-            flex: 1,
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-          },
-        ]}
-      >
+      <SafeAreaView style={styles.iconsHeaderSection}>
         <Animated.View style={rnLeftIconStyle}>
           <Ionicons
-            name="person-circle"
+            name="chatbubbles"
             size={Insets.layoutMedium}
-            color={theme.colors.onBackground}
+            color={theme.colors.primary}
           />
         </Animated.View>
         <Animated.View style={rnRightIconStyle}>
@@ -271,67 +267,39 @@ export default function TextInputPage({
       <View
         style={{ paddingTop: Insets.layoutLarge + Insets.screenMarginLarge }}
       >
-        <Animated.Text
-          style={[
-            theme.text.headlineLarge,
-            { textAlign: "center" },
-            rnTitleStyle,
-          ]}
-        >
+        <Animated.Text style={[styles.headline, rnTitleStyle]}>
           {title}
         </Animated.Text>
-        <Animated.Text
-          style={[
-            theme.text.bodyLarge,
-            { textAlign: "center" },
-            {
-              paddingTop: Insets.small,
-              paddingBottom: Insets.screenMarginLarge,
-            },
-            rnDescriptionStyle,
-          ]}
-        >
+        <Animated.Text style={[styles.description, rnDescriptionStyle]}>
           {description}
         </Animated.Text>
         <Animated.View style={rnInputStyle}>
-          <TextInput
-            style={[theme.text.bodyLarge, styles.input]}
-            onChangeText={onChangeText}
-            value={text}
-            placeholder={placeholder}
-            placeholderTextColor={theme.colors.surfaceContainerHighest}
-            onFocus={handleFocus}
-            onBlur={handleUnfocus}
-          />
-
-          <View
-            style={[
-              styles.absolute,
-              {
-                height: "100%",
-                justifyContent: "center",
-                paddingLeft: Insets.large,
-              },
-            ]}
-          >
-            {leftIcon && leftIcon}
+          <View style={styles.inputContainer}>
+            {code.map((digit, index) => (
+              <CodeKeySnippet
+                key={`t-sms-inpt-${index}`}
+                ref={(input) => (inputsRef.current[index] = input)}
+                value={digit}
+                onChangeText={(text) => handleChangeText(text, index)}
+                onKeyPress={(e) => handleKeyPress(e, index)}
+                autoFocus={index === 0}
+              />
+            ))}
           </View>
         </Animated.View>
       </View>
-      <SafeAreaView
-        style={[
-          styles.absolute,
-          {
-            padding: Insets.screenMarginMedium,
-          },
-          { width: width, flex: 1, bottom: 0 },
-        ]}
-      >
+      <SafeAreaView style={styles.buttonContainer}>
         <View style={{ height: Insets.layoutSmall }}>
           <StdButton
-            text="Continuar"
-            onPress={() => {}}
-            enabled={buttonEnableChecker(text)}
+            text="Validar"
+            onPress={() => {
+              if (!isCodeComplete(code, code.length)) {
+                return;
+              }
+
+              console.log(code);
+            }}
+            enabled={buttonEnableChecker()}
           />
         </View>
       </SafeAreaView>
