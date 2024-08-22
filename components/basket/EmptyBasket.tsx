@@ -44,15 +44,13 @@ const EmptyBasket = () => {
           //------------------------------------------
           emptyContainer: {
             justifyContent: 'center',
-            alignItems: 'center',
+            alignItems: 'stretch',
             flex: 1,
-            paddingHorizontal: Insets.screenMarginLarge,
             paddingBottom: Insets.layoutMedium,
           },
-          emptyButton: {
-            paddingHorizontal: Insets.screenMarginLarge,
-            marginBottom: 5,
+          emptyImgContainer: {
             alignItems: 'center',
+            justifyContent: 'center',
           },
           emptyImage: {
             width: 100,
@@ -60,7 +58,6 @@ const EmptyBasket = () => {
           },
           emptyButtonContainer: {
             marginTop: 16,
-            alignItems: 'center',
             height: Insets.layoutSmall,
           },
           //------------------------------------------
@@ -74,7 +71,9 @@ const EmptyBasket = () => {
         <Text style={[theme.text.headlineMedium, styles.PrimaryText]}>Presupuesto</Text>
         <Text style={[theme.text.titleMedium, styles.SecondaryText]}>Comprueba que todo esté en orden</Text>
         <View style={styles.emptyContainer}>
-            <Image style={styles.emptyImage} source={require('../../assets/images/basket/shopping-cart.png')} />
+            <View style={styles.emptyImgContainer}>  
+              <Image style={styles.emptyImage} source={require('../../assets/images/basket/shopping-cart.png')} />
+            </View>
             <Text style={[theme.text.headlineMedium, styles.PrimaryText]}>Su cesta esta vacia</Text>
             <Text style={[theme.text.titleMedium, styles.SecondaryText]}>No tiene productos seleccionados</Text>
             <View style={styles.emptyButtonContainer}>

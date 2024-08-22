@@ -153,7 +153,7 @@ export default function HomeStation() {
   const homeCardData = [
     {
       key: "k1",
-      navigateTo: "../../basket",
+      navigateTo: "../../tyres",
       title: "Neumáticos",
       imageSource: StaticImages.detailedIcons.tyre,
       style: styles.element,

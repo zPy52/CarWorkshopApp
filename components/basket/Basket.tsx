@@ -9,6 +9,7 @@ import Insets from "../../constants/insets";
 import StdButton from "../../components/shared/StdButton";
 import { router } from "expo-router";
 import BottomBar from "../home/BottomBar";
+import Clickable from "../shared/Clickable";
 
 const Basket = () => {
   const { basket, removeFromBasket, getTotal } = useBasket();
@@ -40,6 +41,7 @@ const Basket = () => {
           marginTop: 10,
           marginBottom: 10,
           color: theme.colors.onBackground,
+          paddingHorizontal: Insets.small,
         },
         totalTextContainer: {
           flexDirection: 'row',
@@ -55,9 +57,7 @@ const Basket = () => {
         },
         //----------------------------------------
         confirmButtonContainer: {
-          paddingHorizontal: Insets.screenMarginLarge,
           marginBottom: 20,
-          alignItems: 'center',
           height: Insets.layoutSmall,
         },
         //----------------------------------------
@@ -67,7 +67,6 @@ const Basket = () => {
         },
         //----------------------------------------
         removeButton: {
-          //backgroundColor: theme.colors.onPrimaryContainer,
           padding: 5,
           borderRadius: 4,
         },
@@ -143,9 +142,9 @@ const Basket = () => {
                 <Text style={ styles.itemDescription }>{item.description }</Text>
                 <Text style={[ theme.text.bodyLarge, styles.itemDescription] }>${item.price}</Text>
               </View>
-              <TouchableOpacity style={styles.removeButton} onPress={() => removeFromBasket(item.uniqueKey)}>
+              <Clickable style={styles.removeButton} onPress={() => removeFromBasket(item.uniqueKey)}>
                 <Text style={styles.removeButtonText}>Quitar</Text>
-              </TouchableOpacity>
+              </Clickable>
             </View>
           )}
         />

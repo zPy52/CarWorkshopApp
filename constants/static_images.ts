@@ -44,6 +44,7 @@ const StaticImages: StaticImagesType = {
     email: require("../assets/images/icons/email.png"),
     whatsapp: require("../assets/images/icons/whatsapp.png"),
     phone: require("../assets/images/icons/phone.png"),
+    camera: require("../assets/images/icons/camera.png"),
   },
   detailedIcons: {
     brake: require('../assets/images/detailed_icons/disc-brake.png'),
@@ -62,6 +63,7 @@ const StaticImages: StaticImagesType = {
     freno: require('../assets/images/real/frenoreal.png'),
     motor: require('../assets/images/real/motorreal.png'),
     neumatico: require('../assets/images/real/neumaticoreal.png'),
+    medidasneumatico: require('../assets/images/real/MedidasRueda.png'),
   },
   promo: {
     pr1: require("../assets/images/promoexamples/promo1prueba.png"),

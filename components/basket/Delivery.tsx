@@ -1,7 +1,6 @@
 import React, { useMemo, useRef, useState } from "react";
 import { View, Text, TextInput, StyleSheet, ScrollView, Platform, Dimensions, KeyboardAvoidingView, Image, Switch } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
-//import { ScrollView } from "react-native-gesture-handler";
 import { useTheme } from "../../hooks/theme";
 import Insets from "../../constants/insets";
 import StdButton from "../../components/shared/StdButton";
@@ -37,7 +36,7 @@ const Delivery = () => {
           //----------------------------------------
           input: {
             borderWidth: 1,
-            borderColor: '#ccc',
+            borderColor: theme.colors.outline,
             padding: 10,
             borderRadius: 5,
           },
@@ -48,9 +47,7 @@ const Delivery = () => {
           },
           //----------------------------------------
           confirmButtonContainer: {
-            paddingHorizontal: Insets.screenMarginLarge,
             marginBottom: 20,
-            alignItems: 'center',
             height: Insets.layoutSmall,
           },
           //-----------------------------------------
@@ -96,11 +93,10 @@ const Delivery = () => {
           selectTimeButton: {
             padding: 10,
             alignItems: 'center',
-            borderColor: theme.colors.primary,
+            borderColor: theme.colors.outline,
             marginLeft: Insets.small,
-            backgroundColor: theme.colors.background,
+            backgroundColor: theme.colors.outline,
             borderRadius: Insets.small,
-            borderWidth: 1,
           },
           //------------------------------------------
           emptyContainer: {
@@ -176,7 +172,7 @@ const Delivery = () => {
     <SafeAreaView style={styles.mainContainer}>
       <Text style={[theme.text.headlineMedium, styles.PrimaryText]}>Reserva</Text>
       <Text style={[theme.text.titleMedium, styles.SecondaryText]}>
-        ¡Hay que reservar con 24h de antelacion!
+        ¡Hay que reservar con 48h de antelacion!
         </Text>  
       <KeyboardAvoidingView 
         style={{ flex: 1 }}
@@ -186,7 +182,7 @@ const Delivery = () => {
       <ScrollView>
       <View style={styles.secondaryContainer}>  
 
-        {/* Date Picker */}
+        
         <View style={styles.calendarContainer}>
             <Text style={styles.selectText}>Selecciona un dia:</Text>
             <Clickable
@@ -209,7 +205,7 @@ const Delivery = () => {
         <View style={styles.selectContainer}>
           <Text style={styles.selectText}>Selecciona una hora:</Text>
         </View>    
-        {/* Time Slot Selection */}
+        
         <View style={styles.timeSlots}>
           <Clickable
             style={[
@@ -271,6 +267,7 @@ const Delivery = () => {
               />
             </View>
         )}
+        
       </View>  
       </ScrollView>
       </KeyboardAvoidingView>
