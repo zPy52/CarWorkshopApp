@@ -148,10 +148,9 @@ export default function HomeStation() {
           backgroundColor: theme.colors.surface,
         },
         helpImage: {
-    // Ajusta según el tamaño necesario, dejando espacio para el texto
-          width: '100%',
-          height: 120,
-          resizeMode: 'cover',
+          width: '100%',          // Ancho completo del contenedor
+          height: 120,            // Altura específica para la imagen
+          resizeMode: 'cover',    // Escala la imagen para llenar el área y mantener las proporciones
           borderRadius: Insets.small,
           opacity: 0.9,
         },

@@ -20,13 +20,14 @@ export default function BigCard({ style, navigateTo, title, imageSource, subtitl
     container: {
       flexDirection: 'row',
       padding: Insets.submedium,
+      paddingLeft: 0,
       maxWidth: Dimensions.get('window').width - 43,
       overflow: 'hidden',
       backgroundColor: theme.colors.background, // Ajusta según el tema para modo light
     },
     overlay: {
       ...StyleSheet.absoluteFillObject,
-      backgroundColor: 'rgba(0, 102, 255, 0.1)', // Yellowish overlay
+      backgroundColor: 'rgba(0, 102, 255, 0.1)',
     },
     imageContainer: {
       margin: Insets.small,
@@ -58,8 +59,8 @@ export default function BigCard({ style, navigateTo, title, imageSource, subtitl
   });
 
   return (
-    <Clickable onPress={() => router.navigate(navigateTo)}>
-      <View style={[styles.container, style]}>
+    <Clickable onPress={() => router.navigate(navigateTo)} style={[style]}>
+      <View style={[styles.container]}>
         <View style={styles.imageContainer}>
           <Image source={imageSource} style={styles.image} />
           <View style={styles.overlay} />

@@ -18,13 +18,13 @@ export default function HomeCard({ style, navigateTo, title, imageSource }: Prop
     <Clickable onPress={() => router.navigate(navigateTo)}>
       <View style={[
         { height: '100%', width: '100%' },
-        { padding: Insets.submedium },
+        { padding: Insets.submedium, marginHorizontal: Insets.dwarf },
         { alignContent: 'center', alignItems: 'center', justifyContent: 'center', },
         style,
       ]}>
         <Image
           source={imageSource}
-          style={{ width: '100%', height: '100%' }}
+          style={{ width: '120%', height: '130%' }}
           resizeMode="contain"
         />
         <Text style={[
