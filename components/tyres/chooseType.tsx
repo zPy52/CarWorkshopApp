@@ -1,5 +1,5 @@
-import React, { useMemo, useRef, useState } from "react";
-import { View, Text, StyleSheet, FlatList, Button, Dimensions, TouchableOpacity, Image } from 'react-native';
+import React, { useMemo, useRef, useEffect, useState } from "react";
+import { View, Text, StyleSheet, FlatList, Button, Dimensions, Image } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTheme } from "../../hooks/theme";
 import { router } from "expo-router";
@@ -16,6 +16,16 @@ import WrapView from "../shared/WrapView";
 
 const TyreOption = () => {
   const [selectedTyreSize, setSelectedTyreSize] = useState<string>("225");
+  const [previousTyreSize, setPreviousTyreSize] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchPreviousTyreSize = () => {
+      const storedSize = "225/05 R16 91W"; 
+      setPreviousTyreSize(storedSize);
+    };
+
+    fetchPreviousTyreSize();
+  }, []);
 
   const screenWidth = Dimensions.get("window").width;
   const { theme, toggleTheme } = useTheme();
@@ -63,11 +73,6 @@ const TyreOption = () => {
           marginBottom: 20,
           height: Insets.layoutSmall,
         },
-        //----------------------------------------
-        SwipeButton: {
-          width: screenWidth - Insets.screenMarginMedium * 2,
-          height: Insets.layoutLarge*1.25
-        },
         //-----------------------------------------
         PrimaryText: {
           fontWeight: "900",
@@ -98,26 +103,15 @@ const TyreOption = () => {
         dropdownContainer: {
           marginBottom: Insets.large,
           borderWidth: 1,
-          borderColor: theme.colors.outline,
+          borderColor: theme.colors.outlineFocus,
           borderRadius: Insets.small,
-          backgroundColor: theme.colors.primaryContainerSoft,
-        },
+          backgroundColor: theme.colors.onPrimary,
+},
         picker: {
           height: 50,
           width: screenWidth - Insets.screenMarginLarge * 2,
           alignSelf: 'center',
           alignItems: 'center',
-        },
-        cameraButton: {
-          backgroundColor: theme.colors.primary,
-          padding: 15,
-          borderRadius: Insets.small,
-          alignItems: 'center',
-          marginHorizontal: Insets.screenMarginLarge,
-        },
-        cameraButtonText: {
-          color: theme.colors.onPrimary,
-          fontWeight: 'bold',
         },
         imageContainer: {
           alignSelf: 'center',
@@ -148,6 +142,10 @@ const TyreOption = () => {
           overflow: 'hidden',
           width: screenWidth - Insets.screenMarginMedium * 4.5,
           flexDirection: 'row',
+          borderStyle: 'dashed',
+          borderWidth: 1,
+          borderColor: theme.colors.outlineFocus,
+          padding: Insets.large,
         },
       }),
     [theme.colors.background, theme.colors.onBackground, theme.colors.tertiary, theme.colors.primary, screenWidth]
@@ -190,6 +188,9 @@ const TyreOption = () => {
               style={styles.picker}
               onValueChange={(itemValue) => setSelectedTyreSize(itemValue)}
             >
+              {previousTyreSize && (
+                <Picker.Item label={`Ultimo usado: ${previousTyreSize}`} value={previousTyreSize} />
+              )}
               <Picker.Item label="225/05 R16 91W" value="225/05 R16 91W" />
               <Picker.Item label="255/05 R16 91W" value="255/05 R16 91W" />
             </Picker>
