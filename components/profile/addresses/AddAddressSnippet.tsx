@@ -23,7 +23,6 @@ export default function AddAddressSnippet() {
           alignItems: "center",
           justifyContent:"center",
         },
-        
       }),
     [theme]
   );

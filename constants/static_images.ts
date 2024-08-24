@@ -1,7 +1,11 @@
 import { ImageSourcePropType } from "react-native";
 
 interface StaticImagesType {
+  countries: {
+    [key: string]: ImageSourcePropType;
+  };
   onboarding: {
+
     [key: string]: ImageSourcePropType;
   };
   detailedIcons: {
@@ -16,6 +20,9 @@ interface StaticImagesType {
 }
 
 const StaticImages: StaticImagesType = {
+  countries: {
+    euLogoStars: require("../assets/images/countries/eu_logo_stars.png"),
+  },
   onboarding: {
     itv: require("../assets/images/onboarding/itv.png"),
     workshop: require("../assets/images/onboarding/workshop.png"),

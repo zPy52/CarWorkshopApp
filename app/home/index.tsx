@@ -25,37 +25,17 @@ import {
   GestureHandlerRootView,
 } from "react-native-gesture-handler";
 import Animated, {
-  useAnimatedGestureHandler,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from "react-native-reanimated";
-import ServiceButtonSlider from "../../components/home/ServiceButtonSlider";
-import StdButton from "../../components/shared/StdButton";
-
+import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 
 export default function HomeStation() {
   const { theme } = useTheme();
   const { width } = useWindowDimensions();
   const [modalVisible, setModalVisible] = useState(false);
-  const translateY = useSharedValue(0); // Variable de animación para manejar la posición vertical del modal
-
-  const gestureHandler = useAnimatedGestureHandler({
-    onStart: (_, ctx) => {
-      ctx.startY = translateY.value;
-    },
-    onActive: (event, ctx) => {
-      translateY.value = Number(ctx.startY) + event.translationY;
-    },
-    onEnd: (_) => {
-      if (translateY.value > 100) {
-        translateY.value = withSpring(Dimensions.get("window").height); // Desliza hacia abajo para cerrar
-        setModalVisible(false);
-      } else {
-        translateY.value = withSpring(0); // Vuelve a la posición original
-      }
-    },
-  });
+  const translateY = useSharedValue(0);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: translateY.value }],
@@ -76,16 +56,12 @@ export default function HomeStation() {
         },
         header: {
           justifyContent: "center",
-          marginTop: Insets.screenMarginLarge,
-          paddingTop: Insets.small,
-          marginLeft: Insets.dwarf,
+          paddingTop: Insets.screenMarginMedium,
           flexDirection: "row",
           alignItems: "center",
-          alignContent: "center",
           backgroundColor: theme.colors.background,
-          borderBottomWidth: 1,
-          borderColor: theme.colors.primaryContainerSoft,
-          paddingBottom: Insets.large,
+          borderBottomColor: theme.colors.surfaceContainerLowest,
+          borderBottomWidth:1,
         },
         headerIconCarContainer: {
           flexBasis: "20%",   // Ocupa el 20% de la pantalla
@@ -95,32 +71,27 @@ export default function HomeStation() {
           alignItems: "center",
         },
         headerSecondaryContainer: {
-          flexBasis: "50%",   // Ocupa el 50% de la pantalla
+          flexBasis: "70%",   // Ocupa el 50% de la pantalla
           flexGrow: 0,
           flexShrink: 1,
-          flexDirection: "column",
-          marginLeft: Insets.medium,
-        },
-        headerMatriculaButton: {
-          flexBasis: "30%",   // Ocupa el 30% de la pantalla
-          flexGrow: 0,
-          flexShrink: 1,
-          borderRadius: Insets.small,
-          backgroundColor: theme.colors.primary,
-          margin: Insets.screenMarginMedium,
-          height: 30,
-          textAlign: 'center'
         },
         headerSecondaryText: {
-          fontSize: 16,
+          fontSize: 17,
           fontWeight: "900",
-          marginBottom: Insets.dwarf,
         },
-        headerTerciaryText: {
-          fontSize: 14,
-          fontWeight: "700",
-          marginBottom: Insets.pixel,
+        headerMatriculaButton: {
+          flexBasis: "10%",
+          flexGrow: 0,
+          flexShrink: 1,
+          paddingTop: Insets.dwarf,
+          margin: Insets.large,
+
         },
+        // headerTerciaryText: {
+        //   fontSize: 14,
+        //   fontWeight: "700",
+        //   marginBottom: Insets.pixel,
+        // },
         text: {
           color: theme.colors.onSurface,
           fontSize: 18,
@@ -354,18 +325,17 @@ export default function HomeStation() {
 
         <View style={styles.headerSecondaryContainer}>
           <Text style={styles.headerSecondaryText}>Mercedes-Benz GLC Coupe</Text>
-          <Text style={styles.headerTerciaryText}>C253 2.0 d 4-matic 4x4</Text>
         </View>
 
-        <View style={styles.headerMatriculaButton}>
-          <StdButton
-            text={"2434KLM"}
-            onPress={() => {
-              throw new Error("Function not implemented.");
-            }}
-            borderRadius={Insets.small}
+        <TouchableOpacity style={styles.headerMatriculaButton} onPress={function (): void {
+            router.navigate("/garage");
+          }}>
+        <Ionicons
+            name="ellipsis-vertical"
+            size={Insets.icon}
+            color={theme.colors.onPrimaryContainer}
           />
-        </View>
+        </TouchableOpacity>
       </View>
 
         <SafeAreaView style={styles.mainContainer}>
@@ -473,7 +443,6 @@ export default function HomeStation() {
             onRequestClose={() => setModalVisible(false)}
           >
             <View style={styles.modalContainer}>
-              <PanGestureHandler onGestureEvent={gestureHandler}>
                 <Animated.View style={[styles.modalContent, animatedStyle]}>
                   <View style={styles.modalHeader}>
                     <Text style={styles.modalHeaderText}>Servicio al Cliente</Text>
@@ -537,7 +506,6 @@ export default function HomeStation() {
                     </TouchableOpacity>
                   </View>
                 </Animated.View>
-              </PanGestureHandler>
             </View>
           </Modal>
 

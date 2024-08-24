@@ -95,32 +95,31 @@ export default function HomeStation() {
           alignItems: "center",
         },
         headerSecondaryContainer: {
-          flexBasis: "50%",   // Ocupa el 50% de la pantalla
+          flexBasis: "60%",   // Ocupa el 50% de la pantalla
           flexGrow: 0,
           flexShrink: 1,
           flexDirection: "column",
           marginLeft: Insets.medium,
         },
         headerMatriculaButton: {
-          flexBasis: "30%",   // Ocupa el 30% de la pantalla
+          flexBasis: "20%",   // Ocupa el 30% de la pantalla
           flexGrow: 0,
           flexShrink: 1,
           borderRadius: Insets.small,
-          backgroundColor: theme.colors.primary,
           margin: Insets.screenMarginMedium,
           height: 30,
           textAlign: 'center'
         },
         headerSecondaryText: {
-          fontSize: 16,
+          fontSize: 17,
           fontWeight: "900",
           marginBottom: Insets.dwarf,
         },
-        headerTerciaryText: {
-          fontSize: 14,
-          fontWeight: "700",
-          marginBottom: Insets.pixel,
-        },
+        // headerTerciaryText: {
+        //   fontSize: 14,
+        //   fontWeight: "700",
+        //   marginBottom: Insets.pixel,
+        // },
         text: {
           color: theme.colors.onSurface,
           fontSize: 18,
@@ -148,9 +147,10 @@ export default function HomeStation() {
           backgroundColor: theme.colors.surface,
         },
         helpImage: {
-          width: '100%',          // Ancho completo del contenedor
-          height: 120,            // Altura específica para la imagen
-          resizeMode: 'cover',    // Escala la imagen para llenar el área y mantener las proporciones
+    // Ajusta según el tamaño necesario, dejando espacio para el texto
+          width: '100%',
+          height: 120,
+          resizeMode: 'cover',
           borderRadius: Insets.small,
           opacity: 0.9,
         },
@@ -353,16 +353,13 @@ export default function HomeStation() {
 
         <View style={styles.headerSecondaryContainer}>
           <Text style={styles.headerSecondaryText}>Mercedes-Benz GLC Coupe</Text>
-          <Text style={styles.headerTerciaryText}>C253 2.0 d 4-matic 4x4</Text>
         </View>
 
         <View style={styles.headerMatriculaButton}>
-          <StdButton
-            text={"2434KLM"}
-            onPress={() => {
-              throw new Error("Function not implemented.");
-            }}
-            borderRadius={Insets.small}
+        <Ionicons
+            name="chevron-forward-outline"
+            size={Insets.icon}
+            color={theme.colors.primary}
           />
         </View>
       </View>
