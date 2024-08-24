@@ -5,9 +5,7 @@ interface StaticImagesType {
     [key: string]: ImageSourcePropType;
   };
   onboarding: {
-    [key: string]: ImageSourcePropType;
-  };
-  icons: {
+
     [key: string]: ImageSourcePropType;
   };
   detailedIcons: {
@@ -15,12 +13,6 @@ interface StaticImagesType {
   };
   real: {
     [key: string]: ImageSourcePropType;
-  };
-  promo: {
-    [key: string]: ImageSourcePropType
-  };
-  carTypes: {
-    [key: string]: ImageSourcePropType
   };
   kitImages: {
     [key: string]: ImageSourcePropType
@@ -38,59 +30,28 @@ const StaticImages: StaticImagesType = {
     tyresAndFixes: require("../assets/images/onboarding/tyres_and_fixes.png"),
     customerService: require("../assets/images/onboarding/customer_service.png"),
   },
-  icons: {
-    tyre: require('../assets/images/icons/tyre.png'),
-    clutch: require('../assets/images/icons/clutch.png'),
-    carRepair: require('../assets/images/icons/car-repair.png'),
-    shockAbsorbers: require('../assets/images/icons/shock-absorbers.png'),
-    user: require("../assets/images/icons/Buser.png"),
-    lightblueclock: require("../assets/images/icons/lightBlueClock.png"),
-    darkblueclock: require("../assets/images/icons/darkBlueClock.png"),
-    yellowclock: require("../assets/images/icons/yellowClock.png"),
-    email: require("../assets/images/icons/email.png"),
-    whatsapp: require("../assets/images/icons/whatsapp.png"),
-    phone: require("../assets/images/icons/phone.png"),
-    camera: require("../assets/images/icons/camera.png"),
-  },
   detailedIcons: {
     brake: require('../assets/images/detailed_icons/disc-brake.png'),
     tyre:  require('../assets/images/detailed_icons/rueda.png'),
-    engine:  require('../assets/images/detailed_icons/car-engine.png'),
+    engine:  require('../assets/images/detailed_icons/motor.png'),
     oil:  require('../assets/images/detailed_icons/aceite.png'),
     shockAbsorber:  require('../assets/images/detailed_icons/amortiguador2.png'),
     timingBelt:  require('../assets/images/detailed_icons/correa.png'),
+    luces: require('../assets/images/detailed_icons/luces.png'),
+    pintura: require('../assets/images/detailed_icons/pintura.png'),
   },
   real: {
-    tyre: require('../assets/images/real/tyre.png'),
     callCenter: require('../assets/images/real/callCenter.png'),
-    aceite: require('../assets/images/real/aceitereal.png'),
-    amortiguador: require('../assets/images/real/amortiguadorreal.png'),
-    correa: require('../assets/images/real/correareal.png'),
-    freno: require('../assets/images/real/frenoreal.png'),
-    motor: require('../assets/images/real/motorreal.png'),
-    neumatico: require('../assets/images/real/neumaticoreal.png'),
-    medidasneumatico: require('../assets/images/real/MedidasRueda.png'),
-  },
-  promo: {
-    pr1: require("../assets/images/promoexamples/promo1prueba.png"),
-    pr2: require("../assets/images/promoexamples/promo2prueba.png"),
-    pr3: require("../assets/images/promoexamples/promo3prueba.png"),
-    pr4: require("../assets/images/promoexamples/promo4prueba.png"),
-  },
-  carTypes: {
-    allTerrain: require("../assets/images/CarTypes/allTerrain.png"),
-    boxTruck: require("../assets/images/CarTypes/boxTruck.png"),
-    car: require("../assets/images/CarTypes/car.png"),
-    raceCar: require("../assets/images/CarTypes/raceCarBw.png"),
-    raceCarColoured: require("../assets/images/CarTypes/raceCarColoured.png"),
-    scarabTypeShit: require("../assets/images/CarTypes/scarabTypeShit.png"),
-    taxi: require("../assets/images/CarTypes/taxi.png"),
-    van: require("../assets/images/CarTypes/van.png")
+    callCenter2: require('../assets/images/real/callcenter1.jpg'),
   },
   kitImages: {
     distrIm: require("../assets/images/kits/distr.jpg"),
     brakeIm: require("../assets/images/kits/brake2.jpg"),
     ITVIm: require("../assets/images/kits/itv.jpg"),
+    diagnosis: require("../assets/images/kits/diagnosis.png"),
+    neumaticos: require("../assets/images/kits/neumaticos.png"),
+    aceite: require("../assets/images/kits/aceite.png"),
+    pintura: require("../assets/images/kits/pintura.png"),
   }
 };
 

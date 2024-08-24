@@ -2,6 +2,10 @@ export interface Miscellaneous {
   euBlue: string;
   euText: string;
 }
+export interface Miscellaneous {
+  euBlue: string;
+  euText: string;
+}
 
 export interface ColorPaletteType {
   misc: Miscellaneous;

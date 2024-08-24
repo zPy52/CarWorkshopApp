@@ -44,6 +44,7 @@ export default function ProfilePage({}: Props) {
           router.navigate("/");
         }}
       />
+      <BottomBar currentScreen="perfil" style={{position: 'absolute', bottom: 0}}/>
     </SafeAreaView>
   );
 }

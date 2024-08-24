@@ -72,4 +72,6 @@ const clickables = [
   { label: "Navega a los addresses bro", route: "/profile/addresses" },
   { label: "Navega al catálogo", route: "/products" },
   { label: "Navega al catálogo de Jose", route: "/productCatalog" },
+  { label: "Navega a copy", route: "/copy" },
+  { label: "Navega a garage", route: "/garage" },
 ];

@@ -6,7 +6,6 @@ const LightColors: ColorPaletteType = {
     euBlue: Color.hsl(213, 100, 35),
     euText: Color.hsl(0, 0, 100),
   },
-
   transparent: Color.hslo(0, 0, 0, 0),
 
   primary: Color.hsl(210, 100, 50),
@@ -16,12 +15,12 @@ const LightColors: ColorPaletteType = {
   primaryContainer: Color.hsl(210, 100, 90),
   primaryContainerSoft: Color.hslo(210, 100, 90, 0.3),
 
-  secondary: Color.hsl(51, 100, 75),
-  secondaryVariant: Color.hsl(51, 100, 50),
-  onSecondary: Color.hsl(51, 100, 20),
-  onSecondaryContainer: Color.hsl(45, 100, 35),
-  secondaryContainer: Color.hsl(45, 100, 85),
-  secondaryContainerSoft: Color.hslo(45, 100, 85, 0.3),
+  secondary: Color.hsl(270, 60, 50), // Morado sólido
+  secondaryVariant: Color.hsl(270, 60, 40), // Morado más oscuro
+  onSecondary: Color.hsl(270, 60, 90), // Texto claro sobre secondary
+  onSecondaryContainer: Color.hsl(270, 60, 95), // Texto claro sobre secondaryContainer
+  secondaryContainer: Color.hsl(270, 60, 80), // Morado suave para contenedores
+  secondaryContainerSoft: Color.hslo(270, 60, 85, 0.3), // Suave para contenedores sutiles
 
   tertiary: Color.hsl(30, 100, 65),
   tertiaryVariant: Color.hsl(30, 100, 55),
@@ -42,10 +41,10 @@ const LightColors: ColorPaletteType = {
   successContainer: Color.hsl(142, 86, 17),
   successContainerSoft: Color.hslo(142, 53, 41, 0.3),
 
-  background: Color.hsl(0, 0, 86),
+  background: Color.hsl(0, 0, 145),
   onBackground: Color.hsl(0, 0, 10),
 
-  surface: Color.hsl(0, 0, 145),
+  surface: Color.hsl(0, 0, 86),
   surfaceVariant: Color.hsl(0, 0, 50),
   onSurface: Color.hsl(0, 0, 30),
 

@@ -25,17 +25,37 @@ import {
   GestureHandlerRootView,
 } from "react-native-gesture-handler";
 import Animated, {
+  useAnimatedGestureHandler,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from "react-native-reanimated";
-import { GestureDetector, Gesture } from 'react-native-gesture-handler';
+import ServiceButtonSlider from "../../components/home/ServiceButtonSlider";
+import StdButton from "../../components/shared/StdButton";
+
 
 export default function HomeStation() {
   const { theme } = useTheme();
   const { width } = useWindowDimensions();
   const [modalVisible, setModalVisible] = useState(false);
-  const translateY = useSharedValue(0);
+  const translateY = useSharedValue(0); // Variable de animación para manejar la posición vertical del modal
+
+  const gestureHandler = useAnimatedGestureHandler({
+    onStart: (_, ctx) => {
+      ctx.startY = translateY.value;
+    },
+    onActive: (event, ctx) => {
+      translateY.value = Number(ctx.startY) + event.translationY;
+    },
+    onEnd: (_) => {
+      if (translateY.value > 100) {
+        translateY.value = withSpring(Dimensions.get("window").height); // Desliza hacia abajo para cerrar
+        setModalVisible(false);
+      } else {
+        translateY.value = withSpring(0); // Vuelve a la posición original
+      }
+    },
+  });
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: translateY.value }],
@@ -56,12 +76,16 @@ export default function HomeStation() {
         },
         header: {
           justifyContent: "center",
-          paddingTop: Insets.screenMarginMedium,
+          marginTop: Insets.screenMarginLarge,
+          paddingTop: Insets.small,
+          marginLeft: Insets.dwarf,
           flexDirection: "row",
           alignItems: "center",
+          alignContent: "center",
           backgroundColor: theme.colors.background,
-          borderBottomColor: theme.colors.surfaceContainerLowest,
-          borderBottomWidth:1,
+          borderBottomWidth: 1,
+          borderColor: theme.colors.primaryContainerSoft,
+          paddingBottom: Insets.large,
         },
         headerIconCarContainer: {
           flexBasis: "20%",   // Ocupa el 20% de la pantalla
@@ -71,21 +95,25 @@ export default function HomeStation() {
           alignItems: "center",
         },
         headerSecondaryContainer: {
-          flexBasis: "70%",   // Ocupa el 50% de la pantalla
+          flexBasis: "60%",   // Ocupa el 50% de la pantalla
           flexGrow: 0,
           flexShrink: 1,
+          flexDirection: "column",
+          marginLeft: Insets.medium,
+        },
+        headerMatriculaButton: {
+          flexBasis: "20%",   // Ocupa el 30% de la pantalla
+          flexGrow: 0,
+          flexShrink: 1,
+          borderRadius: Insets.small,
+          margin: Insets.screenMarginMedium,
+          height: 30,
+          textAlign: 'center'
         },
         headerSecondaryText: {
           fontSize: 17,
           fontWeight: "900",
-        },
-        headerMatriculaButton: {
-          flexBasis: "10%",
-          flexGrow: 0,
-          flexShrink: 1,
-          paddingTop: Insets.dwarf,
-          margin: Insets.large,
-
+          marginBottom: Insets.dwarf,
         },
         // headerTerciaryText: {
         //   fontSize: 14,
@@ -327,15 +355,13 @@ export default function HomeStation() {
           <Text style={styles.headerSecondaryText}>Mercedes-Benz GLC Coupe</Text>
         </View>
 
-        <TouchableOpacity style={styles.headerMatriculaButton} onPress={function (): void {
-            router.navigate("/garage");
-          }}>
+        <View style={styles.headerMatriculaButton}>
         <Ionicons
-            name="ellipsis-vertical"
+            name="chevron-forward-outline"
             size={Insets.icon}
-            color={theme.colors.onPrimaryContainer}
+            color={theme.colors.primary}
           />
-        </TouchableOpacity>
+        </View>
       </View>
 
         <SafeAreaView style={styles.mainContainer}>
@@ -443,6 +469,7 @@ export default function HomeStation() {
             onRequestClose={() => setModalVisible(false)}
           >
             <View style={styles.modalContainer}>
+              <PanGestureHandler onGestureEvent={gestureHandler}>
                 <Animated.View style={[styles.modalContent, animatedStyle]}>
                   <View style={styles.modalHeader}>
                     <Text style={styles.modalHeaderText}>Servicio al Cliente</Text>
@@ -506,6 +533,7 @@ export default function HomeStation() {
                     </TouchableOpacity>
                   </View>
                 </Animated.View>
+              </PanGestureHandler>
             </View>
           </Modal>
 
