@@ -29,7 +29,7 @@ export default function HomeCard({ style, navigateTo, title, imageSource }: Prop
         />
         <Text style={[
           theme.text.labelMedium,
-          {color: theme.colors.onBackground, marginTop: Insets.small, fontWeight: 'bold', opacity: 0.6 },
+          {color: theme.colors.onBackground, marginTop: Insets.small },
         ]}>
           { title }
         </Text>

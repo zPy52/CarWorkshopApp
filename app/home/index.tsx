@@ -44,58 +44,59 @@ export default function HomeStation() {
   const styles = useMemo(
     () =>
       StyleSheet.create({
+        header: {
+          paddingTop: Insets.screenMarginMedium,
+          backgroundColor: theme.colors.background,
+
+        },
+        title: {
+          textAlign: "left",
+          alignSelf: "flex-start",
+          paddingTop: Insets.screenMarginLarge,
+          paddingHorizontal: Insets.screenMarginMedium,
+          paddingBottom: Insets.large,
+        },
+        secondaryTitle: {
+          textAlign: "left",
+          alignSelf: "flex-start",
+          paddingTop: Insets.medium,
+        },
         mainContainer: {
           flex: 1,
           backgroundColor: theme.colors.background,
-          paddingHorizontal: Insets.medium,
+          paddingHorizontal: Insets.screenMarginMedium,
           paddingTop: -27,
         },
         scrollViewContent: {
           paddingBottom: Insets.layoutLarge,
           backgroundColor: theme.colors.background,
         },
-        header: {
-          justifyContent: "center",
-          paddingTop: Insets.screenMarginMedium,
+        headerCarInfo: {
           flexDirection: "row",
           alignItems: "center",
-          backgroundColor: theme.colors.background,
           borderBottomColor: theme.colors.surfaceContainerLowest,
           borderBottomWidth:1,
+          paddingHorizontal: Insets.screenMarginMedium,
+          paddingBottom: Insets.large,
         },
         headerIconCarContainer: {
-          flexBasis: "20%",   // Ocupa el 20% de la pantalla
           flexGrow: 0,
           flexShrink: 1,
-          justifyContent: "center",
-          alignItems: "center",
+          marginRight: Insets.medium,
+          paddingTop: Insets.medium,
+          alignContent: 'space-around',
         },
-        headerSecondaryContainer: {
-          flexBasis: "70%",   // Ocupa el 50% de la pantalla
-          flexGrow: 0,
-          flexShrink: 1,
-        },
-        headerSecondaryText: {
-          fontSize: 17,
-          fontWeight: "900",
-        },
+        headerSecondaryContainer: {},
         headerMatriculaButton: {
-          flexBasis: "10%",
           flexGrow: 0,
           flexShrink: 1,
-          paddingTop: Insets.dwarf,
-          margin: Insets.large,
+          paddingTop: Insets.medium,
+          marginLeft: "auto",
 
         },
-        // headerTerciaryText: {
-        //   fontSize: 14,
-        //   fontWeight: "700",
-        //   marginBottom: Insets.pixel,
-        // },
         text: {
+          ...theme.text.titleMedium,
           color: theme.colors.onSurface,
-          fontSize: 18,
-          fontWeight: "bold",
           marginBottom: Insets.screenMarginMedium,
           marginTop: Insets.medium,
         },
@@ -116,7 +117,7 @@ export default function HomeStation() {
 
           marginLeft: Insets.medium,
           borderRadius: Insets.small,
-          backgroundColor: theme.colors.surface,
+          backgroundColor: theme.colors.primaryContainerSoft,
         },
         helpImage: {
     // Ajusta según el tamaño necesario, dejando espacio para el texto
@@ -129,7 +130,6 @@ export default function HomeStation() {
         helpText: {
           color: theme.colors.onSurface,
           fontSize: 16,
-          fontWeight: 'bold',
           margin: Insets.submedium, // Separación del texto con la imagen
           textAlign: 'center', // Centrar el texto
         },
@@ -153,8 +153,8 @@ export default function HomeStation() {
           borderBottomWidth: 1,
         },
         modalHeaderText: {
+          ...theme.text.titleLarge,
           color: theme.colors.onBackground,
-          fontSize: 20,
           fontWeight: "bold",
           marginLeft: Insets.small,
         },
@@ -180,14 +180,13 @@ export default function HomeStation() {
           opacity: 0.6,
         },
         modalOptionText: {
-          color: theme.colors.primary,
+          color: theme.colors.onBackground,
           fontSize: 18,
           fontWeight: "bold",
         },
         modalOptionTextSecondary: {
-          color: theme.colors.primary,
+          color: theme.colors.onBackground,
           fontSize: 18,
-          fontWeight: "bold",
         },
         modalOptionSecondaryText: {
           color: theme.colors.onSurface,
@@ -315,28 +314,34 @@ export default function HomeStation() {
     return (
       <GestureHandlerRootView style={{ flex: 1, backgroundColor: theme.colors.background }}>
         <View style={styles.header}>
-        <View style={styles.headerIconCarContainer}>
-          <Ionicons
-            name="car-sport-outline"
-            size={Insets.screenMarginLarge}
-            color={theme.colors.primary}
-          />
+        <Text style={[theme.text.headlineLarge, styles.title]}>
+          Nuestros Servicios
+        </Text>
+        <View style={styles.headerCarInfo}>
+            <View style={styles.headerIconCarContainer}>
+              <Ionicons
+                name="car-sport-outline"
+                size={Insets.screenMarginLarge}
+                color={theme.colors.primary}
+              />
+            </View>
+            <View style={styles.headerSecondaryContainer}>
+              <Text style={[theme.text.titleLarge, styles.secondaryTitle]}>
+                Tu coche:
+              </Text>
+                <Text style={[theme.text.titleMedium, {fontWeight:'bold'}]}>Mercedes-Benz GLC Coupe</Text>
+            </View>
+            <TouchableOpacity style={styles.headerMatriculaButton} onPress={function (): void {
+                router.navigate("/garage");
+              }}>
+            <Ionicons
+                name="chevron-forward"
+                size={Insets.icon}
+                color={theme.colors.onBackground}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
-
-        <View style={styles.headerSecondaryContainer}>
-          <Text style={styles.headerSecondaryText}>Mercedes-Benz GLC Coupe</Text>
-        </View>
-
-        <TouchableOpacity style={styles.headerMatriculaButton} onPress={function (): void {
-            router.navigate("/garage");
-          }}>
-        <Ionicons
-            name="ellipsis-vertical"
-            size={Insets.icon}
-            color={theme.colors.onPrimaryContainer}
-          />
-        </TouchableOpacity>
-      </View>
 
         <SafeAreaView style={styles.mainContainer}>
           <ScrollView
@@ -351,7 +356,7 @@ export default function HomeStation() {
                 },
               ]}
             >
-              Encuentra y reemplaza tus piezas
+              Encuentra y Reemplaza tus Piezas
             </Text>
             <WrapView
               horizontalSpacing={Insets.large}
