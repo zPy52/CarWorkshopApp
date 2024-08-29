@@ -55,17 +55,14 @@ const StaticImages: StaticImagesType = {
     neumaticos: require("../assets/images/kits/neumaticos.png"),
     aceite: require("../assets/images/kits/aceite.png"),
     pintura: require("../assets/images/kits/pintura.png"),
-<<<<<<< HEAD
   },
   asegurador: {
     photo: require("../assets/images/kits/asegurador.png"),
-=======
     devolucion1: require("../assets/images/kits/devolucion1.png"),
     devolucion2: require("../assets/images/kits/devolucion2.png"),
     mecanicoPedro: require("../assets/images/kits/mecanicoPedro.jpeg"),
     mecanicoJuan: require("../assets/images/kits/mecanicoJuan.jpeg"),
     mecanicoLuis: require("../assets/images/kits/mecanicoLuis.jpeg"),
->>>>>>> efda1d7bdee3d84b6ba8a90f665650339df0af05
   }
 };
 
