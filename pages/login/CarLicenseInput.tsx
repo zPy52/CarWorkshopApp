@@ -290,7 +290,7 @@ export default function CarLicenseInputPage({
         <Animated.View style={rnRightIconStyle}>
           <Clickable
             onPress={() => {
-              router.navigate("/");
+              router.navigate("/home");
             }}
           >
             <Ionicons

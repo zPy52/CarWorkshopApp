@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
     StyleSheet,
     Text,
@@ -6,22 +6,14 @@ import {
     TouchableOpacity,
     useWindowDimensions,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { ScrollView } from "react-native-gesture-handler";
 import { useTheme } from "../../hooks/theme";
 import { Ionicons } from "@expo/vector-icons";
 import Insets from "../../constants/insets";
-import StdButton from "../../components/shared/StdButton";
-import ChevronBack from "../../components/shared/ChevronBack";
-import { router, useRouter } from "expo-router";
-import { cars } from "../../constants/exampleDynamicData";
-import CarSnippet from "../../components/garage/CarSnippet";
 
-export default function Garage() {
-    const router = useRouter();
+
+export default function CarSnippet({item, selectedCar, setSelectedCar}) {
     const { theme } = useTheme();
     const { width } = useWindowDimensions();
-    const [selectedCar, setSelectedCar] = useState(null);
 
     const styles = StyleSheet.create({
         container: {
@@ -81,9 +73,6 @@ export default function Garage() {
             position: 'absolute',
             bottom: Insets.small,
             right: Insets.small,
-            borderWidth: Insets.pixel / 2,
-            borderColor: theme.colors.surfaceContainerLowest,
-            borderRadius: Insets.large,
             padding: Insets.small
         },
         containerBottom: {
@@ -119,43 +108,85 @@ export default function Garage() {
 
     });
 
-
-    const handleContinue = () => {
-        if (selectedCar) {
-            // Send selectedCar to the header object
-            router.push({
-                pathname: "/home",
-                params: { selectedCar: JSON.stringify(selectedCar) }
-            });
-            // Change the screen according to the car data
-        }
-        else {
-            router.navigate("/home");
-        }
-    };
-
     return (
-        <SafeAreaView style={styles.container}>
-            <ChevronBack />
-            <Text style={[theme.text.headlineLarge, styles.title]}>
-                Tu Garaje
-            </Text>
-            <ScrollView
-                contentContainerStyle={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', paddingBottom: Insets.layoutMedium }}
-                style={{ width: '100%' }}
-                showsVerticalScrollIndicator={false}
-            >
-                {cars.map((item) => (
-                    <CarSnippet item={item} selectedCar={selectedCar} setSelectedCar={setSelectedCar} />
-                ))}
-            </ScrollView>
-            <View style={styles.containerBottom}>
-                <StdButton
-                    text={selectedCar === null ? "introducir nueva matricula" : "Continuar con este vehículo"}
-                    onPress={handleContinue}
-                    enabled={selectedCar === null ? false : true}
-                />
+        <TouchableOpacity
+        key={item.name}
+        style={[
+            styles.car,
+            selectedCar === item && styles.carSelected,
+            selectedCar === item && { borderColor: theme.colors.primary }
+        ]}
+        onPress={() => setSelectedCar(item === selectedCar ? null : item)}
+    >
+        <View style={styles.carDataContainer}>
+            <View style={styles.carDataHeader}>
+                <View style={styles.carImage}>
+                    <Ionicons
+                        name="car-sport-outline"
+                        size={Insets.screenMarginLarge}
+                        color={selectedCar === item ? theme.colors.primary : theme.colors.onBackground}
+                    />
+                </View>
+                <Text style={[styles.carPrimaryText, selectedCar === item && { fontWeight: 'bold' }]}>
+                    {item.name}{item.descr && ` - ${item.descr}`}
+                </Text>
             </View>
-        </SafeAreaView>
+            <View style={styles.carDataSpecs}>
+                {selectedCar === item && (
+                    <>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={[styles.carSecondaryText]}>
+                                {item.specs.matricula
+                                }
+                            </Text>
+                        </View>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={[styles.carSecondaryText, { marginRight: Insets.small }]}>
+                                Caja de cambios
+                            </Text>
+                            <Text style={[styles.carSecondaryText]}>
+                                {item.specs.caja}
+                            </Text>
+                        </View>
+                        <View style={{ flexDirection: 'row' }}>
+
+                            <Text style={[styles.carSecondaryText]}>
+                                {item.specs.combustible}
+                            </Text>
+                        </View>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={[styles.carSecondaryText, { marginRight: Insets.small }]}>
+                                {item.specs.potencia}
+                            </Text>
+                            <Text style={[styles.carSecondaryText]}>
+                                de potencia
+                            </Text>
+                        </View>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={[styles.carSecondaryText, { marginRight: Insets.small }]}>
+                                {item.specs.cilindrada}
+                            </Text>
+                            <Text style={[styles.carSecondaryText]}>
+                                de Cilindrada
+                            </Text>
+                        </View>
+                    </>
+                )}
+            </View>
+        </View>
+        {selectedCar === item && (
+            <TouchableOpacity
+                onPress={() => console.log("Borrando coche")}
+                style={styles.carTrashOption}
+            >
+                <Ionicons
+                    name="trash-outline"
+                    size={Insets.icon}
+                    color={theme.colors.surfaceContainerHigh}
+                />
+            </TouchableOpacity>
+        )}
+
+    </TouchableOpacity>
     );
 }
