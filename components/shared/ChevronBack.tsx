@@ -29,4 +29,8 @@ export default function ChevronBack() {
       </Clickable>
     </View>
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> RamaAlvaro
