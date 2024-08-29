@@ -87,7 +87,6 @@ export default function HomeStation() {
     [theme.colors, width]
   );
 
-<<<<<<< HEAD
   const otherServicesData = [
     {
       id : "asas",
@@ -199,8 +198,6 @@ export default function HomeStation() {
         subtitle: "Pintamos los rayones o partes completas de tu coche.",
       },
     ];
-=======
->>>>>>> efda1d7bdee3d84b6ba8a90f665650339df0af05
 
     return (
       <GestureHandlerRootView style={{ flex: 1, backgroundColor: theme.colors.background }}>
@@ -279,10 +276,7 @@ export default function HomeStation() {
       </GestureHandlerRootView>
     );
   }
-<<<<<<< HEAD
-=======
 
 function useParams(): { selectedCar: any; } {
   throw new Error("Function not implemented.");
 }
->>>>>>> efda1d7bdee3d84b6ba8a90f665650339df0af05
