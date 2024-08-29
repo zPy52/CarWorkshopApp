@@ -19,7 +19,7 @@ import {
   GestureHandlerRootView,
 } from "react-native-gesture-handler";
 import ModalHelp from "../../components/home/modalHelp";
-import Header from "../../components/home/Header";
+import Header from "../../components/home/HeaderComp";
 import { bigCardMantenimiento, homeCardData } from "../../constants/exampleDynamicData";
 import { useGlobalSearchParams, useLocalSearchParams } from "expo-router";
 

@@ -1,11 +1,9 @@
 export interface Miscellaneous {
   euBlue: string;
   euText: string;
+  onDark: string;
 }
-export interface Miscellaneous {
-  euBlue: string;
-  euText: string;
-}
+
 
 export interface ColorPaletteType {
   misc: Miscellaneous;

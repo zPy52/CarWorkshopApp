@@ -5,6 +5,7 @@ const LightColors: ColorPaletteType = {
   misc: {
     euBlue: Color.hsl(213, 100, 35),
     euText: Color.hsl(0, 0, 100),
+    onDark: Color.hsl(0, 0, 15),
   },
   transparent: Color.hslo(0, 0, 0, 0),
 
@@ -57,6 +58,7 @@ const LightColors: ColorPaletteType = {
   outline: Color.hsl(0, 0, 75),
   outlineFocus: Color.hsl(0, 0, 45),
   outlineVariant: Color.hsl(0, 0, 80),
+
 };
 
 export default LightColors;

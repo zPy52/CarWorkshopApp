@@ -130,7 +130,7 @@ export default function Garage() {
             // Change the screen according to the car data
         }
         else {
-            router.navigate("/test");
+            router.navigate("/home");
         }
     };
 
@@ -153,7 +153,6 @@ export default function Garage() {
                 <StdButton
                     text={selectedCar === null ? "introducir nueva matricula" : "Continuar con este vehículo"}
                     onPress={handleContinue}
-                    borderRadius={Insets.small}
                     enabled={selectedCar === null ? false : true}
                 />
             </View>

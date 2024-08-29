@@ -73,9 +73,6 @@ export default function CarSnippet({item, selectedCar, setSelectedCar}) {
             position: 'absolute',
             bottom: Insets.small,
             right: Insets.small,
-            borderWidth: Insets.pixel / 2,
-            borderColor: theme.colors.surfaceContainerLowest,
-            borderRadius: Insets.large,
             padding: Insets.small
         },
         containerBottom: {

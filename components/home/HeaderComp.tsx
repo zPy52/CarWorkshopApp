@@ -16,7 +16,7 @@ export default function Header({ selectedCar }) {
   console.log(selectedCar);
   const { theme } = useTheme();
   const { width } = useWindowDimensions();
-  const carName = selectedCar ? selectedCar.name : "Escriba una matrícula";
+  const carName = selectedCar ? selectedCar.name : "Escribe una matrícula";
 
   const styles = useMemo(
     () =>
@@ -68,7 +68,7 @@ export default function Header({ selectedCar }) {
         </View>
         <View style={styles.headerSecondaryContainer}>
           <Text style={[theme.text.titleLarge, styles.secondaryTitle]}>
-            Tu coche:
+            Tu coche
           </Text>
           <Text style={[theme.text.titleMedium, { fontWeight: "bold" }]}>
             {carName}

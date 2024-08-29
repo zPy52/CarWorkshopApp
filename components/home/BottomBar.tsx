@@ -14,7 +14,7 @@ const BottomBar = ({ currentScreen, style }: Props) => {
 
   const tabs = [
     { name: 'home', label: 'Inicio', icon: "home-outline", route: '/home' },
-    { name: 'reserva', label: 'Reserva', icon: "calendar-outline", route: '/reserva' },
+    { name: 'reserva', label: 'Reserva', icon: "calendar-outline", route: '/bookings' },
     { name: 'perfil', label: 'Perfil', icon: "person-outline", route: '/profile' },
     // { name: 'carrito', label: 'Carrito', icon: "cart-outline", route: '/basket' },
   ];

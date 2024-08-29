@@ -73,3 +73,21 @@ export const cars = [
   { name: "Porsche Cayenne E-Hybrid Coupe", descr: "3.0 V6", specs:{ matricula: "3452 ZXY", caja: "Automática", combustible: "Híbrido", potencia: "462 CV", cilindrada: "3L" }},
   { name: "Range Rover Sport L494", descr: "2.0 PHEV 400e 4WD", specs:{ matricula: "7890 CDE", caja: "Automática", combustible: "Híbrido Enchufable", potencia: "404 CV", cilindrada: "2L" }},
 ];
+
+export const bigCardAyuda = [
+  {
+    key: "bc2cdfexsw",
+    navigateTo: "../../help",
+    title: "Nuestras Políticas",
+    imageSource: StaticImages.kitImages.devolucion1,
+    subtitle:
+      "Realizamos un diagnóstico de las averías y un presupuesto de reparación.",
+  },
+  {
+    key: "bcfasdfa3c",
+    navigateTo: "../../help",
+    title: "Consejos y directrices de seguridad",
+    imageSource: StaticImages.kitImages.devolucion2,
+    subtitle: "Pintamos los rayones o partes completas de tu coche.",
+  },
+]
