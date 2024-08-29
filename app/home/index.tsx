@@ -225,7 +225,7 @@ export default function HomeStation() {
     },
     {
       key: "k2",
-      navigateTo: "../../basket",
+      navigateTo: "../../frenos",
       title: "Frenos",
       imageSource: StaticImages.detailedIcons.brake,
       style: styles.element,
@@ -239,7 +239,7 @@ export default function HomeStation() {
     },
     {
       key: "k4",
-      navigateTo: "../../basket",
+      navigateTo: "../../embragues",
       title: "Embrague",
       imageSource: StaticImages.detailedIcons.engine,
       style: styles.element,
@@ -285,7 +285,7 @@ export default function HomeStation() {
     const bigCardMantenimiento = [
       {
         key: "bc1c",
-        navigateTo: "../../basket",
+        navigateTo: "../../preITV+ITV",
         title: "PreITV + ITV",
         imageSource: StaticImages.kitImages.ITVIm,
         style: styles.secondaryElement,
@@ -303,7 +303,7 @@ export default function HomeStation() {
       },
       {
         key: "bc3c",
-        navigateTo: "../../basket",
+        navigateTo: "../../pintura",
         title: "Pintura del coche",
         imageSource: StaticImages.kitImages.pintura,
         style: styles.secondaryElement,

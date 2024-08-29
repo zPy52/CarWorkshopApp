@@ -51,16 +51,13 @@ const StaticImages: StaticImagesType = {
     distrIm: require("../assets/images/kits/distr.jpg"),
     brakeIm: require("../assets/images/kits/brake2.jpg"),
     ITVIm: require("../assets/images/kits/itv.jpg"),
-<<<<<<< HEAD
     diagnosis: require("../assets/images/kits/diagnosis.png"),
     neumaticos: require("../assets/images/kits/neumaticos.png"),
     aceite: require("../assets/images/kits/aceite.png"),
     pintura: require("../assets/images/kits/pintura.png"),
-=======
   },
   asegurador: {
     photo: require("../assets/images/kits/asegurador.png"),
->>>>>>> RamaAlvaro
   }
 };
 

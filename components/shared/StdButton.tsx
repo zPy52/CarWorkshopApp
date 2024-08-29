@@ -51,28 +51,8 @@ export default function StdButton({
 
   return (
     <Clickable onPress={onPress}>
-<<<<<<< HEAD
       <View style={styles.continueButton}>
         <Text style={styles.buttonText} numberOfLines={1} ellipsizeMode="tail">
-=======
-      <View
-        style={[
-          styles.continueButton,
-          {
-            backgroundColor: enabled
-              ? theme.colors.primary
-              : theme.colors.surfaceVariant,
-          },
-        ]}
-      >
-        <Text
-          style={[
-            theme.text.titleMedium,
-            { fontWeight: "bold", textAlign: "center" },
-            { color: theme.colors.background },
-          ]}
-        >
->>>>>>> RamaAlvaro
           {text}
         </Text>
       </View>
