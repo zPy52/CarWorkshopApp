@@ -7,6 +7,7 @@ import { router } from "expo-router";
 import SearchBar from "../../components/products/SearchBar";
 import FiltersBottomModalSheet from "../../components/products/modals/FiltersModal";
 import { useCallback, useState } from "react";
+import NoSearchResultsComponent from "../../components/products/NoSearchResults";
 
 type Props = {};
 
@@ -37,6 +38,8 @@ export default function CatalogPage({}: Props) {
       <Clickable onPress={() => router.navigate("/products/pages/tyres")}>
         <ProductSnippet key={"mama"} />
       </Clickable>
+
+      <NoSearchResultsComponent />
 
       <FiltersBottomModalSheet
         command={modalStatus}

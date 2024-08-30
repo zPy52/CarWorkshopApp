@@ -330,7 +330,7 @@ export default function CarLicenseInputPage({
           <View style={styles.inputContainer}>
             <View style={styles.euContainer}>
               <Image
-                source={StaticImages.countries.euLogoStars}
+                source={StaticImages.misc.euLogoStars}
                 style={styles.euImage}
               />
               <Text style={styles.euLabel}>E</Text>
