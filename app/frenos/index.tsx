@@ -389,7 +389,7 @@ const BrakeSelector = () => {
           {/* Botón para solicitar el servicio*/}
           <View style={styles.buttonPresupuesto}>
           <StdButton
-            text="Pedir presupuesto"
+            text="Añadir a la cesta"
             onPress={handleRequestQuote}
             enabled={true} // Puedes cambiar esto a una condición si necesitas deshabilitar el botón
             />
