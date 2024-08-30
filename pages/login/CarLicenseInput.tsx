@@ -360,7 +360,7 @@ export default function CarLicenseInputPage({
         <View style={{ height: Insets.layoutSmall }}>
           <StdButton
             text="Continuar"
-            onPress={() => {}}
+            onPress={() => {router.navigate("/home");}}
             enabled={buttonEnableChecker(text)}
           />
         </View>

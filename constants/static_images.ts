@@ -20,6 +20,9 @@ interface StaticImagesType {
   asegurador: {
     [key: string]: ImageSourcePropType
   };
+  servicios: {
+    [key: string]: ImageSourcePropType
+  };
 }
 
 const StaticImages: StaticImagesType = {
@@ -55,14 +58,35 @@ const StaticImages: StaticImagesType = {
     neumaticos: require("../assets/images/kits/neumaticos.png"),
     aceite: require("../assets/images/kits/aceite.png"),
     pintura: require("../assets/images/kits/pintura.png"),
-  },
-  asegurador: {
-    photo: require("../assets/images/kits/asegurador.png"),
-    devolucion1: require("../assets/images/kits/devolucion1.png"),
-    devolucion2: require("../assets/images/kits/devolucion2.png"),
     mecanicoPedro: require("../assets/images/kits/mecanicoPedro.jpeg"),
     mecanicoJuan: require("../assets/images/kits/mecanicoJuan.jpeg"),
     mecanicoLuis: require("../assets/images/kits/mecanicoLuis.jpeg"),
+    devolucion1: require("../assets/images/kits/devolucion1.png"),
+    devolucion2: require("../assets/images/kits/devolucion2.png"),
+  },
+  asegurador: {
+    photo: require("../assets/images/kits/asegurador.png"),
+  },
+  servicios: {
+  aire: require("../assets/images/servicios/aire-acondicionado.png"),
+  alineacion: require("../assets/images/servicios/alineacion.png"),
+  amortiguador: require("../assets/images/servicios/amortiguador.png"),
+  bateria: require("../assets/images/servicios/bateria.png"),
+  bujia: require("../assets/images/servicios/bujia.png"),
+  filtro: require("../assets/images/servicios/filtro-de-aire.png"),
+  freno: require("../assets/images/servicios/freno.png"),
+  aceite: require("../assets/images/servicios/aceite.png"),
+  diagnosis: require("../assets/images/servicios/diagnosis.png"),
+  luces: require("../assets/images/servicios/luces.png"),
+  motor: require("../assets/images/servicios/motor.png"),
+  pintura: require("../assets/images/servicios/pintura.png"),
+  piston: require("../assets/images/servicios/piston.png"),
+  polea: require("../assets/images/servicios/polea.png"),
+  radiador: require("../assets/images/servicios/radiador.png"),
+  neumatico: require("../assets/images/servicios/neumatico.png"),
+  suspension: require("../assets/images/servicios/suspension.png"),
+  turbo: require("../assets/images/servicios/turbo.png"),
+  velocimetro: require("../assets/images/servicios/velocimetro.png"),
   }
 };
 

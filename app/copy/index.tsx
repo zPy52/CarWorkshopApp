@@ -14,7 +14,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { useTheme } from "../../hooks/theme";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import BottomBar from "../../components/home/BottomBar";
+import BottomBar from "../../components/shared/BottomBar";
 import HomeCard from "../../components/home/HomeCard";
 import WrapView from "../../components/shared/WrapView";
 import BigCard from "../../components/home/BigCard";

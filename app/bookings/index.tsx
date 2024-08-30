@@ -1,12 +1,13 @@
 import React from 'react';
 import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet, SafeAreaView, useWindowDimensions } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import BottomBar from '../../components/home/BottomBar';
+import BottomBar from '../../components/shared/BottomBar';
 import StaticImages from '../../constants/static_images';
 import { useGlobalSearchParams, useRouter } from 'expo-router';
 import { useTheme } from '../../hooks/theme';
-import Header from '../../components/home/HeaderComp';
+import Header from '../../components/shared/HeaderComp';
 import Insets from '../../constants/insets';
+import WrapView from '../../components/shared/WrapView';
+import { cars } from '../../constants/exampleDynamicData';
 
 export default function BookStation() {
     const { selectedCar } = useGlobalSearchParams();
@@ -20,7 +21,12 @@ export default function BookStation() {
         date: 'Jueves, Ago 1',
         time: '4:00pm',
         title: "Cambio de Pastillas de Freno",
-        imageUrl: StaticImages.kitImages.brakeIm,
+        services: {
+          "Frenos": StaticImages.servicios.freno,
+          "Neumáticos": StaticImages.servicios.neumatico,
+          "Aceite": StaticImages.servicios.aceite
+        },
+        car: cars[0],
         address: 'Calle Virgen de Aranzazu 1, Madrid',
         contactName: 'Juan',
         contactImage: StaticImages.kitImages.mecanicoJuan,
@@ -31,7 +37,14 @@ export default function BookStation() {
         date: 'Viernes, Ago 9',
         time: '13:00pm',
         title: "Cambio de Embrague",
-        imageUrl: StaticImages.kitImages.brakeIm,
+        services: {
+          "Alineación de ruedas": StaticImages.servicios.alineacion,
+          "Cambio de bujías": StaticImages.servicios.bujia,
+          "Filtro de aire": StaticImages.servicios.filtro,
+          "Diagnosis de motor": StaticImages.servicios.diagnosis,
+        },
+        car: cars[1],
+        imageUrl: StaticImages.kitImages.distrIm,
         address: 'Calle Avenida de los Guerrilleros 1, Madrid',
         contactName: 'Pedro',
         contactImage: StaticImages.kitImages.mecanicoPedro,
@@ -42,7 +55,15 @@ export default function BookStation() {
         date: 'Hoy',
         time: '11:00am',
         title: "Servicio de PreITV + ITV",
-        imageUrl: StaticImages.kitImages.brakeIm,
+        services: {
+          "Pintura": StaticImages.servicios.pintura,
+          "Pistón": StaticImages.servicios.piston,
+          "Polea": StaticImages.servicios.polea,
+          "Radiador": StaticImages.servicios.radiador,
+          "Suspensión": StaticImages.servicios.suspension,
+        },
+        car: cars[2],
+        imageUrl: StaticImages.kitImages.ITVIm,
         address: 'Calle Paseo de la Castellana 289, Madrid',
         contactName: 'Luis',
         contactImage: StaticImages.kitImages.mecanicoLuis,
@@ -53,7 +74,13 @@ export default function BookStation() {
       date: 'Martes, Sept 17',
       time: '5:00pm',
       title: "Cambio de Neumáticos Pirelli",
-      imageUrl: StaticImages.kitImages.brakeIm,
+      services: {
+        "Amortiguadores": StaticImages.servicios.amortiguador,
+        "Batería": StaticImages.servicios.bateria,
+        "Aire acondicionado": StaticImages.servicios.aire,
+      },
+      car: cars[3],
+      imageUrl: StaticImages.kitImages.neumaticos,
       address: 'Calle Paseo de la Castellana 289, Madrid',
       contactName: 'Pedro',
       contactImage: StaticImages.kitImages.mecanicoPedro,
@@ -104,7 +131,7 @@ export default function BookStation() {
       color: theme.colors.surfaceContainer,
     },
     lineIndicator: {
-      width: 5,
+      width: Insets.pixel,
       backgroundColor: theme.colors.outline,
     },
     activeIndicator: {
@@ -114,10 +141,19 @@ export default function BookStation() {
       flex: 1,
       padding: 10,
     },
-    reservationImage: {
+    imageContainer: {
       width: '100%',
       height: 100,
       borderRadius: 10,
+      overflow: 'hidden',  // Asegura que la superposición siga el borde de la imagen
+    },
+    reservationImage: {
+      width: '100%',
+      height: '100%',
+    },
+    overlay: {
+      ...StyleSheet.absoluteFillObject,
+      backgroundColor: 'rgba(0, 102, 255, 0.2)',
     },
     textContent: {
       marginVertical: 10,
@@ -127,9 +163,9 @@ export default function BookStation() {
       fontWeight: 'bold',
       color: theme.colors.onBackground,
     },
-    addressText: {
+    secondaryText: {
       fontSize: 14,
-      color: theme.colors.surfaceContainer,
+      color: theme.colors.onBackground,
       marginTop: 5,
     },
     contactInfo: {
@@ -148,12 +184,53 @@ export default function BookStation() {
       color: theme.colors.onBackground,
     },
   });
+
+  const ServiceGrid = ({ services }) => {
+    const serviceEntries = Object.entries(services); // Convertir el objeto en un array de pares [clave, valor]
+
+    return (
+      <View style={gridStyles.container}>
+        {serviceEntries.map(([serviceName, serviceIcon], index) => (
+          <View key={index} style={gridStyles.item}>
+            <Image source={serviceIcon} style={gridStyles.icon} />
+            <Text style={gridStyles.text}>{serviceName}</Text>
+          </View>
+        ))}
+      </View>
+    );
+  };
+
+  const gridStyles = StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'space-between',
+      marginTop: Insets.medium,
+      paddingLeft: Insets.medium
+    },
+    item: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      width: '70%', // Dos elementos por fila, con espacio entre ellos
+      marginBottom: Insets.small,
+    },
+    icon: {
+      width: 24, // Ajusta el tamaño del icono
+      height: 24,
+      marginRight: Insets.small,
+    },
+    text: {
+      fontSize: 14, // Tamaño de texto acorde al diseño
+      color: theme.colors.surfaceContainer, // Ajusta el color del texto según el tema
+    },
+  });
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
         <Text style={[theme.text.headlineLarge, styles.title]}>
             Tus reservas
         </Text>
-        <ScrollView style={styles.container}>
+        <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
             {reservations.map((reservation) => (
             <TouchableOpacity key={reservation.id} style={styles.card} onPress={() => {/* Lógica para navegar a los detalles */}}>
                 <View style={styles.dateContainer}>
@@ -162,15 +239,18 @@ export default function BookStation() {
                 </View>
                 <View style={[styles.lineIndicator, reservation.status === 'active' && styles.activeIndicator]} />
                     <View style={styles.content}>
-                        <Image source={reservation.imageUrl } style={styles.reservationImage} />
                     <View style={styles.textContent}>
-                        <Text style={styles.titleText}>{reservation.title}</Text>
-                        <Text style={styles.addressText}>{reservation.address}</Text>
+                        <Text style={styles.titleText}>{reservation.car.name}</Text>
+                        <Text style={styles.secondaryText}>{reservation.address}</Text>
+                        <View>
+                          <ServiceGrid services={reservation.services}/>
+                        </View>
                     </View>
-                    <View style={styles.contactInfo}>
+
+                    {/* <View style={styles.contactInfo}>
                         <Image source={reservation.contactImage} style={styles.contactImage} />
                         <Text style={styles.contactName}>{reservation.contactName}</Text>
-                    </View>
+                    </View> */}
                 </View>
             </TouchableOpacity>
             ))}

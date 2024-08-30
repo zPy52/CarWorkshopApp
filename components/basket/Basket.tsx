@@ -8,7 +8,7 @@ import EmptyBasket from '../../components/basket/EmptyBasket';
 import Insets from "../../constants/insets";
 import StdButton from "../../components/shared/StdButton";
 import { router } from "expo-router";
-import BottomBar from "../home/BottomBar";
+import BottomBar from "../shared/BottomBar";
 import Clickable from "../shared/Clickable";
 
 const Basket = () => {
@@ -21,7 +21,6 @@ const Basket = () => {
       StyleSheet.create({
         mainContainer: {
           backgroundColor: theme.colors.background,
-          paddingHorizontal: Insets.screenMarginLarge,
           flex: 1,
         },
         //----------------------------------------
@@ -129,35 +128,38 @@ const Basket = () => {
 
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <Text style={[theme.text.headlineMedium, styles.PrimaryText]}>Presupuesto</Text>
-      <Text style={[theme.text.titleMedium, styles.SecondaryText]}>Comprueba que todo esté en orden</Text>
-      <View style={styles.secondaryContainer}>
-        <FlatList
-          data={basket}
-          keyExtractor={(item) => item.uniqueKey}
-          renderItem={({ item }) => (
-            <View style={styles.item}>
-              <View style={styles.itemDetails}>
-                <Text style={[ theme.text.bodyLarge, styles.itemName ]}>{item.name}</Text>
-                <Text style={ styles.itemDescription }>{item.description }</Text>
-                <Text style={[ theme.text.bodyLarge, styles.itemDescription] }>${item.price}</Text>
+      <View style={{flex:1, paddingHorizontal: Insets.screenMarginLarge}}>
+        <Text style={[theme.text.headlineMedium, styles.PrimaryText]}>Presupuesto</Text>
+        <Text style={[theme.text.titleMedium, styles.SecondaryText]}>Comprueba que todo esté en orden</Text>
+        <View style={styles.secondaryContainer}>
+          <FlatList
+            data={basket}
+            keyExtractor={(item) => item.uniqueKey}
+            renderItem={({ item }) => (
+              <View style={styles.item}>
+                <View style={styles.itemDetails}>
+                  <Text style={[ theme.text.bodyLarge, styles.itemName ]}>{item.name}</Text>
+                  <Text style={ styles.itemDescription }>{item.description }</Text>
+                  <Text style={[ theme.text.bodyLarge, styles.itemDescription] }>${item.price}</Text>
+                </View>
+                <Clickable style={styles.removeButton} onPress={() => removeFromBasket(item.uniqueKey)}>
+                  <Text style={styles.removeButtonText}>Quitar</Text>
+                </Clickable>
               </View>
-              <Clickable style={styles.removeButton} onPress={() => removeFromBasket(item.uniqueKey)}>
-                <Text style={styles.removeButtonText}>Quitar</Text>
-              </Clickable>
-            </View>
-          )}
-        />
-      </View>
-      <View style={styles.totalContainer}>
-        <View style={styles.totalTextContainer}>
-          <Text style={styles.totalText}>Coste total:</Text>
-          <Text style={styles.totalText}>${getTotal()}</Text>
+            )}
+          />
         </View>
-        <View style={styles.confirmButtonContainer}>
-          <StdButton text="Confirmar" onPress={() => router.navigate('../../basket/Delivery')} />
+        <View style={styles.totalContainer}>
+          <View style={styles.totalTextContainer}>
+            <Text style={styles.totalText}>Coste total:</Text>
+            <Text style={styles.totalText}>${getTotal()}</Text>
+          </View>
+          <View style={styles.confirmButtonContainer}>
+            <StdButton text="Confirmar" onPress={() => router.navigate('../../basket/Delivery')} />
+          </View>
         </View>
       </View>
+      <BottomBar currentScreen="cesta" />
     </SafeAreaView>
   );
 };
