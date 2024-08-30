@@ -50,7 +50,7 @@ export default function CatalogPage({}: Props) {
         <FiltersBottomModalSheet
           filters={[
             {
-              categoryName: "Price",
+              categoryName: "Precio",
               categoryType: "range",
               startRange: 10,
               endRange: 1000,
@@ -61,9 +61,9 @@ export default function CatalogPage({}: Props) {
               options: ["34", "41", "93", "810"],
             },
             {
-              categoryName: "Colors",
+              categoryName: "Colores",
               categoryType: "options",
-              options: ["Red", "Green", "Blue", "Yellow"],
+              options: ["Rojo", "Verde", "Azul", "Amarillo"],
             },
           ]}
         />

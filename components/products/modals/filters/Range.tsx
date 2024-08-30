@@ -3,6 +3,8 @@ import { View, Text, StyleSheet } from "react-native";
 import { useTheme } from "../../../../hooks/theme";
 import Insets from "../../../../constants/insets";
 import Slider from "@react-native-community/slider";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedRangeFilter } from "../../../../redux/reducers/filters";
 
 export type RangeFilter = {
   categoryName: string;
@@ -14,10 +16,25 @@ export type RangeFilter = {
 export const RangeFilterComponent: React.FC<{ filter: RangeFilter }> = ({
   filter,
 }) => {
-  const [rangeValue, setRangeValue] = useState([
-    filter.startRange,
-    filter.endRange,
-  ]);
+  const rangeValueFilter = useSelector((state: any) =>
+    state.filters.selectedRangeFilters.find(
+      (filterState: any) => filterState.categoryName === filter.categoryName
+    )
+  );
+
+  const rangeValue = rangeValueFilter?.selectedRange || [0, 0];
+
+  const dispatch = useDispatch();
+
+  const setRangeValue = (range: [number, number]) => {
+    dispatch(
+      setSelectedRangeFilter({
+        categoryName: filter.categoryName,
+        selectedRange: range,
+      })
+    );
+  };
+
   const { theme } = useTheme();
 
   const styles = useMemo(

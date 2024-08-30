@@ -3,6 +3,8 @@ import { View, Text, StyleSheet } from "react-native";
 import { useTheme } from "../../../../hooks/theme";
 import Insets from "../../../../constants/insets";
 import Clickable from "../../../shared/Clickable";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedOptionFilter } from "../../../../redux/reducers/filters";
 
 export type OptionFilter = {
   categoryName: string;
@@ -13,14 +15,27 @@ export type OptionFilter = {
 export const OptionFilterComponent: React.FC<{
   filter: OptionFilter;
 }> = ({ filter }) => {
-  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const { theme } = useTheme();
+  const selectedOptionsFilter = useSelector((state: any) =>
+    state.filters.selectedOptionFilters.find(
+      (filterState: any) => filterState.categoryName === filter.categoryName
+    )
+  );
+  const selectedOptions = selectedOptionsFilter?.selectedOptions || [];
+
+  const dispatch = useDispatch();
 
   const toggleOption = useCallback((option: string) => {
-    setSelectedOptions((prevSelected) =>
-      prevSelected.includes(option)
-        ? prevSelected.filter((item) => item !== option)
-        : [...prevSelected, option]
+    const updatedOptions = selectedOptions.includes(option)
+      ? selectedOptions.filter((item: string) => item !== option)
+      : [...selectedOptions, option];
+
+    // Dispatch the selected options to Redux
+    dispatch(
+      setSelectedOptionFilter({
+        categoryName: filter.categoryName,
+        selectedOptions: updatedOptions,
+      })
     );
   }, []);
 
