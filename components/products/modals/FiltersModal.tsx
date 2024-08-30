@@ -3,70 +3,62 @@ import React, {
   useRef,
   useMemo,
   useEffect,
-  useState,
 } from "react";
 import {
   View,
-  Text,
   StyleSheet,
   FlatList,
-  TouchableOpacity,
-  useWindowDimensions,
 } from "react-native";
 import BottomSheet from "@gorhom/bottom-sheet";
-import Slider from "@react-native-community/slider";
-import { useTheme } from "../../../hooks/theme";
 import Insets from "../../../constants/insets";
-import Clickable from "../../shared/Clickable";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  closeFiltersModal,
+  openFiltersModal,
+} from "../../../redux/reducers/filters";
+import { MultipleOptionFilter, MultipleOptionFilterComponent } from "./filters/MultipleOptions";
+import { OptionFilter, OptionFilterComponent } from "./filters/Options";
+import { RangeFilter, RangeFilterComponent } from "./filters/Range";
 
-// Reuse the types from above
-type OptionFilter = {
-  categoryName: string;
-  categoryType: "options";
-  options: string[];
-};
 
-type RangeFilter = {
-  categoryName: string;
-  categoryType: "range";
-  startRange: number;
-  endRange: number;
-};
-
-type FilterCategory = OptionFilter | RangeFilter;
+type FilterCategory = OptionFilter | RangeFilter | MultipleOptionFilter;
 
 type Props = {
-  command?: "open" | "close";
   filters: FilterCategory[];
 };
 
-export default function FiltersBottomModalSheet({ command, filters }: Props) {
-  const { theme } = useTheme();
-  const { height } = useWindowDimensions();
+export default function FiltersBottomModalSheet({ filters }: Props) {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = ["100%"];
 
+  const dispatch = useDispatch();
+  const shouldOpen = useSelector((state: any) => state.filters.isOpen);
+
   const openBottomSheet = useCallback(() => {
     bottomSheetRef.current?.expand();
+    dispatch(openFiltersModal());
   }, []);
 
   const closeBottomSheet = useCallback(() => {
     bottomSheetRef.current?.close();
+    dispatch(closeFiltersModal());
   }, []);
 
   useEffect(() => {
-    if (command === "open") {
+    if (shouldOpen) {
       openBottomSheet();
-    } else if (command === "close") {
+    } else if (shouldOpen) {
       closeBottomSheet();
     }
-  }, [command, openBottomSheet, closeBottomSheet]);
+  }, [shouldOpen, openBottomSheet, closeBottomSheet]);
 
   const renderFilterItem = useCallback(({ item }: { item: FilterCategory }) => {
     if (item.categoryType === "options") {
       return <OptionFilterComponent filter={item as OptionFilter} />;
     } else if (item.categoryType === "range") {
       return <RangeFilterComponent filter={item as RangeFilter} />;
+    } else if (item.categoryType === "multipleOptions") {
+      return <MultipleOptionFilterComponent filter={item as MultipleOptionFilter} />;
     }
     return null;
   }, []);
@@ -77,6 +69,9 @@ export default function FiltersBottomModalSheet({ command, filters }: Props) {
         container: {
           height: "100%",
           width: "100%",
+        },
+        paddingView: {
+          height: Insets.medium,
         },
         contentContainer: {
           flex: 1,
@@ -92,9 +87,13 @@ export default function FiltersBottomModalSheet({ command, filters }: Props) {
         ref={bottomSheetRef}
         detached
         enablePanDownToClose
+        onClose={() => {
+          dispatch(closeFiltersModal());
+        }}
         index={-1}
         snapPoints={snapPoints}
       >
+        <View style={styles.paddingView} />
         <View style={styles.contentContainer}>
           <FlatList
             data={filters}
@@ -107,126 +106,3 @@ export default function FiltersBottomModalSheet({ command, filters }: Props) {
     </View>
   );
 }
-
-const OptionFilterComponent: React.FC<{ filter: OptionFilter }> = ({
-  filter,
-}) => {
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const { theme } = useTheme();
-
-  const styles = useMemo(
-    () =>
-      StyleSheet.create({
-        filterContainer: {
-          marginVertical: Insets.medium,
-          
-        },
-        filterTitle: {
-          ...theme.text.titleLarge,
-          fontWeight: "bold",
-          marginBottom: Insets.medium,
-        },
-        optionButton: {
-          padding: Insets.medium,
-          borderWidth: Insets.pixel,
-          borderColor: theme.colors.primary,
-          borderRadius: Insets.submedium,
-          marginVertical: Insets.small,
-          backgroundColor: theme.colors.background,
-        },
-        optionText: {
-          ...theme.text.bodyLarge,
-        },
-      }),
-    [theme]
-  );
-
-  return (
-    <View style={styles.filterContainer}>
-      <Text style={styles.filterTitle}>{filter.categoryName}</Text>
-      {filter.options.map((option) => (
-        <Clickable onPress={() => setSelectedOption(option)}>
-          <View
-            key={option}
-            style={[
-              styles.optionButton,
-              {
-                backgroundColor:
-                  selectedOption === option
-                    ? theme.colors.primary
-                    : theme.colors.background,
-              },
-            ]}
-          >
-            <Text
-              style={[
-                styles.optionText,
-                {
-                  color:
-                    selectedOption === option
-                      ? theme.colors.background
-                      : theme.text.bodyLarge.color,
-                },
-              ]}
-            >
-              {option}
-            </Text>
-          </View>
-        </Clickable>
-      ))}
-    </View>
-  );
-};
-
-const RangeFilterComponent: React.FC<{ filter: RangeFilter }> = ({
-  filter,
-}) => {
-  const [rangeValue, setRangeValue] = useState([
-    filter.startRange,
-    filter.endRange,
-  ]);
-  const { theme } = useTheme();
-
-  const styles = useMemo(
-    () =>
-      StyleSheet.create({
-        filterContainer: {
-          marginVertical: Insets.medium,
-        },
-        filterTitle: {
-          ...theme.text.titleLarge,
-          fontWeight: "bold",
-          marginBottom: Insets.medium,
-        },
-        rangeValueText: {
-          ...theme.text.bodyLarge,
-          textAlign: "center",
-          marginVertical: Insets.medium,
-        },
-      }),
-    [theme]
-  );
-
-  return (
-    <View style={styles.filterContainer}>
-      <Text style={styles.filterTitle}>{filter.categoryName}</Text>
-      <Slider
-        style={{ width: "100%", height: Insets.screenMarginLarge }}
-        minimumValue={filter.startRange}
-        maximumValue={filter.endRange}
-        onValueChange={(value) =>
-          setRangeValue([Math.round(value), rangeValue[1]])
-        }
-        onSlidingComplete={(value) =>
-          setRangeValue([Math.round(value), rangeValue[1]])
-        }
-        minimumTrackTintColor={theme.colors.primary}
-        maximumTrackTintColor={theme.text.bodyLarge.color}
-        thumbTintColor={theme.colors.primary}
-      />
-      <Text style={styles.rangeValueText}>
-        {rangeValue[0]} - {rangeValue[1]}
-      </Text>
-    </View>
-  );
-};

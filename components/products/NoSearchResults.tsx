@@ -1,17 +1,22 @@
 import Insets from "../../constants/insets";
 import StaticImages from "../../constants/static_images";
 import { useTheme } from "../../hooks/theme";
-import { View,Text, Image, StyleSheet, useWindowDimensions } from "react-native";
-
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  useWindowDimensions,
+} from "react-native";
 
 export default function NoSearchResultsComponent() {
   const { theme } = useTheme();
-  const {width} = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
   const styles = StyleSheet.create({
     container: {
       marginHorizontal: Insets.screenMarginLarge,
-      alignItems: "center"
+      alignItems: "center",
     },
     image: {
       height: Insets.layoutLarge + Insets.layoutMedium,
@@ -26,8 +31,13 @@ export default function NoSearchResultsComponent() {
     },
   });
 
-  return (<View style={styles.container}>
-    <Image source={StaticImages.misc.noResults} style={styles.image} />
-    <Text style={styles.text}>Lo sentimos, no se ha encontrado ningún producto para la búsqueda realizada. Puedes probar con otros filtros o palabras clave.</Text>
-  </View>);
+  return (
+    <View style={styles.container}>
+      <Image source={StaticImages.misc.noResults} style={styles.image} />
+      <Text style={styles.text}>
+        Lo sentimos, no se ha encontrado ningún producto para la búsqueda
+        realizada. Puedes probar con otros filtros o palabras clave.
+      </Text>
+    </View>
+  );
 }

@@ -5,7 +5,6 @@ import {
   View,
   useWindowDimensions,
 } from "react-native";
-import { router } from "expo-router";
 import { useMemo } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "../../../hooks/theme";
