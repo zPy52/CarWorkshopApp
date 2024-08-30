@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView,Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 import Insets from '../../constants/insets';
 import { useTheme } from "../../hooks/theme";
@@ -7,14 +7,15 @@ import StdButton from '../shared/StdButton';
 import ChevronBack from '../../components/shared/ChevronBack';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import StaticImages from '../../constants/static_images';
+import { useNavigation } from '@react-navigation/native';
 
-const BrakeSelector = () => {
-  const [brakeType, setBrakeType] = useState(''); // Estado para el selector de frenos
-  const [padChangeOption, setPadChangeOption] = useState(''); // Estado para el selector de recambio de pastillas
-  const [additionalBrakePadChange, setAdditionalBrakePadChange] = useState(''); // Estado para el selector de opciones adicionales
+const BrakeSelectorSummary = () => {
   const { theme } = useTheme();
   const [selectedPart, setSelectedPart] = useState(null);
   const [selectedSection, setSelectedSection] = useState(null);
+  const [selectedQuestion, setSelectedQuestion] = useState(null);
+  const [faqOpen, setFaqOpen] = useState(false);
+  const navigation = useNavigation();
 
   const handleChevronBackPress = () => {
     if (selectedPart) {
@@ -24,16 +25,35 @@ const BrakeSelector = () => {
     }
   };
 
+  const handleSelectQuestion = (id) => {
+    setSelectedQuestion(selectedQuestion === id ? null : id);
+  };
+
+  const handleToggleFAQ = () => {
+    setFaqOpen(!faqOpen);
+    if (faqOpen) {
+      setSelectedQuestion(null);
+    }
+  };
+
+  const handleRequestQuote = () => {
+    console.log("Solicitando servicio...");
+    // navigation.navigate('.'); Aquí navega a la página correspondiente
+  };
+
+  const questions = [
+    { id: 1, question: "¿Cuánto tiempo dura el servicio?", answer: "El servicio dura entre 3 y 6 horas, dependiendo del tipo de freno y la disponibilidad del recambio." },
+    { id: 2, question: "¿Qué tipos de frenos o pastillas se ofrecen?", answer: "Ofrecemos frenos de disco, frenos de tambor, y frenos ABS, entre otros." },
+    { id: 3, question: "¿Qué pasa si necesito cancelar?", answer: "Puedes cancelar el servicio hasta 24 horas antes sin penalización. Después de eso, aplican cargos por cancelación." },
+  ];
+
   const styles = StyleSheet.create({
     container: {
-      flex: 1, // Asegura que el contenedor ocupe todo el espacio disponible
+      flex: 1,
       backgroundColor: theme.colors.background,
     },
-    header: {
-      fontSize: 18,
-      fontWeight: 'bold',
-      marginTop: 10,
-      marginBottom: 10,
+    contentContainer: {
+      flex: 1,
     },
     headerContainer: {
       marginTop: 10,
@@ -67,8 +87,9 @@ const BrakeSelector = () => {
       marginTop: 10,
       fontWeight: 'bold',
       color: theme.colors.onBackground,
+      marginBottom: 10,
     },
-    containerTitleBotom:{
+    containerTitleBotom: {
       alignItems: 'center',
       flexDirection: 'row',
       justifyContent: 'center',
@@ -78,36 +99,30 @@ const BrakeSelector = () => {
       flexDirection: 'row',
       alignItems: 'center',
     },
-    duration: {
-      fontSize: 16,
-      color: theme.colors.outlineFocus,
-      marginLeft: 7.5,
-    },
     description: {
       fontSize: 14,
       color: theme.colors.outlineFocus,
       marginTop: 5,
-      marginBottom: 5
+      marginBottom: 5,
     },
     divider: {
       height: 1,
       backgroundColor: theme.colors.outlineVariant,
       marginVertical: 10,
     },
-    // Estilo para centrar el botón
     centeredButton: {
       marginVertical: 20,
       alignItems: 'center',
     },
     buttonPresupuesto: {
-      marginTop: 10,
+      marginBottom: 10,
       height: Insets.layoutSmall,
       width: '100%',
+      marginTop: 10,
     },
     scrollViewContent: {
       flexGrow: 1,
-      justifyContent: 'space-between', // Espacia el contenido
-      padding:Insets.screenMarginLarge,
+      padding: Insets.screenMarginMedium,
     },
     cancelacion: {
       marginTop: 5,
@@ -116,12 +131,9 @@ const BrakeSelector = () => {
       color: theme.colors.surfaceVariant,
     },
     footerContainer: {
-      position: 'absolute',
-      bottom: 0,
-      left: 0,
-      right: 0,
-      backgroundColor: theme.colors.background,
       padding: Insets.screenMarginMedium,
+      borderColor: theme.colors.surface,
+      borderWidth: 0.5,
     },
     section: {
       marginTop: 10,
@@ -133,13 +145,13 @@ const BrakeSelector = () => {
     },
     section2: {
       marginTop: 10,
-      backgroundColor: theme.colors.surface,
+      backgroundColor: theme.colors.surfaceContainerLowest,
       borderRadius: 10,
       padding: Insets.screenMarginMedium,
       marginBottom: 10,
     },
     sectionTitle: {
-      fontSize: 16,
+      fontSize: 18,
       fontWeight: 'bold',
       color: theme.colors.onBackground,
     },
@@ -151,6 +163,7 @@ const BrakeSelector = () => {
     definition: {
       fontSize: 16,
       color: theme.colors.onBackground,
+      marginRight: 10,
     },
     iconSpacing: {
       marginRight: 10,
@@ -168,236 +181,227 @@ const BrakeSelector = () => {
       borderWidth: 1,
       marginBottom: 10,
     },
+    faqContainer: {
+      marginVertical: 10,
+      backgroundColor: theme.colors.surfaceContainerLowest,
+      borderRadius: 10,
+    },
+    dropdownHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      textAlign: 'center',
+      paddingVertical: 10,
+      paddingHorizontal: 15,
+      backgroundColor: theme.colors.surfaceContainerLowest,
+      borderRadius: 10,
+    },
+    faqTitle: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      color: theme.colors.onBackground,
+    },
+    dropdownBody: {
+      marginTop: 10,
+      paddingHorizontal: 15,
+    },
+    questionContainer: {
+      marginBottom: 10,
+    },
+    questionHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingVertical: 10,
+    },
+    partText: {
+      fontSize: 16,
+      color: theme.colors.onBackground,
+    },
+    answerText: {
+      marginTop: 5,
+      fontSize: 14,
+      color: theme.colors.outlineFocus,
+      paddingLeft: 20,
+    },
   });
-
-
-  const renderBrakeButtons = (options, selectedValue, onSelect) => (
-    <View style={styles.buttonContainer}>
-      {options.map((option) => (
-        <TouchableOpacity
-          key={option.value}
-          style={[
-            styles.button,
-            selectedValue === option.value && styles.selectedButton,
-          ]}
-          onPress={() => onSelect(option.value)}
-        >
-          <Text
-            style={[
-              styles.buttonText,
-              selectedValue === option.value && styles.selectedButtonText,
-            ]}
-          >
-            {option.label}
-          </Text>
-        </TouchableOpacity>
-      ))}
-    </View>
-  );
-
-  const handleRequestQuote = () => {
-    // Lógica para manejar la solicitud de presupuesto
-    console.log("Solicitando presupuesto...");
-  };
 
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <View>
+        <View style={styles.contentContainer}>
           <View style={styles.headerContainer}>
-          <View style={styles.containerTitleBotom}>
-            <TouchableOpacity
-              onPress={handleChevronBackPress}
-              style={{ position: 'absolute', left: -25, top:-13}}
-            >
-              <ChevronBack />
-            </TouchableOpacity>
-            <Text style={styles.title}>Servicio de frenos</Text>
-          </View>
-            <View style={styles.row}>
-              <Ionicons
-                name="timer"
-                size={Insets.screenMarginMedium}
-                color={theme.colors.surfaceVariant}
-              />
-              <Text style={styles.duration}>3h-6h</Text>
+            <View style={styles.containerTitleBotom}>
+              <TouchableOpacity
+                onPress={handleChevronBackPress}
+                style={{ position: 'absolute', left: -25, top: -13 }}
+              >
+                <ChevronBack />
+              </TouchableOpacity>
+              <Text style={styles.title}>Servicio de frenos</Text>
             </View>
+
             <Text style={styles.description}>
-              El servicio esencial para asegurar que los frenos de tu coche funcionen de manera óptima y segura.
+              El servicio esencial para asegurar que los frenos de tu coche funcionen de manera óptima y segura
+              con las mejores ofertas del mercado adaptándonos a tus necesidades. No dudes en consultar con
+              nuestro equipo de profesionales para resolver tus dudas.
             </Text>
           </View>
 
-          {/* Divider */}
           <View style={styles.divider} />
 
-          {/* Seccion 1 */}
           <View style={styles.section}>
-          <Text style={styles.sectionTitle}>¿Cómo funciona?</Text>
-          <View style={styles.step}>
-            <Ionicons
-              name="calendar-outline"
-              size={Insets.screenMarginMedium}
-              color={theme.colors.surfaceVariant}
-              style={styles.iconSpacing}
-            />
-            <Text style={styles.definition}>Agenda tu cita</Text>
-          </View>
-          <View style={styles.step}>
-            <Ionicons
-              name="car-outline"
-              size={Insets.screenMarginMedium}
-              color={theme.colors.surfaceVariant}
-              style={styles.iconSpacing}
-            />
-            <Text style={styles.definition}>Un asistente recogerá tu coche</Text>
-          </View>
-          <View style={styles.step}>
-            <MaterialCommunityIcons
-              name="wrench-outline"
-              size={Insets.screenMarginMedium}
-              color={theme.colors.surfaceVariant}
-              style={styles.iconSpacing}
-            />
-            <Text style={styles.definition}>
-              Lo trasladaremos al taller para realizar el recambio seleccionado
-            </Text>
-          </View>
-          <View style={styles.step}>
-            <Ionicons
-              name="checkmark-outline"
-              size={Insets.screenMarginMedium}
-              color={theme.colors.surfaceVariant}
-              style={styles.iconSpacing}
-            />
-            <Text style={styles.definition}>
-            Cuando esté listo te devolvemos tu vehículo con el recambio realizado
-            </Text>
-          </View>
-          </View>
-
-          {/* asegurador */}
-          <View style={styles.asegurador}>
-          <View style={styles.row}>
-            <Image source={StaticImages.asegurador.photo} style={styles.image} />
-            <View style={{ flex: 1 }}>
-              <Text style={styles.sectionTitle}>Asegurador de confianza</Text>
-              <Text style={styles.definition}>
-                Tu coche con seguro adicional sin coste gracias a David.
-              </Text>
+            <Text style={styles.sectionTitle}>¿Cómo funciona?</Text>
+            <View style={styles.step}>
+              <MaterialCommunityIcons
+                name="car-brake-abs"
+                size={Insets.screenMarginMedium}
+                color={theme.colors.onBackground}
+                style={styles.iconSpacing}
+              />
+              <Text style={styles.definition}>Elige tus frenos y completa el resto de datos</Text>
+            </View>
+            <View style={styles.step}>
+              <Ionicons
+                name="calendar-outline"
+                size={Insets.screenMarginMedium}
+                color={theme.colors.onBackground}
+                style={styles.iconSpacing}
+              />
+              <Text style={styles.definition}>Selecciona lugar, día y hora de la recogida</Text>
+            </View>
+            <View style={styles.step}>
+              <Ionicons
+                name="car-outline"
+                size={Insets.screenMarginMedium}
+                color={theme.colors.onBackground}
+                style={styles.iconSpacing}
+              />
+              <Text style={styles.definition}>Un asistente recogerá tu coche en el lugar y día seleccionados</Text>
+            </View>
+            <View style={styles.step}>
+              <MaterialCommunityIcons
+                name="wrench-outline"
+                size={Insets.screenMarginMedium}
+                color={theme.colors.onBackground}
+                style={styles.iconSpacing}
+              />
+              <Text style={styles.definition}>Lo trasladaremos al taller para realizar el recambio seleccionado</Text>
+            </View>
+            <View style={styles.step}>
+              <Ionicons
+                name="checkmark-outline"
+                size={Insets.screenMarginMedium}
+                color={theme.colors.onBackground}
+                style={styles.iconSpacing}
+              />
+              <Text style={styles.definition}>Cuando esté listo te devolvemos tu vehículo con los frenos nuevos montados</Text>
             </View>
           </View>
+
+          <View style={styles.asegurador}>
+            <View style={styles.row}>
+              <Image source={StaticImages.asegurador.photo} style={styles.image} />
+              <View style={{ flex: 1 }}>
+                <Text style={styles.sectionTitle}>Asegurador de confianza</Text>
+                <Text style={styles.definition}>
+                  Tu coche con seguro adicional sin coste gracias a David.
+                </Text>
+              </View>
+            </View>
           </View>
 
-          {/* requisitos */}
           <View style={styles.section2}>
-          <Text style={styles.sectionTitle}>
-            Requisitos para solicitar el servicio
-          </Text>
-          <View style={styles.step}>
-            <Ionicons
-              name="document-outline"
-              size={Insets.screenMarginMedium}
-              color={theme.colors.surfaceVariant}
-              style={styles.iconSpacing}
-            />
-            <Text style={styles.definition}>Permiso de circulación</Text>
-          </View>
-          <View style={styles.step}>
-            <Ionicons
-              name="document-text-outline"
-              size={Insets.screenMarginMedium}
-              color={theme.colors.surfaceVariant}
-              style={styles.iconSpacing}
-            />
-            <Text style={styles.definition}>Ficha técnica</Text>
-          </View>
-          <View style={styles.step}>
-            <Ionicons
-              name="shield-outline"
-              size={Insets.screenMarginMedium}
-              color={theme.colors.surfaceVariant}
-              style={styles.iconSpacing}
-            />
-            <Text style={styles.definition}>Póliza de seguro vigente</Text>
-          </View>
-          <View style={styles.step}>
-            <MaterialCommunityIcons
-              name="gas-station-outline"
-              size={Insets.screenMarginMedium}
-              color={theme.colors.surfaceVariant}
-              style={styles.iconSpacing}
-            />
-            <Text style={styles.definition}>Mínimo un cuarto de depósito</Text>
-          </View>
+            <Text style={styles.sectionTitle}>Requisitos para solicitar el servicio</Text>
+            <View style={styles.step}>
+              <Ionicons
+                name="document-outline"
+                size={Insets.screenMarginMedium}
+                color={theme.colors.onBackground}
+                style={styles.iconSpacing}
+              />
+              <Text style={styles.definition}>Permiso de circulación</Text>
+            </View>
+            <View style={styles.step}>
+              <Ionicons
+                name="document-text-outline"
+                size={Insets.screenMarginMedium}
+                color={theme.colors.onBackground}
+                style={styles.iconSpacing}
+              />
+              <Text style={styles.definition}>Ficha técnica</Text>
+            </View>
+            <View style={styles.step}>
+              <Ionicons
+                name="shield-outline"
+                size={Insets.screenMarginMedium}
+                color={theme.colors.onBackground}
+                style={styles.iconSpacing}
+              />
+              <Text style={styles.definition}>Póliza de seguro vigente</Text>
+            </View>
+            <View style={styles.step}>
+              <MaterialCommunityIcons
+                name="gas-station-outline"
+                size={Insets.screenMarginMedium}
+                color={theme.colors.onBackground}
+                style={styles.iconSpacing}
+              />
+              <Text style={styles.definition}>Mínimo un cuarto de depósito</Text>
+            </View>
           </View>
 
-          {/* Divider */}
-          <View style={styles.divider} />
+          <View style={styles.faqContainer}>
+            <TouchableOpacity style={styles.dropdownHeader} onPress={handleToggleFAQ}>
+              <Text style={styles.faqTitle}>Preguntas Frecuentes</Text>
+              <Ionicons
+                name={faqOpen ? "chevron-up" : "chevron-down"}
+                size={24}
+                color={theme.colors.onBackground}
+              />
+            </TouchableOpacity>
 
-          {/* Selector de frenos */}
-          <Text style={styles.header}>Seleccione los frenos</Text>
-          {renderBrakeButtons(
-            [
-              { label: 'Delanteros', value: 'front' },
-              { label: 'Traseros', value: 'rear' },
-              { label: 'Ambos', value: 'both' },
-            ],
-            brakeType,
-            setBrakeType
-          )}
-
-          {/* Selector de recambio de pastillas */}
-          <Text style={styles.header}>¿Desea además un recambio de pastillas?</Text>
-          {renderBrakeButtons(
-            [
-              { label: 'Sí', value: 'yes' },
-              { label: 'No', value: 'no' },
-            ],
-            padChangeOption,
-            setPadChangeOption
-          )}
-
-          {/* Condicional para mostrar los botones adicionales */}
-          {padChangeOption === 'yes' && (
-            <>
-              <Text style={styles.header}>Selecciona la opción de recambio de pastillas</Text>
-              {renderBrakeButtons(
-                [
-                  { label: 'Delanteros', value: 'frontPads' },
-                  { label: 'Traseros', value: 'rearPads' },
-                  { label: 'Ambos', value: 'bothPads' },
-                ],
-                additionalBrakePadChange,
-                setAdditionalBrakePadChange
-              )}
-            </>
-          )}
-        </View>
-
-        {/* footer */}
-        <View style={styles.footerContainer}>
-
-          <View style={styles.divider} />
-
-          <Text style={styles.cancelacion}>
-            Podrás cancelar la reserva de manera gratuita si cancelas antes de
-            las 2 horas previas al servicio, a partir de ese momento se te
-            cobrará el 100% del coste. Para más información consulte nuestra
-            política de servicios.
-          </Text>
-
-          {/* Botón para solicitar el servicio*/}
-          <View style={styles.buttonPresupuesto}>
-          <StdButton
-            text="Añadir a la cesta"
-            onPress={handleRequestQuote}
-            enabled={true} // Puedes cambiar esto a una condición si necesitas deshabilitar el botón
-            />
+            {faqOpen && (
+              <View style={styles.dropdownBody}>
+                {questions.map((item) => (
+                  <View key={item.id} style={styles.questionContainer}>
+                    <TouchableOpacity
+                      style={styles.questionHeader}
+                      onPress={() => handleSelectQuestion(item.id)}
+                    >
+                      <Text style={styles.partText}>{item.question}</Text>
+                      <Ionicons
+                        name={selectedQuestion === item.id ? "chevron-up" : "chevron-down"}
+                        size={24}
+                        color={theme.colors.onBackground}
+                      />
+                    </TouchableOpacity>
+                    {selectedQuestion === item.id && (
+                      <Text style={styles.answerText}>{item.answer}</Text>
+                    )}
+                  </View>
+                ))}
+              </View>
+            )}
           </View>
         </View>
+      <View style={styles.divider} />
+
+        <Text style={styles.cancelacion}>
+          Los frenos y discos de frenos serán enviados al centro y en caso de cambio o cancelación,
+          tendrá una penalización. Para más información consulte nuestra política de servicios.
+        </Text>
       </ScrollView>
+
+        <View style={styles.buttonPresupuesto}>
+          <StdButton
+            text="Solicitar servicio"
+            onPress={handleRequestQuote}
+            enabled={true}
+          />
+        </View>
+
     </View>
   );
 };
 
-export default BrakeSelector;
+export default BrakeSelectorSummary;
