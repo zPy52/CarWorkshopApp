@@ -99,14 +99,14 @@ const App = () => {
     section: {
       marginTop: 10,
       borderRadius: 10,
-      borderColor: theme.colors.onSurface,
+      borderColor: theme.colors.surface,
       borderWidth: 1,
       padding: Insets.screenMarginMedium,
       marginBottom: Insets.screenMarginMedium,
     },
     section2: {
       marginTop: 10,
-      backgroundColor: theme.colors.surfaceContainerLowest,
+      backgroundColor: theme.colors.surface,
       borderRadius: 10,
       padding: Insets.screenMarginMedium,
       marginBottom: 10,
@@ -127,14 +127,14 @@ const App = () => {
     },
     divider: {
       height: 1,
-      backgroundColor: theme.colors.outlineVariant,
+      backgroundColor: theme.colors.surface,
       marginVertical: 10,
     },
     asegurador: {
       padding: Insets.screenMarginMedium,
       backgroundColor: theme.colors.background,
       borderRadius: 10,
-      borderColor: theme.colors.onSurface,
+      borderColor: theme.colors.surface,
       borderWidth: 1,
       marginBottom: 10,
     },

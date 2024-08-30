@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   ScrollView,
   Animated,
+  Image
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { Ionicons } from "@expo/vector-icons";
@@ -14,6 +15,8 @@ import Insets from "../../constants/insets";
 import { useTheme } from "../../hooks/theme";
 import StdButton from "../shared/StdButton";
 import ChevronBack from '../../components/shared/ChevronBack';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import StaticImages from '../../constants/static_images';
 
 // // Datos de prueba, en caso de haber solo 1, solo saldrian productos de ese unico coche
 // const clutchData = [
@@ -248,6 +251,51 @@ const ClutchSelector = () => {
     paginationButtonText: {
       color: theme.colors.background,
     },
+    iconSpacing: {
+      marginRight: 10,
+    },
+    section: {
+      marginTop: 10,
+      borderRadius: 10,
+      borderColor: theme.colors.surface,
+      borderWidth: 1,
+      padding: Insets.screenMarginMedium,
+      marginBottom: Insets.screenMarginMedium,
+    },
+    section2: {
+      marginTop: 10,
+      backgroundColor: theme.colors.surface,
+      borderRadius: 10,
+      padding: Insets.screenMarginMedium,
+      marginBottom: 10,
+    },
+    sectionTitle: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      color: theme.colors.onBackground,
+    },
+    step: {
+      marginTop: 10,
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    definition: {
+      fontSize: 16,
+      color: theme.colors.onBackground,
+    },
+    asegurador: {
+      padding: Insets.screenMarginMedium,
+      backgroundColor: theme.colors.background,
+      borderRadius: 10,
+      borderColor: theme.colors.surface,
+      borderWidth: 1,
+      marginBottom: 10,
+    },
+    image: {
+      width: 60,
+      height: 60,
+      marginRight: 10,
+    },
   });
 
   const handleRequestQuote = () => {
@@ -315,30 +363,109 @@ const ClutchSelector = () => {
 
          <View style={styles.divider} />
 
-       {/* <Text style={styles.header}>Seleccione modelo de coche</Text>
-        <View style={styles.buttonContainer}>
-          {carModels.map((model) => (
-            <TouchableOpacity
-              key={model}
-              style={[
-                styles.button,
-                selectedModel === model && styles.selectedButton,
-              ]}
-              onPress={() => setSelectedModel(model)}
-            >
-              <Text
-                style={[
-                  styles.buttonText,
-                  selectedModel === model && styles.selectedButtonText,
-                ]}
-              >
-                {model}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </View>
+       {/* Seccion 1 */}
+       <View style={styles.section}>
+          <Text style={styles.sectionTitle}>¿Cómo funciona?</Text>
+          <View style={styles.step}>
+            <Ionicons
+              name="calendar-outline"
+              size={Insets.screenMarginMedium}
+              color={theme.colors.surfaceVariant}
+              style={styles.iconSpacing}
+            />
+            <Text style={styles.definition}>Agenda tu cita</Text>
+          </View>
+          <View style={styles.step}>
+            <Ionicons
+              name="car-outline"
+              size={Insets.screenMarginMedium}
+              color={theme.colors.surfaceVariant}
+              style={styles.iconSpacing}
+            />
+            <Text style={styles.definition}>Un asistente recogerá tu coche</Text>
+          </View>
+          <View style={styles.step}>
+            <MaterialCommunityIcons
+              name="wrench-outline"
+              size={Insets.screenMarginMedium}
+              color={theme.colors.surfaceVariant}
+              style={styles.iconSpacing}
+            />
+            <Text style={styles.definition}>
+              Lo trasladaremos al taller para realizar el recambio seleccionado
+            </Text>
+          </View>
+          <View style={styles.step}>
+            <Ionicons
+              name="checkmark-outline"
+              size={Insets.screenMarginMedium}
+              color={theme.colors.surfaceVariant}
+              style={styles.iconSpacing}
+            />
+            <Text style={styles.definition}>
+            Cuando esté listo te devolvemos tu vehículo con el recambio realizado
+            </Text>
+          </View>
+          </View>
 
-        <View style={styles.divider} /> */}
+          {/* asegurador */}
+          <View style={styles.asegurador}>
+          <View style={styles.row}>
+            <Image source={StaticImages.asegurador.photo} style={styles.image} />
+            <View style={{ flex: 1 }}>
+              <Text style={styles.sectionTitle}>Asegurador de confianza</Text>
+              <Text style={styles.definition}>
+                Tu coche con seguro adicional sin coste gracias a David.
+              </Text>
+            </View>
+          </View>
+          </View>
+
+          {/* requisitos */}
+          <View style={styles.section2}>
+          <Text style={styles.sectionTitle}>
+            Requisitos para solicitar el servicio
+          </Text>
+          <View style={styles.step}>
+            <Ionicons
+              name="document-outline"
+              size={Insets.screenMarginMedium}
+              color={theme.colors.surfaceVariant}
+              style={styles.iconSpacing}
+            />
+            <Text style={styles.definition}>Permiso de circulación</Text>
+          </View>
+          <View style={styles.step}>
+            <Ionicons
+              name="document-text-outline"
+              size={Insets.screenMarginMedium}
+              color={theme.colors.surfaceVariant}
+              style={styles.iconSpacing}
+            />
+            <Text style={styles.definition}>Ficha técnica</Text>
+          </View>
+          <View style={styles.step}>
+            <Ionicons
+              name="shield-outline"
+              size={Insets.screenMarginMedium}
+              color={theme.colors.surfaceVariant}
+              style={styles.iconSpacing}
+            />
+            <Text style={styles.definition}>Póliza de seguro vigente</Text>
+          </View>
+          <View style={styles.step}>
+            <MaterialCommunityIcons
+              name="gas-station-outline"
+              size={Insets.screenMarginMedium}
+              color={theme.colors.surfaceVariant}
+              style={styles.iconSpacing}
+            />
+            <Text style={styles.definition}>Mínimo un cuarto de depósito</Text>
+          </View>
+          </View>
+
+          {/* Divider */}
+          <View style={styles.divider} />
 
         <View style={styles.pickerContainer}>
           <Text style={styles.header}>Embragues disponibles</Text>
