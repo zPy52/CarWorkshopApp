@@ -95,6 +95,10 @@ const CarPartSelector = () => {
       justifyContent: 'center',
       marginBottom: 5,
     },
+    scrollViewContent: {
+      flexGrow: 1,
+      padding:Insets.screenMarginLarge,
+    },
     title: {
       marginTop:10,
       fontSize: 20,
@@ -194,7 +198,12 @@ const CarPartSelector = () => {
       alignItems: 'center',
     },
     footerContainer: {
-
+      position: 'absolute',
+      bottom: 0,
+      left: 0,
+      right: 0,
+      backgroundColor: theme.colors.background,
+      padding: Insets.screenMarginMedium,
     },
     centeredButton: {
       marginTop: Insets.screenMarginMedium,
@@ -268,7 +277,7 @@ const CarPartSelector = () => {
       </Animated.View>
 
       <ScrollView
-        contentContainerStyle={{ padding: Insets.screenMarginMedium }}
+        contentContainerStyle={styles.scrollViewContent}
         scrollEventThrottle={16}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: scrollY } } }],
@@ -405,8 +414,11 @@ const CarPartSelector = () => {
           </View>
         )}
 
+        {/* footer */}
         <View style={styles.footerContainer}>
+
           <View style={styles.divider} />
+
           <Text style={styles.cancelacion}>
             Podrás cancelar la reserva de manera gratuita si cancelas antes de
             las 2 horas previas al servicio, a partir de ese momento se te
@@ -414,6 +426,7 @@ const CarPartSelector = () => {
             política de servicios.
           </Text>
 
+          {/* Botón para solicitar el servicio*/}
           <View style={styles.centeredButton}>
             <StdButton
               text="Pedir presupuesto"

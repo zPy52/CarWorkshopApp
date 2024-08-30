@@ -25,8 +25,7 @@ const BrakeSelector = () => {
   const styles = StyleSheet.create({
     container: {
       flex: 1, // Asegura que el contenedor ocupe todo el espacio disponible
-      marginLeft: 20,
-      marginRight: 20,
+      backgroundColor: theme.colors.background,
     },
     header: {
       fontSize: 18,
@@ -35,7 +34,7 @@ const BrakeSelector = () => {
       marginBottom: 10,
     },
     headerContainer: {
-      marginTop: Insets.screenMarginLarge,
+      marginTop: 10,
     },
     buttonContainer: {
       flexDirection: 'row',
@@ -106,7 +105,21 @@ const BrakeSelector = () => {
     scrollViewContent: {
       flexGrow: 1,
       justifyContent: 'space-between', // Espacia el contenido
-      marginBottom:20
+      padding:Insets.screenMarginLarge,
+    },
+    cancelacion: {
+      marginTop: 5,
+      fontSize: 11,
+      textAlign: 'center',
+      color: theme.colors.surfaceVariant,
+    },
+    footerContainer: {
+      position: 'absolute',
+      bottom: 0,
+      left: 0,
+      right: 0,
+      backgroundColor: theme.colors.background,
+      padding: Insets.screenMarginMedium,
     },
   });
 
@@ -210,13 +223,26 @@ const BrakeSelector = () => {
           )}
         </View>
 
-        {/* Botón para solicitar el servicio*/}
-        <View style={styles.buttonPresupuesto}>
+        {/* footer */}
+        <View style={styles.footerContainer}>
+
+          <View style={styles.divider} />
+
+          <Text style={styles.cancelacion}>
+            Podrás cancelar la reserva de manera gratuita si cancelas antes de
+            las 2 horas previas al servicio, a partir de ese momento se te
+            cobrará el 100% del coste. Para más información consulte nuestra
+            política de servicios.
+          </Text>
+
+          {/* Botón para solicitar el servicio*/}
+          <View style={styles.buttonPresupuesto}>
           <StdButton
             text="Pedir presupuesto"
             onPress={handleRequestQuote}
             enabled={true} // Puedes cambiar esto a una condición si necesitas deshabilitar el botón
-          />
+            />
+          </View>
         </View>
       </ScrollView>
     </View>

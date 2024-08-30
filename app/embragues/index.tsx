@@ -178,7 +178,7 @@ const ClutchSelector = () => {
     },
     scrollViewContent: {
       flexGrow: 1,
-      padding: Insets.screenMarginMedium,
+      padding: Insets.screenMarginLarge,
     },
     productContainer: {
       marginTop: 5,
