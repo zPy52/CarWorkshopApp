@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView,Image } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 import Insets from '../../constants/insets';
 import { useTheme } from "../../hooks/theme";
-import StdButton from '../shared/StdButton'; // Asegúrate de que la ruta sea correcta
+import StdButton from '../shared/StdButton';
 import ChevronBack from '../../components/shared/ChevronBack';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import StaticImages from '../../constants/static_images';
 
 const BrakeSelector = () => {
   const [brakeType, setBrakeType] = useState(''); // Estado para el selector de frenos
@@ -25,8 +27,7 @@ const BrakeSelector = () => {
   const styles = StyleSheet.create({
     container: {
       flex: 1, // Asegura que el contenedor ocupe todo el espacio disponible
-      marginLeft: 20,
-      marginRight: 20,
+      backgroundColor: theme.colors.background,
     },
     header: {
       fontSize: 18,
@@ -35,7 +36,7 @@ const BrakeSelector = () => {
       marginBottom: 10,
     },
     headerContainer: {
-      marginTop: Insets.screenMarginLarge,
+      marginTop: 10,
     },
     buttonContainer: {
       flexDirection: 'row',
@@ -47,7 +48,7 @@ const BrakeSelector = () => {
       paddingVertical: 10,
       marginHorizontal: 5,
       borderRadius: 10,
-      backgroundColor: theme.colors.surfaceContainerLow,
+      backgroundColor: theme.colors.surface,
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -106,7 +107,66 @@ const BrakeSelector = () => {
     scrollViewContent: {
       flexGrow: 1,
       justifyContent: 'space-between', // Espacia el contenido
-      marginBottom:20
+      padding:Insets.screenMarginLarge,
+    },
+    cancelacion: {
+      marginTop: 5,
+      fontSize: 11,
+      textAlign: 'center',
+      color: theme.colors.surfaceVariant,
+    },
+    footerContainer: {
+      position: 'absolute',
+      bottom: 0,
+      left: 0,
+      right: 0,
+      backgroundColor: theme.colors.background,
+      padding: Insets.screenMarginMedium,
+    },
+    section: {
+      marginTop: 10,
+      borderRadius: 10,
+      borderColor: theme.colors.surface,
+      borderWidth: 1,
+      padding: Insets.screenMarginMedium,
+      marginBottom: Insets.screenMarginMedium,
+    },
+    section2: {
+      marginTop: 10,
+      backgroundColor: theme.colors.surface,
+      borderRadius: 10,
+      padding: Insets.screenMarginMedium,
+      marginBottom: 10,
+    },
+    sectionTitle: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      color: theme.colors.onBackground,
+    },
+    step: {
+      marginTop: 10,
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    definition: {
+      fontSize: 16,
+      color: theme.colors.onBackground,
+    },
+    iconSpacing: {
+      marginRight: 10,
+    },
+    image: {
+      width: 60,
+      height: 60,
+      marginRight: 10,
+    },
+    asegurador: {
+      padding: Insets.screenMarginMedium,
+      backgroundColor: theme.colors.background,
+      borderRadius: 10,
+      borderColor: theme.colors.surface,
+      borderWidth: 1,
+      marginBottom: 10,
     },
   });
 
@@ -170,8 +230,112 @@ const BrakeSelector = () => {
           {/* Divider */}
           <View style={styles.divider} />
 
+          {/* Seccion 1 */}
+          <View style={styles.section}>
+          <Text style={styles.sectionTitle}>¿Cómo funciona?</Text>
+          <View style={styles.step}>
+            <Ionicons
+              name="calendar-outline"
+              size={Insets.screenMarginMedium}
+              color={theme.colors.surfaceVariant}
+              style={styles.iconSpacing}
+            />
+            <Text style={styles.definition}>Agenda tu cita</Text>
+          </View>
+          <View style={styles.step}>
+            <Ionicons
+              name="car-outline"
+              size={Insets.screenMarginMedium}
+              color={theme.colors.surfaceVariant}
+              style={styles.iconSpacing}
+            />
+            <Text style={styles.definition}>Un asistente recogerá tu coche</Text>
+          </View>
+          <View style={styles.step}>
+            <MaterialCommunityIcons
+              name="wrench-outline"
+              size={Insets.screenMarginMedium}
+              color={theme.colors.surfaceVariant}
+              style={styles.iconSpacing}
+            />
+            <Text style={styles.definition}>
+              Lo trasladaremos al taller para realizar el recambio seleccionado
+            </Text>
+          </View>
+          <View style={styles.step}>
+            <Ionicons
+              name="checkmark-outline"
+              size={Insets.screenMarginMedium}
+              color={theme.colors.surfaceVariant}
+              style={styles.iconSpacing}
+            />
+            <Text style={styles.definition}>
+            Cuando esté listo te devolvemos tu vehículo con el recambio realizado
+            </Text>
+          </View>
+          </View>
+
+          {/* asegurador */}
+          <View style={styles.asegurador}>
+          <View style={styles.row}>
+            <Image source={StaticImages.asegurador.photo} style={styles.image} />
+            <View style={{ flex: 1 }}>
+              <Text style={styles.sectionTitle}>Asegurador de confianza</Text>
+              <Text style={styles.definition}>
+                Tu coche con seguro adicional sin coste gracias a David.
+              </Text>
+            </View>
+          </View>
+          </View>
+
+          {/* requisitos */}
+          <View style={styles.section2}>
+          <Text style={styles.sectionTitle}>
+            Requisitos para solicitar el servicio
+          </Text>
+          <View style={styles.step}>
+            <Ionicons
+              name="document-outline"
+              size={Insets.screenMarginMedium}
+              color={theme.colors.surfaceVariant}
+              style={styles.iconSpacing}
+            />
+            <Text style={styles.definition}>Permiso de circulación</Text>
+          </View>
+          <View style={styles.step}>
+            <Ionicons
+              name="document-text-outline"
+              size={Insets.screenMarginMedium}
+              color={theme.colors.surfaceVariant}
+              style={styles.iconSpacing}
+            />
+            <Text style={styles.definition}>Ficha técnica</Text>
+          </View>
+          <View style={styles.step}>
+            <Ionicons
+              name="shield-outline"
+              size={Insets.screenMarginMedium}
+              color={theme.colors.surfaceVariant}
+              style={styles.iconSpacing}
+            />
+            <Text style={styles.definition}>Póliza de seguro vigente</Text>
+          </View>
+          <View style={styles.step}>
+            <MaterialCommunityIcons
+              name="gas-station-outline"
+              size={Insets.screenMarginMedium}
+              color={theme.colors.surfaceVariant}
+              style={styles.iconSpacing}
+            />
+            <Text style={styles.definition}>Mínimo un cuarto de depósito</Text>
+          </View>
+          </View>
+
+          {/* Divider */}
+          <View style={styles.divider} />
+
           {/* Selector de frenos */}
-          <Text style={styles.header}>Seleccione una opción de recambio</Text>
+          <Text style={styles.header}>Seleccione los frenos</Text>
           {renderBrakeButtons(
             [
               { label: 'Delanteros', value: 'front' },
@@ -210,13 +374,26 @@ const BrakeSelector = () => {
           )}
         </View>
 
-        {/* Botón para solicitar el servicio*/}
-        <View style={styles.buttonPresupuesto}>
+        {/* footer */}
+        <View style={styles.footerContainer}>
+
+          <View style={styles.divider} />
+
+          <Text style={styles.cancelacion}>
+            Podrás cancelar la reserva de manera gratuita si cancelas antes de
+            las 2 horas previas al servicio, a partir de ese momento se te
+            cobrará el 100% del coste. Para más información consulte nuestra
+            política de servicios.
+          </Text>
+
+          {/* Botón para solicitar el servicio*/}
+          <View style={styles.buttonPresupuesto}>
           <StdButton
-            text="Pedir presupuesto"
+            text="Añadir a la cesta"
             onPress={handleRequestQuote}
             enabled={true} // Puedes cambiar esto a una condición si necesitas deshabilitar el botón
-          />
+            />
+          </View>
         </View>
       </ScrollView>
     </View>

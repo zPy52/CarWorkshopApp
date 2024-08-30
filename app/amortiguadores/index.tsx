@@ -19,21 +19,21 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import StaticImages from '../../constants/static_images';
 
 // se presupone q el usuario ha elegido previamente el coche antes de elegir el produtco
-const clutchData = [
-  { id: 1, model: "clutch a", price: 200 },
-  { id: 2, model: "clutch b", price: 300 },
-  { id: 5, model: "clutch c", price: 180 },
-  { id: 8, model: "clutch d", price: 230 },
+const amortiguadorData = [
+  { id: 1, model: "amortiguador a", price: 200 },
+  { id: 2, model: "amortiguador b", price: 300 },
+  { id: 5, model: "amortiguador c", price: 180 },
+  { id: 8, model: "amortiguador d", price: 230 },
 ];
 
-const carModels = [...new Set(clutchData.map((clutch) => clutch.model))];
+const carModels = [...new Set(amortiguadorData.map((amortiguador) => amortiguador.model))];
 
-const ClutchSelector = () => {
+const amortiguadorSelector = () => {
   const { theme } = useTheme();
   const [scrollY] = useState(new Animated.Value(0));
   const [sortOrder, setSortOrder] = useState("asc");
   const [selectedModel, setSelectedModel] = useState(null);
-  const [selectedClutch, setSelectedClutch] = useState(null);
+  const [selectedamortiguador, setSelectedamortiguador] = useState(null);
   const [selectedPart, setSelectedPart] = useState(null);
   const [selectedSection, setSelectedSection] = useState(null);
 
@@ -48,21 +48,21 @@ const ClutchSelector = () => {
   const [currentPage, setCurrentPage] = useState(0); // Estado para la página actual
   const itemsPerPage = 7; // Máximo de elementos por página
 
-  const filteredClutches = selectedModel
-    ? clutchData.filter((clutch) => clutch.model === selectedModel)
-    : clutchData;
+  const filteredamortiguadores = selectedModel
+    ? amortiguadorData.filter((amortiguador) => amortiguador.model === selectedModel)
+    : amortiguadorData;
 
-  const sortedClutches = filteredClutches.sort((a, b) =>
+  const sortedamortiguadores = filteredamortiguadores.sort((a, b) =>
     sortOrder === "asc" ? a.price - b.price : b.price - a.price
   );
 
   // Calcular los embragues a mostrar en la página actual
-  const paginatedClutches = sortedClutches.slice(
+  const paginatedamortiguadores = sortedamortiguadores.slice(
     currentPage * itemsPerPage,
     (currentPage + 1) * itemsPerPage
   );
 
-  const totalPages = Math.ceil(sortedClutches.length / itemsPerPage);
+  const totalPages = Math.ceil(sortedamortiguadores.length / itemsPerPage);
 
   const handleNextPage = () => {
     if (currentPage < totalPages - 1) {
@@ -286,8 +286,8 @@ const ClutchSelector = () => {
   });
 
   const handleRequestQuote = () => {
-    if (selectedClutch) {
-      console.log("Presupuesto solicitado para:", selectedClutch);
+    if (selectedamortiguador) {
+      console.log("Presupuesto solicitado para:", selectedamortiguador);
     } else {
       console.log(
         "Por favor, seleccione un embrague antes de solicitar un presupuesto."
@@ -343,7 +343,7 @@ const ClutchSelector = () => {
             <Text style={styles.duration}>3h-5h</Text>
           </View>
           <Text style={styles.description}>
-            Encuentra el embrague perfecto para tu coche y asegura un
+            Encuentra el amortiguador perfecto para tu coche y asegura un
             funcionamiento suave y eficiente.
           </Text>
         </View>
@@ -455,7 +455,7 @@ const ClutchSelector = () => {
           <View style={styles.divider} />
 
         <View style={styles.pickerContainer}>
-          <Text style={styles.header}>Embragues disponibles</Text>
+          <Text style={styles.header}>Amortiguadores disponibles</Text>
           <View style={styles.pickerWrapper}>
             <Picker
               style={styles.picker}
@@ -469,26 +469,26 @@ const ClutchSelector = () => {
         </View>
 
         {/* Mostrar embragues paginados */}
-        {paginatedClutches.map((clutch) => (
+        {paginatedamortiguadores.map((amortiguador) => (
           <TouchableOpacity
-            key={clutch.id}
+            key={amortiguador.id}
             style={[
               styles.productContainer,
-              selectedClutch &&
-                selectedClutch.id === clutch.id &&
+              selectedamortiguador &&
+                selectedamortiguador.id === amortiguador.id &&
                 styles.selectedProductContainer,
             ]}
-            onPress={() => setSelectedClutch(clutch)}
+            onPress={() => setSelectedamortiguador(amortiguador)}
           >
             <Text
               style={[
                 styles.productText,
-                selectedClutch &&
-                  selectedClutch.id === clutch.id &&
+                selectedamortiguador &&
+                  selectedamortiguador.id === amortiguador.id &&
                   styles.selectedProductText,
               ]}
             >
-              {`${clutch.model}, Precio: $${clutch.price}`}
+              {`${amortiguador.model}, Precio: $${amortiguador.price}`}
             </Text>
           </TouchableOpacity>
         ))}
@@ -527,7 +527,7 @@ const ClutchSelector = () => {
             <StdButton
               text="Añadir a la cesta"
               onPress={handleRequestQuote}
-              enabled={!!selectedClutch}
+              enabled={!!selectedamortiguador} 
               />
           </View>
         </View>
@@ -537,4 +537,4 @@ const ClutchSelector = () => {
   );
 };
 
-export default ClutchSelector;
+export default amortiguadorSelector;

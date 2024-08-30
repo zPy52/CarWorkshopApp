@@ -140,7 +140,7 @@ export default function HomeStation() {
     },
     {
       key: "k5",
-      navigateTo: "../../basket",
+      navigateTo: "../../amortiguadores",
       title: "Amortiguador",
       imageSource: StaticImages.detailedIcons.shockAbsorber,
       style: styles.element,

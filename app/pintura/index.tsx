@@ -7,12 +7,15 @@ import {
   SafeAreaView,
   ScrollView,
   Animated,
+  Image
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Insets from "../../constants/insets";
 import { useTheme } from "../../hooks/theme";
 import StdButton from "../shared/StdButton";
 import ChevronBack from '../../components/shared/ChevronBack';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import StaticImages from '../../constants/static_images';
 
 const carPartsBySection = {
   "Parte delantera": [
@@ -94,6 +97,10 @@ const CarPartSelector = () => {
       flexDirection: 'row',
       justifyContent: 'center',
       marginBottom: 5,
+    },
+    scrollViewContent: {
+      flexGrow: 1,
+      padding:Insets.screenMarginLarge,
     },
     title: {
       marginTop:10,
@@ -194,7 +201,12 @@ const CarPartSelector = () => {
       alignItems: 'center',
     },
     footerContainer: {
-
+      position: 'absolute',
+      bottom: 0,
+      left: 0,
+      right: 0,
+      backgroundColor: theme.colors.background,
+      padding: Insets.screenMarginMedium,
     },
     centeredButton: {
       marginTop: Insets.screenMarginMedium,
@@ -242,6 +254,62 @@ const CarPartSelector = () => {
       color: theme.colors.outlineFocus,
       marginTop: 5,
     },
+    iconSpacing: {
+      marginRight: 10,
+    },
+    section: {
+      marginTop: 10,
+      borderRadius: 10,
+      borderColor: theme.colors.surface,
+      borderWidth: 1,
+      padding: Insets.screenMarginMedium,
+      marginBottom: Insets.screenMarginMedium,
+    },
+    section2: {
+      marginTop: 10,
+      backgroundColor: theme.colors.surface,
+      borderRadius: 10,
+      padding: Insets.screenMarginMedium,
+      marginBottom: 10,
+    },
+    sectionTitle: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      color: theme.colors.onBackground,
+    },
+    step: {
+      marginTop: 10,
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    definition: {
+      fontSize: 16,
+      color: theme.colors.onBackground,
+    },
+    asegurador: {
+      padding: Insets.screenMarginMedium,
+      backgroundColor: theme.colors.background,
+      borderRadius: 10,
+      borderColor: theme.colors.surface,
+      borderWidth: 1,
+      marginBottom: 10,
+    },
+    buttonContainer: {
+      marginTop: 10,
+      height: Insets.layoutSmall,
+      width: '100%',
+    },
+    image: {
+      width: 60,
+      height: 60,
+      marginRight: 10,
+    },
+    header: {
+      fontSize: 18,
+      fontWeight: "bold",
+      marginTop: 10,
+      marginBottom: 10,
+    },
   });
 
   return (
@@ -268,7 +336,7 @@ const CarPartSelector = () => {
       </Animated.View>
 
       <ScrollView
-        contentContainerStyle={{ padding: Insets.screenMarginMedium }}
+        contentContainerStyle={styles.scrollViewContent}
         scrollEventThrottle={16}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: scrollY } } }],
@@ -302,8 +370,112 @@ const CarPartSelector = () => {
 
           <View style={styles.divider}/>
 
-        </View>
+          {/* Seccion 1 */}
+          <View style={styles.section}>
+          <Text style={styles.sectionTitle}>¿Cómo funciona?</Text>
+          <View style={styles.step}>
+            <Ionicons
+              name="calendar-outline"
+              size={Insets.screenMarginMedium}
+              color={theme.colors.surfaceVariant}
+              style={styles.iconSpacing}
+            />
+            <Text style={styles.definition}>Agenda tu cita</Text>
+          </View>
+          <View style={styles.step}>
+            <Ionicons
+              name="car-outline"
+              size={Insets.screenMarginMedium}
+              color={theme.colors.surfaceVariant}
+              style={styles.iconSpacing}
+            />
+            <Text style={styles.definition}>Un asistente recogerá tu coche</Text>
+          </View>
+          <View style={styles.step}>
+            <MaterialCommunityIcons
+              name="wrench-outline"
+              size={Insets.screenMarginMedium}
+              color={theme.colors.surfaceVariant}
+              style={styles.iconSpacing}
+            />
+            <Text style={styles.definition}>
+              Lo trasladaremos al taller para realizar el servicio seleccionado
+            </Text>
+          </View>
+          <View style={styles.step}>
+            <Ionicons
+              name="checkmark-outline"
+              size={Insets.screenMarginMedium}
+              color={theme.colors.surfaceVariant}
+              style={styles.iconSpacing}
+            />
+            <Text style={styles.definition}>
+            Cuando esté listo te devolvemos tu vehículo con el servicio realizado
+            </Text>
+          </View>
+          </View>
 
+          {/* asegurador */}
+          <View style={styles.asegurador}>
+          <View style={styles.row}>
+            <Image source={StaticImages.asegurador.photo} style={styles.image} />
+            <View style={{ flex: 1 }}>
+              <Text style={styles.sectionTitle}>Asegurador de confianza</Text>
+              <Text style={styles.definition}>
+                Tu coche con seguro adicional sin coste gracias a David.
+              </Text>
+            </View>
+          </View>
+          </View>
+
+          {/* requisitos */}
+          <View style={styles.section2}>
+          <Text style={styles.sectionTitle}>
+            Requisitos para solicitar el servicio
+          </Text>
+          <View style={styles.step}>
+            <Ionicons
+              name="document-outline"
+              size={Insets.screenMarginMedium}
+              color={theme.colors.surfaceVariant}
+              style={styles.iconSpacing}
+            />
+            <Text style={styles.definition}>Permiso de circulación</Text>
+          </View>
+          <View style={styles.step}>
+            <Ionicons
+              name="document-text-outline"
+              size={Insets.screenMarginMedium}
+              color={theme.colors.surfaceVariant}
+              style={styles.iconSpacing}
+            />
+            <Text style={styles.definition}>Ficha técnica</Text>
+          </View>
+          <View style={styles.step}>
+            <Ionicons
+              name="shield-outline"
+              size={Insets.screenMarginMedium}
+              color={theme.colors.surfaceVariant}
+              style={styles.iconSpacing}
+            />
+            <Text style={styles.definition}>Póliza de seguro vigente</Text>
+          </View>
+          <View style={styles.step}>
+            <MaterialCommunityIcons
+              name="gas-station-outline"
+              size={Insets.screenMarginMedium}
+              color={theme.colors.surfaceVariant}
+              style={styles.iconSpacing}
+            />
+            <Text style={styles.definition}>Mínimo un cuarto de depósito</Text>
+          </View>
+          </View>
+
+          {/* Divider */}
+          <View style={styles.divider} />
+
+        </View>
+        <Text style={styles.header}>Seleccione las partes del vehículo</Text>
         {Object.keys(carPartsBySection).map((section) => (
           <View key={section} style={styles.dropdown}>
             <TouchableOpacity
@@ -405,8 +577,11 @@ const CarPartSelector = () => {
           </View>
         )}
 
+        {/* footer */}
         <View style={styles.footerContainer}>
+
           <View style={styles.divider} />
+
           <Text style={styles.cancelacion}>
             Podrás cancelar la reserva de manera gratuita si cancelas antes de
             las 2 horas previas al servicio, a partir de ese momento se te
@@ -414,6 +589,7 @@ const CarPartSelector = () => {
             política de servicios.
           </Text>
 
+          {/* Botón para solicitar el servicio*/}
           <View style={styles.centeredButton}>
             <StdButton
               text="Pedir presupuesto"

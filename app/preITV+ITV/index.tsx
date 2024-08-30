@@ -38,7 +38,8 @@ const App = () => {
       flex: 1,
       backgroundColor: theme.colors.background,
     },
-    contentContainer: {
+    scrollViewContent: {
+      flexGrow: 1,
       padding: Insets.screenMarginMedium,
     },
     stickyHeader: {
@@ -57,6 +58,14 @@ const App = () => {
     },
     header: {
       marginBottom: 5,
+    },
+    footerContainer: {
+      position: 'absolute',
+      bottom: 0,
+      left: 0,
+      right: 0,
+      backgroundColor: theme.colors.background,
+      padding: Insets.screenMarginMedium,
     },
     title: {
       marginTop: 20,
@@ -90,14 +99,14 @@ const App = () => {
     section: {
       marginTop: 10,
       borderRadius: 10,
-      borderColor: theme.colors.onSurface,
+      borderColor: theme.colors.surface,
       borderWidth: 1,
       padding: Insets.screenMarginMedium,
       marginBottom: Insets.screenMarginMedium,
     },
     section2: {
       marginTop: 10,
-      backgroundColor: theme.colors.surfaceContainerLowest,
+      backgroundColor: theme.colors.surface,
       borderRadius: 10,
       padding: Insets.screenMarginMedium,
       marginBottom: 10,
@@ -118,14 +127,14 @@ const App = () => {
     },
     divider: {
       height: 1,
-      backgroundColor: theme.colors.outlineVariant,
+      backgroundColor: theme.colors.surface,
       marginVertical: 10,
     },
     asegurador: {
       padding: Insets.screenMarginMedium,
       backgroundColor: theme.colors.background,
       borderRadius: 10,
-      borderColor: theme.colors.onSurface,
+      borderColor: theme.colors.surface,
       borderWidth: 1,
       marginBottom: 10,
     },
@@ -170,7 +179,7 @@ const App = () => {
       </Animated.View>
 
       <ScrollView
-        contentContainerStyle={styles.contentContainer}
+        contentContainerStyle={styles.scrollViewContent}
         scrollEventThrottle={16}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: scrollY } } }],
@@ -314,23 +323,27 @@ const App = () => {
           </View>
         </View>
 
-        <View style={styles.divider} />
+        {/* footer */}
+        <View style={styles.footerContainer}>
 
-        <View>
-          <Text style={styles.cancelacion}>
-            Podrás cancelar la reserva de manera gratuita si cancelas antes de
-            las 2 horas previas al servicio, a partir de ese momento se te
-            cobrará el 100% del coste. Para más información consulte nuestra
-            política de servicios.
-          </Text>
-        </View>
+          <View style={styles.divider} />
 
-        <View style={styles.buttonContainer}>
-          <StdButton
-            text="Pedir presupuesto"
-            onPress={() => {}}
-            enabled={true}
-          />
+          <View>
+            <Text style={styles.cancelacion}>
+              Podrás cancelar la reserva de manera gratuita si cancelas antes de
+              las 2 horas previas al servicio, a partir de ese momento se te
+              cobrará el 100% del coste. Para más información consulte nuestra
+              política de servicios.
+            </Text>
+          </View>
+
+          <View style={styles.buttonContainer}>
+            <StdButton
+              text="Pedir presupuesto"
+              onPress={() => {}}
+              enabled={true}
+              />
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
