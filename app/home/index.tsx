@@ -9,7 +9,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ScrollView } from "react-native-gesture-handler";
 import { useTheme } from "../../hooks/theme";
-import BottomBar from "../../components/home/BottomBar";
+import BottomBar from "../../components/shared/BottomBar";
 import HomeCard from "../../components/home/HomeCard";
 import WrapView from "../../components/shared/WrapView";
 import BigCard from "../../components/home/BigCard";
@@ -18,8 +18,8 @@ import StaticImages from "../../constants/static_images";
 import {
   GestureHandlerRootView,
 } from "react-native-gesture-handler";
-import ModalHelp from "../../components/home/modalHelp";
-import Header from "../../components/home/HeaderComp";
+import ModalHelp from "../../components/shared/modalHelp";
+import Header from "../../components/shared/HeaderComp";
 import { bigCardMantenimiento, homeCardData } from "../../constants/exampleDynamicData";
 import { useGlobalSearchParams, useLocalSearchParams } from "expo-router";
 
@@ -47,7 +47,13 @@ export default function HomeStation() {
         },
         text: {
           ...theme.text.titleMedium,
-          color: theme.colors.onSurface,
+          color: theme.colors.onBackground,
+          marginBottom: Insets.screenMarginMedium,
+          marginTop: Insets.medium,
+        },
+        secondaryText: {
+          ...theme.text.labelLarge,
+          color: theme.colors.surfaceContainerLow,
           marginBottom: Insets.screenMarginMedium,
           marginTop: Insets.medium,
         },
@@ -201,78 +207,83 @@ export default function HomeStation() {
 
     return (
       <GestureHandlerRootView style={{ flex: 1, backgroundColor: theme.colors.background }}>
-        <Header selectedCar={car}/>
+      <Header selectedCar={car}/>
 
-        <SafeAreaView style={styles.mainContainer}>
-          <ScrollView
-            contentContainerStyle={styles.scrollViewContent}
-            showsVerticalScrollIndicator={false}
-          >
-            <Text
-              style={[ styles.text, { marginBottom: Insets.screenMarginLarge } ]}
-            >
-              Encuentra y Reemplaza tus Piezas
-            </Text>
+      <SafeAreaView style={styles.mainContainer}>
+        <ScrollView
+        contentContainerStyle={styles.scrollViewContent}
+        showsVerticalScrollIndicator={false}
+        >
+        <Text
+          style={[ styles.text, { marginBottom: Insets.screenMarginLarge } ]}
+        >
+          Reemplaza tus Piezas desde Casa
+        </Text>
 
-            <WrapView
-              horizontalSpacing={Insets.large}
-              verticalSpacing={Insets.layoutSmall}
-              data={homeCardData}
-              keyExtractor={(item) => item.key}
-              renderItem={(item) => (
-                <HomeCard
-                  navigateTo={item.navigateTo}
-                  title={item.title}
-                  imageSource={item.imageSource}
-                  style={styles.element}
-                />
-              )}
-            />
+        <WrapView
+          horizontalSpacing={Insets.large}
+          verticalSpacing={Insets.layoutSmall}
+          data={homeCardData}
+          keyExtractor={(item) => item.key}
+          renderItem={(item) => (
+          <HomeCard
+            navigateTo={item.navigateTo}
+            title={item.title}
+            imageSource={item.imageSource}
+            style={styles.element}
+          />
+          )}
+        />
 
-            <Text
-              style={[styles.text, { marginTop: Insets.layoutSmall}]}
-            >
-              Packs de Mantenimiento
-            </Text>
+        <Text
+          style={[styles.text, { marginTop: Insets.layoutSmall, marginBottom: Insets.submedium }]}
+        >
+          Packs de Mantenimiento
+        </Text>
+        <Text
+          style={[styles.secondaryText, { marginTop: Insets.zero, marginBottom: Insets.screenMarginMedium }]}
+        >
+          No volverás a perder tiempo en el taller. {'\n'}Elige tu servicio desde el teléfono y nosotros nos encargamos del resto.
+        </Text>
 
-            <WrapView
-              horizontalSpacing={0}
-              verticalSpacing={0}
-              data={bigCardMantenimiento}
-              keyExtractor={(item) => item.key}
-              renderItem={(item) => (
-                <BigCard
-                  navigateTo={item.navigateTo}
-                  title={item.title}
-                  imageSource={item.imageSource}
-                  style={styles.secondaryElement}
-                  subtitle={item.subtitle}
-                />
-              )}
-            />
+        <WrapView
+          horizontalSpacing={0}
+          verticalSpacing={0}
+          data={bigCardMantenimiento}
+          keyExtractor={(item) => item.key}
+          renderItem={(item) => (
+          <BigCard
+            navigateTo={item.navigateTo}
+            title={item.title}
+            imageSource={item.imageSource}
+            style={styles.secondaryElement}
+            subtitle={item.subtitle}
+          />
+          )}
+        />
 
-            <Text
-              style={[styles.text, {marginTop: Insets.screenMarginMedium, marginBottom: Insets.medium}]}
-            >
-              ¿Necesita Asesoramiento?
-            </Text>
+        <Text
+          style={[styles.text, {marginTop: Insets.screenMarginMedium, marginBottom: Insets.medium}]}
+        >
+          ¿Necesita Asesoramiento?
+        </Text>
 
-            <TouchableOpacity
-              style={styles.helpContainer}
-              onPress={() => setModalVisible(true)}
-            >
-              <Image
-                source={StaticImages.real.callCenter2}
-                style={styles.helpImage}
-              />
-              <Text style={styles.helpText}>
-                Contáctanos y te ayudaremos a encontrar la pieza perfecta.
-              </Text>
-            </TouchableOpacity>
-          </ScrollView>
-          <ModalHelp modalVisible={modalVisible} setModalVisible={setModalVisible}/>
-          <BottomBar currentScreen="home" />
-        </SafeAreaView>
+        <TouchableOpacity
+          style={styles.helpContainer}
+          onPress={() => setModalVisible(true)}
+        >
+          <Image
+          source={StaticImages.real.callCenter2}
+          style={styles.helpImage}
+          />
+          <Text style={styles.helpText}>
+          Contáctanos y te ayudaremos a encontrar la pieza perfecta.
+          </Text>
+        </TouchableOpacity>
+        </ScrollView>
+        <ModalHelp modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+      </SafeAreaView>
+      <BottomBar currentScreen="home" />
       </GestureHandlerRootView>
     );
   }

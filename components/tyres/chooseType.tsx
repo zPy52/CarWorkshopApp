@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, FlatList, Button, Dimensions, Image } from 'rea
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTheme } from "../../hooks/theme";
 import { router } from "expo-router";
-import BottomBar from "../home/BottomBar";
+import BottomBar from "../shared/BottomBar";
 import Insets from "../../constants/insets";
 import { ScrollView } from "react-native-gesture-handler";
 import StdButton from "../../components/shared/StdButton";

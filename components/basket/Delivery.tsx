@@ -5,7 +5,7 @@ import { useTheme } from "../../hooks/theme";
 import Insets from "../../constants/insets";
 import StdButton from "../../components/shared/StdButton";
 import { router } from "expo-router";
-import BottomBar from "../home/BottomBar";
+import BottomBar from "../shared/BottomBar";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Clickable from '../shared/Clickable';
 
@@ -140,7 +140,7 @@ const Delivery = () => {
 
         }),
       [theme.colors.background, theme.colors.onBackground, theme.colors.tertiary, theme.colors.primary, screenWidth]
-    );  
+    );
 
 
     const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
@@ -150,7 +150,7 @@ const Delivery = () => {
     const [address, setAddress] = useState<string>('');
 
     const onChangeDate = (event: any, date?: Date) => {
-        setShowDatePicker(false); 
+        setShowDatePicker(false);
         if (date) {
           setSelectedDate(date);
         }
@@ -173,16 +173,16 @@ const Delivery = () => {
       <Text style={[theme.text.headlineMedium, styles.PrimaryText]}>Reserva</Text>
       <Text style={[theme.text.titleMedium, styles.SecondaryText]}>
         ¡Hay que reservar con 48h de antelacion!
-        </Text>  
-      <KeyboardAvoidingView 
+        </Text>
+      <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={120}
       >
       <ScrollView>
-      <View style={styles.secondaryContainer}>  
+      <View style={styles.secondaryContainer}>
 
-        
+
         <View style={styles.calendarContainer}>
             <Text style={styles.selectText}>Selecciona un dia:</Text>
             <Clickable
@@ -204,8 +204,8 @@ const Delivery = () => {
         </View>
         <View style={styles.selectContainer}>
           <Text style={styles.selectText}>Selecciona una hora:</Text>
-        </View>    
-        
+        </View>
+
         <View style={styles.timeSlots}>
           <Clickable
             style={[
@@ -241,7 +241,7 @@ const Delivery = () => {
             </Text>
           </Clickable>
         </View>
-            
+
 
         {/* Delivery Toggle */}
         <View style={styles.selectContainer}>
@@ -267,8 +267,8 @@ const Delivery = () => {
               />
             </View>
         )}
-        
-      </View>  
+
+      </View>
       </ScrollView>
       </KeyboardAvoidingView>
       <View style={styles.totalContainer}>

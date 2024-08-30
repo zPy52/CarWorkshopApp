@@ -12,7 +12,7 @@ import { bigCardAyuda } from "../../constants/exampleDynamicData";
 import WrapView from "../../components/shared/WrapView";
 import NewCard from "../../components/home/NewCard";
 import StdButton from "../../components/shared/StdButton";
-import ModalHelp from "../../components/home/modalHelp";
+import ModalHelp from "../../components/shared/modalHelp";
 
 const HelpStation = () => {
   const { theme } = useTheme();

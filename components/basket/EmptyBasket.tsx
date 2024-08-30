@@ -7,6 +7,7 @@ import { useTheme } from "../../hooks/theme";
 import Insets from "../../constants/insets";
 import StdButton from "../../components/shared/StdButton";
 import { router } from 'expo-router';
+import BottomBar from "../shared/BottomBar";
 
 const EmptyBasket = () => {
 
@@ -17,7 +18,6 @@ const EmptyBasket = () => {
         StyleSheet.create({
           mainContainer: {
             backgroundColor: theme.colors.background,
-            paddingHorizontal: Insets.screenMarginLarge,
             flex: 1,
           },
           //----------------------------------------
@@ -57,8 +57,10 @@ const EmptyBasket = () => {
             height: 100,
           },
           emptyButtonContainer: {
-            marginTop: 16,
+            marginTop: Insets.layoutLarge,
             height: Insets.layoutSmall,
+            alignSelf: 'center',
+            width: '80%',
           },
           //------------------------------------------
 
@@ -71,7 +73,7 @@ const EmptyBasket = () => {
         <Text style={[theme.text.headlineMedium, styles.PrimaryText]}>Presupuesto</Text>
         <Text style={[theme.text.titleMedium, styles.SecondaryText]}>Comprueba que todo esté en orden</Text>
         <View style={styles.emptyContainer}>
-            <View style={styles.emptyImgContainer}>  
+            <View style={styles.emptyImgContainer}>
               <Image style={styles.emptyImage} source={require('../../assets/images/basket/shopping-cart.png')} />
             </View>
             <Text style={[theme.text.headlineMedium, styles.PrimaryText]}>Su cesta esta vacia</Text>
@@ -80,6 +82,7 @@ const EmptyBasket = () => {
              <StdButton text="Lista de Productos" onPress={() => router.navigate('../../basket')} />
             </View>
         </View>
+    <BottomBar currentScreen="cesta" />
     </SafeAreaView>
   );
 };
