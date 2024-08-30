@@ -130,7 +130,7 @@ export default function Garage() {
             // Change the screen according to the car data
         }
         else {
-            router.navigate("/home");
+            router.navigate("/test");
         }
     };
 
