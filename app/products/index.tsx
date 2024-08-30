@@ -62,7 +62,7 @@ export default function CatalogPage({}: Props) {
             },
             {
               categoryName: "Colors",
-              categoryType: "multipleOptions",
+              categoryType: "options",
               options: ["Red", "Green", "Blue", "Yellow"],
             },
           ]}

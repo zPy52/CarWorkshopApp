@@ -16,12 +16,11 @@ import {
   closeFiltersModal,
   openFiltersModal,
 } from "../../../redux/reducers/filters";
-import { MultipleOptionFilter, MultipleOptionFilterComponent } from "./filters/MultipleOptions";
 import { OptionFilter, OptionFilterComponent } from "./filters/Options";
 import { RangeFilter, RangeFilterComponent } from "./filters/Range";
 
 
-type FilterCategory = OptionFilter | RangeFilter | MultipleOptionFilter;
+type FilterCategory = RangeFilter | OptionFilter;
 
 type Props = {
   filters: FilterCategory[];
@@ -53,12 +52,10 @@ export default function FiltersBottomModalSheet({ filters }: Props) {
   }, [shouldOpen, openBottomSheet, closeBottomSheet]);
 
   const renderFilterItem = useCallback(({ item }: { item: FilterCategory }) => {
-    if (item.categoryType === "options") {
-      return <OptionFilterComponent filter={item as OptionFilter} />;
-    } else if (item.categoryType === "range") {
+    if (item.categoryType === "range") {
       return <RangeFilterComponent filter={item as RangeFilter} />;
-    } else if (item.categoryType === "multipleOptions") {
-      return <MultipleOptionFilterComponent filter={item as MultipleOptionFilter} />;
+    } else if (item.categoryType === "options") {
+      return <OptionFilterComponent filter={item as OptionFilter} />;
     }
     return null;
   }, []);

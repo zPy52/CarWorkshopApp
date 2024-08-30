@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useTheme } from "../../../../hooks/theme";
 import Insets from "../../../../constants/insets";
@@ -10,11 +10,19 @@ export type OptionFilter = {
   options: string[];
 };
 
-export const OptionFilterComponent: React.FC<{ filter: OptionFilter }> = ({
-  filter,
-}) => {
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+export const OptionFilterComponent: React.FC<{
+  filter: OptionFilter;
+}> = ({ filter }) => {
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const { theme } = useTheme();
+
+  const toggleOption = useCallback((option: string) => {
+    setSelectedOptions((prevSelected) =>
+      prevSelected.includes(option)
+        ? prevSelected.filter((item) => item !== option)
+        : [...prevSelected, option]
+    );
+  }, []);
 
   const styles = useMemo(
     () =>
@@ -51,16 +59,14 @@ export const OptionFilterComponent: React.FC<{ filter: OptionFilter }> = ({
       <View style={styles.filterContainer}>
         {filter.options.map((option, index) => (
           <View key={`${filter.categoryName}-${filter.categoryType}-${index}`}>
-            <Clickable onPress={() => setSelectedOption(option)}>
+            <Clickable onPress={() => toggleOption(option)}>
               <View
-                key={option}
                 style={[
                   styles.optionButton,
                   {
-                    backgroundColor:
-                      selectedOption === option
-                        ? theme.colors.primary
-                        : theme.colors.background,
+                    backgroundColor: selectedOptions.includes(option)
+                      ? theme.colors.primary
+                      : theme.colors.background,
                   },
                 ]}
               >
@@ -68,10 +74,9 @@ export const OptionFilterComponent: React.FC<{ filter: OptionFilter }> = ({
                   style={[
                     styles.optionText,
                     {
-                      color:
-                        selectedOption === option
-                          ? theme.colors.background
-                          : theme.text.bodyLarge.color,
+                      color: selectedOptions.includes(option)
+                        ? theme.colors.background
+                        : theme.text.bodyLarge.color,
                     },
                   ]}
                 >
