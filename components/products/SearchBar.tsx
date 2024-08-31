@@ -10,38 +10,42 @@ type Props = { placeholder: string; onSearch: () => void };
 export default function SearchBar({ placeholder, onSearch }: Props) {
   const { theme } = useTheme();
 
-  const styles = StyleSheet.create({
-    container: {
-      paddingHorizontal: Insets.large,
-      paddingVertical: Insets.medium,
-      paddingBottom: 30,
-    },
-    searchBar: {
-      flexDirection: "row",
-      alignItems: "center",
-      backgroundColor: theme.colors.background,
-      borderRadius: Insets.screenMarginLarge,
-      paddingHorizontal: Insets.large,
-      height: Insets.layoutSmall,
-      // Elevation for Android
-      elevation: 5,
-      // Shadow for iOS
-      shadowColor: theme.colors.onBackground,
-      shadowOffset: { width: 0, height: Insets.small },
-      shadowOpacity: 0.2,
-      shadowRadius: Insets.medium,
-    },
-    icon: {
-      marginLeft: Insets.submedium,
-    },
-    input: {
-      width: "100%",
-      flexShrink: 1,
-      ...theme.text.bodyLarge,
-      textAlignVertical: "center",
-      lineHeight: theme.text.bodyLarge.lineHeight - Insets.dwarf,
-    },
-  });
+  const styles = useMemo(
+    () =>
+      StyleSheet.create({
+        container: {
+          paddingHorizontal: Insets.large,
+          paddingVertical: Insets.medium,
+          paddingBottom: Insets.screenMarginMedium,
+        },
+        searchBar: {
+          flexDirection: "row",
+          alignItems: "center",
+          backgroundColor: theme.colors.background,
+          borderRadius: Insets.screenMarginLarge,
+          paddingHorizontal: Insets.large,
+          height: Insets.layoutSmall,
+          // Elevation for Android
+          elevation: 5,
+          // Shadow for iOS
+          shadowColor: theme.colors.onBackground,
+          shadowOffset: { width: 0, height: Insets.small },
+          shadowOpacity: 0.2,
+          shadowRadius: Insets.medium,
+        },
+        icon: {
+          marginLeft: Insets.submedium,
+        },
+        input: {
+          width: "100%",
+          flexShrink: 1,
+          ...theme.text.bodyLarge,
+          textAlignVertical: "center",
+          lineHeight: theme.text.bodyLarge.lineHeight - Insets.dwarf,
+        },
+      }),
+    [theme]
+  );
 
   return (
     <View style={styles.container}>

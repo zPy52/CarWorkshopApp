@@ -6,15 +6,12 @@ import Clickable from "../../components/shared/Clickable";
 import { router } from "expo-router";
 import SearchBar from "../../components/products/SearchBar";
 import FiltersBottomModalSheet from "../../components/products/modals/FiltersModal";
-import { useDispatch } from "react-redux";
-import { toggleFiltersModal } from "../../redux/reducers/filters";
+import SearchOptionsComponent from "../../components/products/SearchOptions";
 
 type Props = {};
 
 export default function CatalogPage({}: Props) {
-  const { theme } = useTheme();
   const { width, height } = useWindowDimensions();
-  const dispatch = useDispatch();
 
   const styles = StyleSheet.create({
     globalContainer: {
@@ -38,14 +35,7 @@ export default function CatalogPage({}: Props) {
     <View style={styles.globalContainer}>
       <SafeAreaView style={styles.catalogContainer}>
         <SearchBar placeholder={"Buscar productos"} onSearch={() => {}} />
-
-        <Clickable
-          onPress={() => {
-            dispatch(toggleFiltersModal());
-          }}
-        >
-          <Text style={theme.text.headlineMedium}>Ver filtros</Text>
-        </Clickable>
+        <SearchOptionsComponent />
 
         <Clickable onPress={() => router.navigate("/products/pages/tyres")}>
           <ProductSnippet key={"mama"} />
