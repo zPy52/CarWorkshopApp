@@ -2,9 +2,9 @@ import React, { useCallback, useMemo, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useTheme } from "../../../../hooks/theme";
 import Insets from "../../../../constants/insets";
-import Clickable from "../../../shared/Clickable";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedOptionFilter } from "../../../../redux/reducers/filters";
+import FilterOptionSnippet from "./OptionSnippet";
 
 export type OptionFilter = {
   categoryName: string;
@@ -21,23 +21,30 @@ export const OptionFilterComponent: React.FC<{
       (filterState: any) => filterState.categoryName === filter.categoryName
     )
   );
-  const selectedOptions = selectedOptionsFilter?.selectedOptions || [];
 
   const dispatch = useDispatch();
 
-  const toggleOption = useCallback((option: string) => {
-    const updatedOptions = selectedOptions.includes(option)
-      ? selectedOptions.filter((item: string) => item !== option)
-      : [...selectedOptions, option];
+  const selectedOptions = useMemo(
+    () => selectedOptionsFilter?.selectedOptions || [],
+    [selectedOptionsFilter]
+  );
 
-    // Dispatch the selected options to Redux
-    dispatch(
-      setSelectedOptionFilter({
-        categoryName: filter.categoryName,
-        selectedOptions: updatedOptions,
-      })
-    );
-  }, []);
+  const toggleOption = useCallback(
+    (option: string) => {
+      const updatedOptions = selectedOptions.includes(option)
+        ? selectedOptions.filter((item: string) => item !== option)
+        : [...selectedOptions, option];
+
+      // Dispatch the selected options to Redux
+      dispatch(
+        setSelectedOptionFilter({
+          categoryName: filter.categoryName,
+          selectedOptions: updatedOptions,
+        })
+      );
+    },
+    [selectedOptions]
+  );
 
   const styles = useMemo(
     () =>
@@ -74,31 +81,13 @@ export const OptionFilterComponent: React.FC<{
       <View style={styles.filterContainer}>
         {filter.options.map((option, index) => (
           <View key={`${filter.categoryName}-${filter.categoryType}-${index}`}>
-            <Clickable onPress={() => toggleOption(option)}>
-              <View
-                style={[
-                  styles.optionButton,
-                  {
-                    backgroundColor: selectedOptions.includes(option)
-                      ? theme.colors.primary
-                      : theme.colors.background,
-                  },
-                ]}
-              >
-                <Text
-                  style={[
-                    styles.optionText,
-                    {
-                      color: selectedOptions.includes(option)
-                        ? theme.colors.background
-                        : theme.text.bodyLarge.color,
-                    },
-                  ]}
-                >
-                  {option}
-                </Text>
-              </View>
-            </Clickable>
+            <FilterOptionSnippet
+              toggleOption={() => {
+                toggleOption(option);
+              }}
+              option={option}
+              isChosen={selectedOptions.includes(option)}
+            />
           </View>
         ))}
       </View>

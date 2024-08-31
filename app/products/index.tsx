@@ -18,20 +18,25 @@ export default function CatalogPage({}: Props) {
 
   const styles = StyleSheet.create({
     globalContainer: {
+      position: "relative",
       height: height,
       width: width,
     },
+    catalogContainer: {
+      height: "100%",
+      width: "100%",
+    },
     modalBottomSheet: {
       position: "absolute",
-      width: width,
-      height: 500,
       bottom: 0,
+      width: width,
+      height: height * 0.6,
     },
   });
 
   return (
     <View style={styles.globalContainer}>
-      <SafeAreaView>
+      <SafeAreaView style={styles.catalogContainer}>
         <SearchBar placeholder={"Buscar productos"} onSearch={() => {}} />
 
         <Clickable
@@ -39,7 +44,7 @@ export default function CatalogPage({}: Props) {
             dispatch(toggleFiltersModal());
           }}
         >
-          <Text style={theme.text.headlineMedium}>Ver adasd dads </Text>
+          <Text style={theme.text.headlineMedium}>Ver filtros</Text>
         </Clickable>
 
         <Clickable onPress={() => router.navigate("/products/pages/tyres")}>

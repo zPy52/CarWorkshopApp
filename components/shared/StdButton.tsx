@@ -7,19 +7,29 @@ import { useMemo } from "react";
 type Props = {
   text: string;
   onPress: () => void;
+  autoWidth?: boolean | undefined;
+  autoHeight?: boolean | undefined;
   borderRadius?: number | undefined;
+  borderWidth?: number | undefined;
+  borderColor?: string | undefined;
   enabled?: boolean;
   backgroundColor?: string | undefined;
   textColor?: string | undefined;
+  fontWeight?: "bold" | "semibold" | "regular" | null | undefined;
 };
 
 export default function StdButton({
   text,
   onPress,
+  autoWidth,
+  autoHeight,
   borderRadius,
+  borderWidth,
+  borderColor,
   enabled = true,
   backgroundColor,
   textColor,
+  fontWeight = "bold",
 }: Props) {
   const { theme } = useTheme();
 
@@ -27,11 +37,14 @@ export default function StdButton({
     () =>
       StyleSheet.create({
         continueButton: {
-          height: "100%",
-          width: "100%",
+          height: autoHeight == null ? "100%" : "auto",
+          width: autoWidth == null ? "100%" : "auto",
           alignItems: "center",
           justifyContent: "center",
           borderRadius: borderRadius == null ? Insets.medium : borderRadius,
+          borderWidth: borderWidth == null ? 0 : borderWidth,
+          borderColor:
+            borderColor == null ? theme.colors.transparent : borderColor,
           backgroundColor: enabled
             ? backgroundColor == null
               ? theme.colors.primary
@@ -40,13 +53,24 @@ export default function StdButton({
         },
         buttonText: {
           ...theme.text.titleMedium,
-          fontWeight: "bold",
+          fontWeight: fontWeight,
           textAlign: "center",
           color: textColor == null ? theme.colors.onPrimary : textColor,
           paddingHorizontal: Insets.medium,
         },
       }),
-    [theme, borderRadius, enabled, backgroundColor, textColor]
+    [
+      theme,
+      autoHeight,
+      autoWidth,
+      borderRadius,
+      borderWidth,
+      borderColor,
+      enabled,
+      backgroundColor,
+      textColor,
+      fontWeight,
+    ]
   );
 
   return (
