@@ -11,6 +11,7 @@ npm-debug.*
 web-build/
 .vs/
 %ProgramData%/
+%AppData%/
 
 .vscode/
 package-lock.json
