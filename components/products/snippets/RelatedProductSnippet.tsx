@@ -19,7 +19,7 @@ type Props = {
   tags?: string[];
 };
 
-export default function ProductSnippet({
+export default function RelatedProductSnippet({
   imageUri,
   productName,
   description,
@@ -127,8 +127,8 @@ export default function ProductSnippet({
         <View style={{ height: Insets.large }} />
         {tags.length > 0 && (
           <View style={styles.tagContainer}>
-            {tags.map((tag, _) => (
-              <TyreTag tag={tag} />
+            {tags.map((tag, index) => (
+              <TyreTag key={`${tag}-${index}`} tag={tag} />
             ))}
           </View>
         )}

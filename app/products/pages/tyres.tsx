@@ -17,7 +17,7 @@ import PriceComponent from "../../../components/products/Price";
 import ProductImageSlider from "../../../components/products/ProductImageSlider";
 import StdButton from "../../../components/shared/StdButton";
 import Clickable from "../../../components/shared/Clickable";
-import OtherProductSnippet from "../../../components/products/snippets/OtherProductSnippet";
+import RelatedProductSnippet from "../../../components/products/snippets/RelatedProductSnippet";
 
 type Props = {
   id: number;
@@ -201,7 +201,7 @@ export default function TyresProductPage({}: Props) {
             renderItem={({ index, item }) => {
               const snippet = (
                 <View style={{ paddingLeft: Insets.screenMarginMedium }}>
-                  <OtherProductSnippet
+                  <RelatedProductSnippet
                     imageUri={item.imageUri}
                     productName={item.productName}
                     description={item.description}

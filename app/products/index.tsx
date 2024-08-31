@@ -1,59 +1,78 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTheme } from "../../hooks/theme";
-import { Text, useWindowDimensions } from "react-native";
+import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
 import ProductSnippet from "../../components/products/snippets/ProductSnippet";
 import Clickable from "../../components/shared/Clickable";
 import { router } from "expo-router";
 import SearchBar from "../../components/products/SearchBar";
 import FiltersBottomModalSheet from "../../components/products/modals/FiltersModal";
-import { useCallback, useState } from "react";
+import { useDispatch } from "react-redux";
+import { toggleFiltersModal } from "../../redux/reducers/filters";
 
 type Props = {};
 
 export default function CatalogPage({}: Props) {
   const { theme } = useTheme();
-  const { width } = useWindowDimensions();
+  const { width, height } = useWindowDimensions();
+  const dispatch = useDispatch();
 
-  const [modalStatus, setModalStatus] = useState<"open" | "close" | undefined>(
-    undefined
-  );
-
-  const toggleModal = useCallback(() => {
-    setModalStatus((prevStatus) => (prevStatus === "open" ? "close" : "open"));
-  }, []);
+  const styles = StyleSheet.create({
+    globalContainer: {
+      position: "relative",
+      height: height,
+      width: width,
+    },
+    catalogContainer: {
+      height: "100%",
+      width: "100%",
+    },
+    modalBottomSheet: {
+      position: "absolute",
+      bottom: 0,
+      width: width,
+      height: height * 0.6,
+    },
+  });
 
   return (
-    <SafeAreaView>
-      <SearchBar placeholder={"Buscar productos"} onSearch={() => {}} />
+    <View style={styles.globalContainer}>
+      <SafeAreaView style={styles.catalogContainer}>
+        <SearchBar placeholder={"Buscar productos"} onSearch={() => {}} />
 
-      <Clickable
-        onPress={() => {
-          toggleModal();
-        }}
-      >
-        <Text style={theme.text.headlineMedium}>Ver adasd dads </Text>
-      </Clickable>
+        <Clickable
+          onPress={() => {
+            dispatch(toggleFiltersModal());
+          }}
+        >
+          <Text style={theme.text.headlineMedium}>Ver filtros</Text>
+        </Clickable>
 
-      <Clickable onPress={() => router.navigate("/products/pages/tyres")}>
-        <ProductSnippet key={"mama"} />
-      </Clickable>
-
-      <FiltersBottomModalSheet
-        command={modalStatus}
-        filters={[
-          {
-            categoryName: "Price",
-            categoryType: "range",
-            startRange: 10,
-            endRange: 1000,
-          },
-          {
-            categoryName: "Size",
-            categoryType: "options",
-            options: ["34", "41", "93", "810"]
-          },
-        ]}
-      />
-    </SafeAreaView>
+        <Clickable onPress={() => router.navigate("/products/pages/tyres")}>
+          <ProductSnippet key={"mama"} />
+        </Clickable>
+      </SafeAreaView>
+      <View style={styles.modalBottomSheet}>
+        <FiltersBottomModalSheet
+          filters={[
+            {
+              categoryName: "Precio",
+              categoryType: "range",
+              startRange: 10,
+              endRange: 1000,
+            },
+            {
+              categoryName: "Tamaño",
+              categoryType: "options",
+              options: ["34", "41", "93", "810"],
+            },
+            {
+              categoryName: "Colores",
+              categoryType: "options",
+              options: ["Rojo", "Verde", "Azul", "Amarillo"],
+            },
+          ]}
+        />
+      </View>
+    </View>
   );
 }
