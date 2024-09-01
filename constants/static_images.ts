@@ -29,6 +29,7 @@ const StaticImages: StaticImagesType = {
   misc: {
     euLogoStars: require("../assets/images/miscellaneous/eu_logo_stars.png"),
     noResults: require("../assets/images/miscellaneous/no_results.png"),
+    camera: require("../assets/images/icons/camera.png"),
   },
   onboarding: {
     itv: require("../assets/images/onboarding/itv.png"),
@@ -88,7 +89,7 @@ const StaticImages: StaticImagesType = {
   suspension: require("../assets/images/servicios/suspension.png"),
   turbo: require("../assets/images/servicios/turbo.png"),
   velocimetro: require("../assets/images/servicios/velocimetro.png"),
-  }
+  },
 };
 
 export default StaticImages;

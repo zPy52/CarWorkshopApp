@@ -10,7 +10,7 @@ import StdButton from "../../components/shared/StdButton";
 import Clickable from "../shared/Clickable";
 import { Picker } from '@react-native-picker/picker';
 import StaticImages from "../../constants/static_images";
-import BigCard from "../home/BigCard";
+import Card from "../tyres/Card";
 import WrapView from "../shared/WrapView";
 
 
@@ -95,6 +95,7 @@ const TyreOption = () => {
           height: 250,
           alignSelf: 'center',
           resizeMode: 'contain',
+          backgroundColor: theme.colors.background,
         },
         measureContainer: {
           paddingTop: 50,
@@ -106,7 +107,7 @@ const TyreOption = () => {
           borderColor: theme.colors.outlineFocus,
           borderRadius: Insets.small,
           backgroundColor: theme.colors.onPrimary,
-},
+        },
         picker: {
           height: 50,
           width: screenWidth - Insets.screenMarginLarge * 2,
@@ -135,7 +136,7 @@ const TyreOption = () => {
         secondaryElement: {
           height: Insets.layoutMedium * 1.5,
           alignContent: 'center',
-          backgroundColor : theme.colors.primaryContainer,
+          backgroundColor : theme.colors.background,
           borderRadius: Insets.small,
           alignSelf: 'center',
           marginVertical: 30,
@@ -156,7 +157,7 @@ const TyreOption = () => {
         key: "n1",
         navigateTo: "../../basket",
         title: "Haz una foto a tu neumático",
-        imageSource: StaticImages.icons.camera,
+        imageSource: StaticImages.misc.camera,
         style: styles.secondaryElement,
         subtitle:
           "Haz click aqui, toma la foto y lo comprobamos por ti!",
@@ -200,7 +201,7 @@ const TyreOption = () => {
           data={bigCardData} 
           keyExtractor={(item) => item.key}
           renderItem={(item) => (
-            <BigCard
+            <Card
               navigateTo={item.navigateTo}
               title={item.title}
               imageSource={item.imageSource}

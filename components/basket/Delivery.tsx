@@ -137,7 +137,52 @@ const Delivery = () => {
             flex: 1,
           },
           //----------------------------------------
-
+          yesButton: {
+            backgroundColor: isDelivery ? theme.colors.primary : theme.colors.background,
+            borderColor: theme.colors.outlineFocus,
+            borderWidth: 1,
+            flex: 1,
+            height: 50,
+            width: 100,
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: Insets.small,
+            marginRight: 30,
+            borderStyle: 'dashed',
+            flexDirection: 'row',
+          },
+          noButton: {
+            backgroundColor: isDelivery ? theme.colors.primary : theme.colors.background,
+            borderColor: theme.colors.outlineFocus,
+            borderWidth: 1,
+            flex: 1,
+            height: 50,
+            width: 100,
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: Insets.small,
+            marginLeft: 30,
+            borderStyle: 'dashed',
+            flexDirection: 'row',
+          },
+          circle: {
+            width: 15,
+            height: 15,
+            borderRadius: 7.5,
+            marginLeft: 20,
+            backgroundColor: theme.colors.background, 
+          },
+          selectedCircle: {
+            backgroundColor: theme.colors.success,
+          },
+          sinoButton: {
+            flexDirection: 'row',
+            justifyContent: 'center',
+            marginTop: 20,
+            paddingHorizontal: Insets.layoutLarge,
+            
+          },
+          //----------------------------------------
         }),
       [theme.colors.background, theme.colors.onBackground, theme.colors.tertiary, theme.colors.primary, screenWidth]
     );
@@ -149,6 +194,7 @@ const Delivery = () => {
     const [isDelivery, setIsDelivery] = useState<boolean>(false);
     const [address, setAddress] = useState<string>('');
 
+    
     const onChangeDate = (event: any, date?: Date) => {
         setShowDatePicker(false);
         if (date) {
@@ -177,7 +223,6 @@ const Delivery = () => {
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        keyboardVerticalOffset={120}
       >
       <ScrollView>
       <View style={styles.secondaryContainer}>
@@ -242,17 +287,27 @@ const Delivery = () => {
           </Clickable>
         </View>
 
-
-        {/* Delivery Toggle */}
+        {/* Delivery Toggle with Yes/No Buttons */}
         <View style={styles.selectContainer}>
           <Text style={styles.selectText}>¿Servicio de recogida y entrega?</Text>
         </View>
-        <View style={styles.deliveryToggle}>
-            <Switch
-            value={isDelivery}
-            onValueChange={toggleDelivery}
-            />
-        </View>
+
+          <View style={styles.sinoButton}>
+            <Clickable
+              style={styles.yesButton}
+              onPress={() => setIsDelivery(true)}
+            >
+              <Text style={styles.text}>Sí</Text>
+              <View style={[styles.circle, isDelivery && styles.selectedCircle]} />
+            </Clickable>
+            <Clickable
+              style={styles.noButton}
+              onPress={() => setIsDelivery(false)}
+            >
+              <Text style={styles.text}>No</Text>
+              <View style={[styles.circle, !isDelivery && styles.selectedCircle]} />
+            </Clickable>
+          </View>
 
         {/* Address Input */}
         {isDelivery && (
@@ -261,13 +316,12 @@ const Delivery = () => {
               <TextInput
                   style={styles.input}
                   value={address}
-                  onChangeText={handleAddressChange}
+                  onChangeText={setAddress}
                   placeholder="Introduzce la direccion"
                   onFocus={() => scrollViewRef.current?.scrollToEnd({ animated: true })}
               />
             </View>
         )}
-
       </View>
       </ScrollView>
       </KeyboardAvoidingView>

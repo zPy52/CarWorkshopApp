@@ -56,7 +56,7 @@ const Basket = () => {
         },
         //----------------------------------------
         confirmButtonContainer: {
-          marginBottom: 20,
+          marginBottom: 10,
           height: Insets.layoutSmall,
         },
         //----------------------------------------
