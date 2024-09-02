@@ -8,14 +8,19 @@ import ChevronBack from '../../components/shared/ChevronBack';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import StaticImages from '../../constants/static_images';
 import { useNavigation } from '@react-navigation/native';
+import { useRouter } from 'expo-router';
 
-const BrakeSelectorSummary = () => {
+
+const HomeScreen = ({ onBack }) => {
+
   const { theme } = useTheme();
   const [selectedPart, setSelectedPart] = useState(null);
   const [selectedSection, setSelectedSection] = useState(null);
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   const [faqOpen, setFaqOpen] = useState(false);
+  const [showServiceRequest, setShowServiceRequest] = useState(false);
   const navigation = useNavigation();
+  const router = useRouter();
 
   const handleChevronBackPress = () => {
     if (selectedPart) {
@@ -37,9 +42,9 @@ const BrakeSelectorSummary = () => {
   };
 
   const handleRequestQuote = () => {
-    console.log("Solicitando servicio...");
-    // navigation.navigate('.'); Aquí navega a la página correspondiente
+    router.push('./pantalla2');
   };
+
 
   const questions = [
     { id: 1, question: "¿Cuánto tiempo dura el servicio?", answer: "El servicio dura entre 3 y 6 horas, dependiendo del tipo de freno y la disponibilidad del recambio." },
@@ -116,9 +121,13 @@ const BrakeSelectorSummary = () => {
     },
     buttonPresupuesto: {
       marginBottom: 10,
+      marginTop:10,
       height: Insets.layoutSmall,
       width: '100%',
-      marginTop: 10,
+    },
+    footer: {
+      borderColor: theme.colors.surface,
+      borderWidth:1,
     },
     scrollViewContent: {
       flexGrow: 1,
@@ -128,12 +137,7 @@ const BrakeSelectorSummary = () => {
       marginTop: 5,
       fontSize: 11,
       textAlign: 'center',
-      color: theme.colors.surfaceVariant,
-    },
-    footerContainer: {
-      padding: Insets.screenMarginMedium,
-      borderColor: theme.colors.surface,
-      borderWidth: 0.5,
+      color: theme.colors.surfaceContainerLow,
     },
     section: {
       marginTop: 10,
@@ -241,10 +245,8 @@ const BrakeSelectorSummary = () => {
             </View>
 
             <Text style={styles.description}>
-              El servicio esencial para asegurar que los frenos de tu coche funcionen de manera óptima y segura
-              con las mejores ofertas del mercado adaptándonos a tus necesidades. No dudes en consultar con
-              nuestro equipo de profesionales para resolver tus dudas.
-            </Text>
+            En ElTallerDeTuAmigo nos adaptamos a tus necesidades ofreciendote las mejores ofertas.
+            Consulte a nuestro equipo de profesionales para cualquier duda.</Text>
           </View>
 
           <View style={styles.divider} />
@@ -384,24 +386,28 @@ const BrakeSelectorSummary = () => {
             )}
           </View>
         </View>
-      <View style={styles.divider} />
+
 
         <Text style={styles.cancelacion}>
           Los frenos y discos de frenos serán enviados al centro y en caso de cambio o cancelación,
           tendrá una penalización. Para más información consulte nuestra política de servicios.
         </Text>
+
       </ScrollView>
+
+      <View style={styles.footer}>
 
         <View style={styles.buttonPresupuesto}>
           <StdButton
             text="Solicitar servicio"
             onPress={handleRequestQuote}
             enabled={true}
-          />
+            />
         </View>
+      </View>
 
     </View>
   );
 };
 
-export default BrakeSelectorSummary;
+export default HomeScreen;
