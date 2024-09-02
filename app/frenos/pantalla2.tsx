@@ -10,6 +10,7 @@ import AddAddressSnippet from '../../components/profile/addresses/AddAddressSnip
 
 const BrakeSelector = ({ onBack }) => {
   const { theme } = useTheme();
+  const [traslado, setTraslado] = useState(false); // Estado para la opción de "Sí" o "No"
   const [brakeType, setBrakeType] = useState(''); // Estado para el selector de frenos
   const [brakePadType, setBrakePadType] = useState(''); // Estado para el selector de pastillas de freno
   const [checked, setChecked] = useState({
@@ -21,27 +22,49 @@ const BrakeSelector = ({ onBack }) => {
   });
   const router = useRouter();
 
-  // Función para manejar el cambio en el selector de frenos
+  // Función para manejar el cambio en el selector de frenos con funcionalidad de toggle
   const handleBrakeTypeChange = (value) => {
-    setBrakeType(value);
-    if (value !== 'both') {
-      // Si no es "Ambos", asegúrate de desmarcar ambos checkboxes
-      setChecked(prevChecked => ({ ...prevChecked, frontBrakes: false, rearBrakes: false }));
+    if (value === brakeType) {
+      // Si se presiona el mismo valor, deselecciona
+      setBrakeType('');
+      setChecked(prevChecked => ({
+        ...prevChecked,
+        frontBrakes: false,
+        rearBrakes: false,
+      }));
     } else {
-      // Si es "Ambos", desmarcar ambos checkboxes de front y rear inicialmente
-      setChecked(prevChecked => ({ ...prevChecked, frontBrakes: false, rearBrakes: false }));
+      // Si se selecciona un nuevo valor, actualiza el estado
+      setBrakeType(value);
+      if (value !== 'both') {
+        // Si no es "Ambos", desmarcar ambos checkboxes
+        setChecked(prevChecked => ({ ...prevChecked, frontBrakes: false, rearBrakes: false }));
+      } else {
+        // Si es "Ambos", inicializar los checkboxes desmarcados
+        setChecked(prevChecked => ({ ...prevChecked, frontBrakes: false, rearBrakes: false }));
+      }
     }
   };
 
-  // Función para manejar el cambio en el selector de pastillas de freno
+  // Función para manejar el cambio en el selector de pastillas de freno con funcionalidad de toggle
   const handleBrakePadTypeChange = (value) => {
-    setBrakePadType(value);
-    if (value !== 'both') {
-      // Si no es "Ambos", asegúrate de desmarcar ambos checkboxes
-      setChecked(prevChecked => ({ ...prevChecked, frontPads: false, rearPads: false }));
+    if (value === brakePadType) {
+      // Si se presiona el mismo valor, deselecciona
+      setBrakePadType('');
+      setChecked(prevChecked => ({
+        ...prevChecked,
+        frontPads: false,
+        rearPads: false,
+      }));
     } else {
-      // Si es "Ambos", desmarcar ambos checkboxes de front y rear inicialmente
-      setChecked(prevChecked => ({ ...prevChecked, frontPads: false, rearPads: false }));
+      // Si se selecciona un nuevo valor, actualiza el estado
+      setBrakePadType(value);
+      if (value !== 'both') {
+        // Si no es "Ambos", desmarcar ambos checkboxes
+        setChecked(prevChecked => ({ ...prevChecked, frontPads: false, rearPads: false }));
+      } else {
+        // Si es "Ambos", inicializar los checkboxes desmarcados
+        setChecked(prevChecked => ({ ...prevChecked, frontPads: false, rearPads: false }));
+      }
     }
   };
 
@@ -95,7 +118,7 @@ const BrakeSelector = ({ onBack }) => {
       backgroundColor: theme.colors.background,
       marginTop: 10,
     },
-    content: {
+    justPadding: {
       padding: 10,
     },
     header: {
@@ -164,8 +187,9 @@ const BrakeSelector = ({ onBack }) => {
     },
     step: {
       borderRadius: 20,
-      paddingVertical: 5,
+      paddingVertical: 1,
       paddingHorizontal: 15,
+      width: '20%',
     },
     stepText: {
       textAlign: 'center',
@@ -189,7 +213,7 @@ const BrakeSelector = ({ onBack }) => {
       flexDirection: 'row',
       alignItems: 'center',
       marginTop: 20,
-      flexWrap: 'wrap',
+      width: '80%',
     },
     checkboxContainerBoth: {
       flexDirection: 'column',
@@ -202,6 +226,12 @@ const BrakeSelector = ({ onBack }) => {
     },
     label: {
       marginLeft: 8,
+    },
+    labelDiscosFrenos: {
+      fontSize: 16,
+      marginBottom: 8,
+      fontWeight: 'bold',
+      marginTop: 20,
     },
     productItem: {
       padding: 10,
@@ -222,6 +252,35 @@ const BrakeSelector = ({ onBack }) => {
       fontSize: 16,
       marginBottom: 8,
       fontWeight: 'bold',
+    },
+    radioGroup: {
+      flexDirection: 'row',
+      marginBottom: 16,
+    },
+    radio: {
+      flex: 1,
+      borderWidth: 1,
+      borderColor: theme.colors.surface,
+      backgroundColor: theme.colors.background,
+      padding: 10,
+      alignItems: 'center',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      borderRadius:10,
+    },
+    radioSelected: {
+      borderRadius:10,
+      flex: 1,
+      borderWidth: 1,
+      borderColor: '#000',
+      backgroundColor: theme.colors.primaryContainer,
+      padding: 10,
+      alignItems: 'center',
+      flexDirection: 'row',
+      justifyContent: 'center',
+    },
+    radioText: {
+      fontSize: 16,
     },
   });
 
@@ -253,14 +312,17 @@ const BrakeSelector = ({ onBack }) => {
           <View style={[styles.step, styles.NoactiveStep]}>
             <Text style={styles.stepText}>3</Text>
           </View>
+          <View style={[styles.line, styles.NoactiveStep]} />
+           <View style={[styles.step, styles.NoactiveStep]}>
+             <Text style={styles.stepText}>4</Text>
+           </View>
         </View>
 
-        <View style={styles.content}>
+        <View style={styles.justPadding}>
 
           <Text style={styles.sectionTitle}>Datos de las piezas</Text>
 
           <Text style={styles.seleccionCoche}>Seleccione el coche en el que desea aplicar el servicio*</Text>
-          <Text style={styles.label}>AQUI VA EL SELECIONADOR DE VEHICULO, ES DECIR, EN VEZ DE PONER AÑADIR DIRECCION PONDRA SELECIONE UN VEHICULO</Text>
           <View style={styles.selecionarOpciones}>
             <AddAddressSnippet sizeMultiplier={4} />
           </View>
@@ -312,19 +374,29 @@ const BrakeSelector = ({ onBack }) => {
             </View>
           )}
 
-          {/* Selector de pastillas de freno */}
-          <View style={styles.checkboxContainer}>
-            <Checkbox
-              label="Deseo elegir pastillas de freno"
-              checked={checked.includeBrakePads}
-              onChange={() => handleCheckboxChange('includeBrakePads')}
-            />
+
+          <Text style={styles.labelDiscosFrenos}>¿Te gustaría que cambiasemos además
+            los discos de freno?*</Text>
+
+          <View style={styles.radioGroup}>
+            <TouchableOpacity
+              style={traslado ? styles.radioSelected : styles.radio}
+              onPress={() => setTraslado(true)}
+            >
+              <Text style={styles.radioText}>Sí</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={!traslado ? styles.radioSelected : styles.radio}
+              onPress={() => setTraslado(false)}
+            >
+              <Text style={styles.radioText}>No</Text>
+            </TouchableOpacity>
           </View>
 
           {/* Mostrar opciones para pastillas de freno si la casilla está marcada */}
-          {checked.includeBrakePads && (
+          {traslado && (
             <>
-              <Text style={styles.header}>Seleccione posición de las pastillas de freno</Text>
+              <Text style={styles.header}>Seleccione posición de los discos de freno</Text>
               {renderButtons(
                 [
                   { label: 'Delanteros', value: 'front' },
@@ -338,13 +410,13 @@ const BrakeSelector = ({ onBack }) => {
               {brakePadType === 'both' && (
                 <View style={styles.checkboxContainerBoth}>
                   <Checkbox
-                    label="Deseo elegir la pastilla delantera"
+                    label="Deseo elegir el disco delantero"
                     checked={checked.frontPads}
                     onChange={() => handleCheckboxChange('frontPads')}
                   />
                   <View style={styles.checkboxContainerBothMid}></View>
                   <Checkbox
-                    label="Deseo elegir la pastilla trasera"
+                    label="Deseo elegir el disco trasero"
                     checked={checked.rearPads}
                     onChange={() => handleCheckboxChange('rearPads')}
                   />
@@ -353,7 +425,7 @@ const BrakeSelector = ({ onBack }) => {
               {brakePadType === 'front' && (
                 <View style={styles.checkboxContainer}>
                   <Checkbox
-                    label="Deseo elegir la pastilla"
+                    label="Deseo elegir el disco"
                     checked={checked.frontPads}
                     onChange={() => handleCheckboxChange('frontPads')}
                   />
@@ -362,39 +434,13 @@ const BrakeSelector = ({ onBack }) => {
               {brakePadType === 'rear' && (
                 <View style={styles.checkboxContainer}>
                   <Checkbox
-                    label="Deseo elegir la pastilla"
+                    label="Deseo elegir el disco"
                     checked={checked.rearPads}
                     onChange={() => handleCheckboxChange('rearPads')}
                   />
                 </View>
               )}
             </>
-          )}
-
-          {/* Mostrar los textos de catálogo si las casillas están marcadas */}
-          {checked.frontBrakes && brakeType === 'both' && (
-            <Text style={styles.title}>Aquí se mostrará el catálogo para la pieza delantera de freno</Text>
-          )}
-          {checked.rearBrakes && brakeType === 'both' && (
-            <Text style={styles.title}>Aquí se mostrará el catálogo para la pieza trasera de freno</Text>
-          )}
-          {checked.frontBrakes && brakeType === 'front' && (
-            <Text style={styles.title}>Aquí se mostrará el catálogo para la pieza delantera de freno</Text>
-          )}
-          {checked.rearBrakes && brakeType === 'rear' && (
-            <Text style={styles.title}>Aquí se mostrará el catálogo para la pieza trasera de freno</Text>
-          )}
-          {checked.frontPads && brakePadType === 'both' && (
-            <Text style={styles.title}>Aquí se mostrará el catálogo para la pastilla delantera de freno</Text>
-          )}
-          {checked.rearPads && brakePadType === 'both' && (
-            <Text style={styles.title}>Aquí se mostrará el catálogo para la pastilla trasera de freno</Text>
-          )}
-          {checked.frontPads && brakePadType === 'front' && (
-            <Text style={styles.title}>Aquí se mostrará el catálogo para la pastilla delantera de freno</Text>
-          )}
-          {checked.rearPads && brakePadType === 'rear' && (
-            <Text style={styles.title}>Aquí se mostrará el catálogo para la pastilla trasera de freno</Text>
           )}
 
         </View>

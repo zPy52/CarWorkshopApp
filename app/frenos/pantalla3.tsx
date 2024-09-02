@@ -142,8 +142,9 @@ const ServicioForm = () => {
     },
     step: {
       borderRadius: 20,
-      paddingVertical: 5,
+      paddingVertical: 1,
       paddingHorizontal: 15,
+      width: '20%',
     },
     warning: {
        marginTop: 10,
@@ -222,9 +223,13 @@ const ServicioForm = () => {
            <View style={[styles.step, styles.activeStep]}>
              <Text style={styles.stepText}>2</Text>
            </View>
-           <View style={styles.line} />
+           <View style={[styles.line, styles.activeStep]} />
            <View style={[styles.step, styles.NoactiveStep]}>
              <Text style={styles.stepText}>3</Text>
+           </View>
+           <View style={[styles.line, styles.NoactiveStep]} />
+           <View style={[styles.step, styles.NoactiveStep]}>
+             <Text style={styles.stepText}>4</Text>
            </View>
          </View>
 
@@ -271,7 +276,6 @@ const ServicioForm = () => {
 
         <Text style={styles.label}>Indícanos el día y la franja horaria de recogida*</Text>
         <View style={styles.selecionarOpciones}>
-        <Text style={styles.radioText}>AQUI VA EL CALENDARIO PARA ELEGIR EL DIA, ES DECIR, EN VEZ DE PONER AÑADIR DIRECCION PONDRA ELEGIR DÍA</Text>
         <AddAddressSnippet sizeMultiplier={4} />
         </View>
         <View style={styles.radioGroup}>

@@ -1,32 +1,29 @@
-// pantalla 3
-
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { Picker } from "@react-native-picker/picker";
 import StdButton from '../shared/StdButton';
 import Insets from '../../constants/insets';
 import { useTheme } from "../../hooks/theme";
 import ChevronBack from '../../components/shared/ChevronBack';
-import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import AddAddressSnippet from '../../components/profile/addresses/AddAddressSnippet';
 
 const ServicioForm = () => {
-  const [traslado, setTraslado] = useState(true); // Estado para la opción de "Sí" o "No"
-  const [direccion, setDireccion] = useState('');
-  const [piso, setPiso] = useState('');
-  const [ciudad, setCiudad] = useState('');
-  const [codigoPostal, setCodigoPostal] = useState('');
-  const [franjaHoraria, setFranjaHoraria] = useState('Mañana');
-  const [matricula, setMatricula] = useState('');
-  const [instrucciones, setInstrucciones] = useState('');
+  const [name, setName] = useState('');
+  const [surname, setSurname] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [nameAuto, setNameAuto] = useState('Alvaro');
+  const [surnameAuto, setSurnameAuto] = useState('Martinez Gamo');
+  const [emailAuto, setEmailAuto] = useState('alva00003@gmail.com');
+  const [phoneAuto, setPhoneAuto] = useState('676785968');
+  const [termsAccepted, setTermsAccepted] = useState(false);
   const { theme } = useTheme();
   const [selectedPart, setSelectedPart] = useState(null);
   const [selectedSection, setSelectedSection] = useState(null);
   const router = useRouter(); // Usa el hook useRouter para obtener la función push
+  const [contacto, seTcontacto] = useState(true); // Estado para la opción de "Sí" o "No"
 
   const handleRequestQuote = () => {
-    // router.push('./pantalla4');
+    router.push('./pantalla5');
   };
 
   const handleChevronBackPress = () => {
@@ -96,14 +93,15 @@ const ServicioForm = () => {
     alternateNote: {
       fontSize: 14,
       color: '#999',
-      marginBottom: 16,
+      marginTop: 16,
       backgroundColor: '#F7F7F7',
       padding: 10,
       borderRadius: 5,
     },
     input: {
       height: 40,
-      borderColor: '#ccc',
+      borderColor: theme.colors.surface,
+      borderRadius:10,
       marginTop: 8,
       borderWidth: 1,
       paddingLeft: 8,
@@ -142,8 +140,9 @@ const ServicioForm = () => {
     },
     step: {
       borderRadius: 20,
-      paddingVertical: 5,
+      paddingVertical: 1,
       paddingHorizontal: 15,
+      width: '20%',
     },
     warning: {
        marginTop: 10,
@@ -182,6 +181,11 @@ const ServicioForm = () => {
       fontWeight: 'bold',
       color: theme.colors.onBackground,
     },
+    titleAlmostThere: {
+      fontSize: 14,
+      color: theme.colors.onBackground,
+      marginBottom: 5,
+    },
     divider: {
       height: 1,
       backgroundColor: theme.colors.outlineVariant,
@@ -195,6 +199,12 @@ const ServicioForm = () => {
     },
     iconSpacing: {
       marginRight: 10,
+    },
+    subtitle: {
+      fontSize: 16,
+      marginTop: 10,
+      marginBottom: 1,
+      fontWeight: 'bold',
     },
   });
 
@@ -226,25 +236,138 @@ const ServicioForm = () => {
            <View style={[styles.step, styles.activeStep]}>
              <Text style={styles.stepText}>3</Text>
            </View>
+           <View style={[styles.line, styles.activeStep]} />
+           <View style={[styles.step, styles.NoactiveStep]}>
+             <Text style={styles.stepText}>4</Text>
+           </View>
          </View>
+
 
          <View style={styles.justPadding}>
 
          <Text style={styles.sectionTitle}>Datos de contacto</Text>
 
-      
-          </View>
+         <View style={styles.container}>
+      <Text style={styles.titleAlmostThere}>¡Ya casi estamos!</Text>
+
+      <Text style={styles.label}>¿Deseas utilizar los datos de tu cuenta?*</Text>
+
+      <View style={styles.radioGroup}>
+        <TouchableOpacity
+          style={contacto ? styles.radioSelected : styles.radio}
+          onPress={() => seTcontacto(true)}
+        >
+          <Text style={styles.radioText}>Sí</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={!contacto ? styles.radioSelected : styles.radio}
+          onPress={() => seTcontacto(false)}
+        >
+          <Text style={styles.radioText}>No</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* si es SI muestra una cosa, sino, otra */}
+      {contacto ? (
+        <>
+
+        <Text style={styles.subtitle}>¿Cómo te llamas? *</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Nombre"
+            value={nameAuto}
+            onChangeText={setName}
+          />
+
+          <TextInput
+            style={styles.input}
+            placeholder="Apellidos"
+            value={surnameAuto}
+            onChangeText={setSurname}
+          />
+
+          <Text style={styles.subtitle}>Correo electrónico *</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Introduce tu correo electrónico"
+            keyboardType="email-address"
+            value={emailAuto}
+            onChangeText={setEmail}
+          />
+
+          <Text style={styles.subtitle}>Teléfono de contacto *</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="+34 . 000 000 000"
+            keyboardType="phone-pad"
+            value={phoneAuto}
+            onChangeText={setPhone}
+          />
+        <Text style={styles.alternateNote}>
+          Te contactaremos para acordar una cita con el taller.
+        </Text>
+</>
+      ) : ( false
+      )}
+
+      {/* si es SI muestra una cosa, sino, otra */}
+      {!contacto ? (
+        <>
+
+        <Text style={styles.subtitle}>¿Cómo te llamas? *</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Nombre"
+            value={name}
+            onChangeText={setName}
+          />
+
+          <TextInput
+            style={styles.input}
+            placeholder="Apellidos"
+            value={surname}
+            onChangeText={setSurname}
+          />
+
+          <Text style={styles.subtitle}>Correo electrónico *</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Introduce tu correo electrónico"
+            keyboardType="email-address"
+            value={email}
+            onChangeText={setEmail}
+          />
+
+          <Text style={styles.subtitle}>Teléfono de contacto *</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="+34 . 000 000 000"
+            keyboardType="phone-pad"
+            value={phone}
+            onChangeText={setPhone}
+          />
+        <Text style={styles.alternateNote}>
+          Te contactaremos para acordar una cita con el taller.
+        </Text>
+</>
+      ) : ( false
+      )}
+
+
+              </View>
+              </View>
        </ScrollView>
 
       <View style={styles.footer}>
          <View style={styles.buttonPresupuesto}>
            <StdButton
-             text="Siguiente"
+             text="Sigueinte"
              onPress={handleRequestQuote}
              enabled={true}
            />
          </View>
        </View>
+
     </View>
   );
 };
