@@ -5,26 +5,30 @@ import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Clickable from "../../shared/Clickable";
 
-export default function AddAddressSnippet() {
+type AddAddressSnippetProps = {
+  sizeMultiplier?: number;
+};
+
+export default function AddAddressSnippet({ sizeMultiplier = 2 }: AddAddressSnippetProps) {
   const { theme } = useTheme();
-  const {width} = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
   const styles = useMemo(
     () =>
       StyleSheet.create({
         main: {
           height: Insets.layoutLarge,
-          width: width - Insets.screenMarginMedium * 2,
+          width: width - Insets.screenMarginMedium * sizeMultiplier,
           borderWidth: Insets.pixel,
           borderStyle: 'dashed',
           borderRadius: Insets.large,
           borderColor: theme.colors.outline,
           marginHorizontal: Insets.screenMarginMedium,
           alignItems: "center",
-          justifyContent:"center",
+          justifyContent: "center",
         },
       }),
-    [theme]
+    [theme, sizeMultiplier, width]
   );
 
   return (
