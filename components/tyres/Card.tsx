@@ -23,7 +23,7 @@ export default function BigCard({ style, navigateTo, title, imageSource, subtitl
       paddingLeft: 0,
       maxWidth: Dimensions.get('window').width - 43,
       overflow: 'hidden',
-      backgroundColor: theme.colors.background, // Ajusta según el tema para modo light
+      backgroundColor: theme.colors.background, 
     },
     overlay: {
       ...StyleSheet.absoluteFillObject,
@@ -32,8 +32,8 @@ export default function BigCard({ style, navigateTo, title, imageSource, subtitl
       margin: Insets.medium,
       borderRadius: Insets.small,
       overflow: 'hidden',
-      width: 100, // Ajusta el tamaño del contenedor de la imagen
-      height: 90, // Hace que la altura sea igual a la del botón
+      width: 100, 
+      height: 90, 
     },
     image: {
       width: '100%',
@@ -48,12 +48,12 @@ export default function BigCard({ style, navigateTo, title, imageSource, subtitl
     title: {
       fontSize: 17,
       fontWeight: '700',
-      color: theme.colors.onBackground, // Ajuste para modo light
+      color: theme.colors.onBackground, 
     },
     subtitle: {
       fontSize: 13,
       marginTop: Insets.small,
-      color: theme.colors.onSurface, // Ajuste para modo light
+      color: theme.colors.onSurface, 
     },
   });
 
